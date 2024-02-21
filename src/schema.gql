@@ -1,0 +1,101 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type GeneralInformation {
+  """Example field (placeholder)"""
+  id: Int!
+  address: String!
+  age: String!
+  user: User!
+}
+
+type User {
+  """Example field (placeholder)"""
+  id: Int!
+  name: String!
+  password: String!
+  email: String!
+  contact: String!
+  generalInfromation: GeneralInformation!
+}
+
+type FamilyInfromation {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  user(id: Int!): User!
+  generalInformation(id: Int!): GeneralInformation!
+  familyInfromation(id: Int!): FamilyInfromation!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
+  createGeneralInformation(createGeneralInformationInput: CreateGeneralInformationInput!): GeneralInformation!
+  updateGeneralInformation(updateGeneralInformationInput: UpdateGeneralInformationInput!): GeneralInformation!
+  removeGeneralInformation(id: Int!): GeneralInformation!
+  createFamilyInfromation(createFamilyInfromationInput: CreateFamilyInfromationInput!): FamilyInfromation!
+  updateFamilyInfromation(updateFamilyInfromationInput: UpdateFamilyInfromationInput!): FamilyInfromation!
+  removeFamilyInfromation(id: Int!): FamilyInfromation!
+}
+
+input CreateUserInput {
+  """Example field (placeholder)"""
+  id: Int!
+
+  """Example field (placeholder)"""
+  name: String!
+
+  """Example field (placeholder)"""
+  password: String!
+  generalInformation: CreateGeneralInformationInput
+}
+
+input CreateGeneralInformationInput {
+  """Example field (placeholder)"""
+  id: Int!
+
+  """Example field (placeholder)"""
+  address: String!
+
+  """Example field (placeholder)"""
+  age: String!
+  userid: Int!
+}
+
+input UpdateUserInput {
+  id: Int!
+
+  """Example field (placeholder)"""
+  name: String
+
+  """Example field (placeholder)"""
+  password: String
+  generalInformation: CreateGeneralInformationInput
+}
+
+input UpdateGeneralInformationInput {
+  id: Int!
+
+  """Example field (placeholder)"""
+  address: String
+
+  """Example field (placeholder)"""
+  age: String
+  userid: Int
+}
+
+input CreateFamilyInfromationInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateFamilyInfromationInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}

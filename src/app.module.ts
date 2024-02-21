@@ -6,6 +6,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
+import { GeneralInformationModule } from './general-information/general-information.module';
+import { FamilyInfromationModule } from './family-infromation/family-infromation.module';
 
 @Module({
   imports: [GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -25,8 +27,11 @@ import { UserModule } from './user/user.module';
     autoLoadEntities: true,
   }),
 
-UserModule
+UserModule,
 
+GeneralInformationModule,
+
+FamilyInfromationModule,
     ],
   controllers: [AppController],
   providers: [AppService],
