@@ -1,23 +1,24 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
-import { CreateGeneralInformationInput } from 'src/general-information/dto/create-general-information.input';
-import { GeneralInformation } from 'src/general-information/entities/general-information.entity';
-// import { GeneralInformation } from './general_information';
-
+/* eslint-disable prettier/prettier */
+import { InputType, Field, Int } from '@nestjs/graphql';
+// import { CreateGeneralInformationInput } from 'src/general-information/dto/create-general-information.input';
 @InputType()
 export class CreateUserInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
+  @Field(() => Int, {nullable: true})
   id: number;
 
 
-  @Field(() => String, { description: 'Example field (placeholder)' })
-  name: string;
- 
+  @Field()
+  username: string;
 
-  @Field(() => String, { description: 'Example field (placeholder)' })
+
+  @Field()
+  emailaddress: string;
+ 
+  @Field()
   password: string;
 
 
-  @Field(()=> CreateGeneralInformationInput, {nullable: true})
-  generalInformation: CreateGeneralInformationInput;
+  // @Field(()=> CreateGeneralInformationInput, {nullable: true})
+  // generalInformation: CreateGeneralInformationInput;
   
 }

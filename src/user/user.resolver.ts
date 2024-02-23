@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { User } from './entities/user.entity';
@@ -22,6 +23,19 @@ export class UserResolver {
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.userService.findOne(id);
   }
+
+  @Mutation(() => User)
+  async loginUser(@Args('loginUserInput') loginUserInput: CreateUserInput) {
+    console.log("🚀 ~ UserResolver ~ loginUser ~ loginUserInput:", loginUserInput)
+    const result = await this.userService.login(loginUserInput);
+    return result;
+  }
+  // @Mutation(() => String)
+  // async loginUser(@Args('loginUserInput') loginUserInput: CreateUserInput): Promise<string> {
+  //   console.log("🚀 ~ UserResolver ~ loginUser ~ loginUserInput:", loginUserInput)
+  //   const result = await this.userService.login(loginUserInput);
+  //   return result.access_token;
+  // }
 
   @Mutation(() => User)
   updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {

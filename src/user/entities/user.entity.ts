@@ -1,42 +1,38 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { GeneralInformation } from 'src/general-information/entities/general-information.entity';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-// import { GeneralInformation } from '../dto/general_information';
-
+/* eslint-disable prettier/prettier */
+import { ObjectType, Field } from '@nestjs/graphql';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid'
 @ObjectType()
 @Entity()
 export class User {
 
-  @PrimaryGeneratedColumn()
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  id: number;
+  @Field()
+  @PrimaryColumn('uuid')
+  id: string;
 
 
   @Column()
   @Field(()=> String,{})
-  name: string;
+  username: string;
 
+  @Column()
+  @Field(()=> String,{})
+  emailaddress: string;
  
   @Column()
   @Field(()=> String,{})
   password: string;
 
 
-  @Column()
-  @Field(()=> String,{})
-  email: string;
-
-
-  @Column()
-  @Field(()=> String,{})
-  contact: string;
-
-  
-
-  @Field(type=> GeneralInformation)
-  @OneToOne(()=> GeneralInformation, generalInformation=> generalInformation.id)
-  generalInfromation: GeneralInformation;
-
+  // @Field(()=> GeneralInformation)
+  // @OneToOne(()=> GeneralInformation, generalInformation=> generalInformation.id)
+  // generalInfromation: GeneralInformation;
  
+  // @OneToMany(() => OfferedPrayer, OfferedPrayer => OfferedPrayer.user)
+  // OfferedPrayer: OfferedPrayer[];
+
+  constructor() {
+    this.id = uuidv4();
+ }
 
 }

@@ -2,22 +2,19 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  id: String!
+  username: String!
+  emailaddress: String!
+  password: String!
+}
+
 type GeneralInformation {
   """Example field (placeholder)"""
   id: Int!
   address: String!
   age: String!
   user: User!
-}
-
-type User {
-  """Example field (placeholder)"""
-  id: Int!
-  name: String!
-  password: String!
-  email: String!
-  contact: String!
-  generalInfromation: GeneralInformation!
 }
 
 type FamilyInfromation {
@@ -33,6 +30,7 @@ type Query {
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
+  loginUser(loginUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
   createGeneralInformation(createGeneralInformationInput: CreateGeneralInformationInput!): GeneralInformation!
@@ -44,15 +42,17 @@ type Mutation {
 }
 
 input CreateUserInput {
-  """Example field (placeholder)"""
-  id: Int!
-
-  """Example field (placeholder)"""
-  name: String!
-
-  """Example field (placeholder)"""
+  id: Int
+  username: String!
+  emailaddress: String!
   password: String!
-  generalInformation: CreateGeneralInformationInput
+}
+
+input UpdateUserInput {
+  id: Int!
+  username: String
+  emailaddress: String
+  password: String
 }
 
 input CreateGeneralInformationInput {
@@ -65,17 +65,6 @@ input CreateGeneralInformationInput {
   """Example field (placeholder)"""
   age: String!
   userid: Int!
-}
-
-input UpdateUserInput {
-  id: Int!
-
-  """Example field (placeholder)"""
-  name: String
-
-  """Example field (placeholder)"""
-  password: String
-  generalInformation: CreateGeneralInformationInput
 }
 
 input UpdateGeneralInformationInput {
