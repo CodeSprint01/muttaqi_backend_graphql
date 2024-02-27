@@ -9,11 +9,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { GeneralInformationModule } from './general-information/general-information.module';
 import { FamilyInfromationModule } from './family-infromation/family-infromation.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [GraphQLModule.forRoot<ApolloDriverConfig>({
     driver: ApolloDriver,
-    autoSchemaFile: join(process.cwd(), 'src/schema.gql')
+    autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+    context: ({ req, res }) => ({ req, res }),
   }),
   TypeOrmModule.forRoot({
 
@@ -33,6 +35,8 @@ UserModule,
 GeneralInformationModule,
 
 FamilyInfromationModule,
+
+AuthModule,
     ],
   controllers: [AppController],
   providers: [AppService],

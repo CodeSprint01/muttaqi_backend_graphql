@@ -1,49 +1,48 @@
 /* eslint-disable prettier/prettier */
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
+import { LoginResponse } from '../user/dto/loginRes.Dto'
 import { UpdateUserInput } from './dto/update-user.input';
-
 @Resolver(() => User)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
-  @Mutation(() => User)
-  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.userService.create(createUserInput);
+  @Mutation(() => LoginResponse)
+  async createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
+    console.log("🚀 ~ UserResolver ~ createUser ~ createUserInput:", createUserInput)
+    const { user, token } = await this.userService.create(createUserInput);
+  return { user, token };
   }
 
-  @Query(() => [User], { name: 'user' })
-  findAll() {
-    return this.userService.findAll();
+  @Query(() => [User], { name: 'getAllUsers' })
+  async getAllUsers() {
+    const users = await this.userService.findAll();
+    return users;
   }
+  
 
-  @Query(() => User, { name: 'user' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Mutation(() => User, { name: 'findUserById' })
+  async findOne(@Args('id')  id: string) {
     return this.userService.findOne(id);
   }
 
-  @Mutation(() => User)
-  async loginUser(@Args('loginUserInput') loginUserInput: CreateUserInput) {
-    console.log("🚀 ~ UserResolver ~ loginUser ~ loginUserInput:", loginUserInput)
-    const result = await this.userService.login(loginUserInput);
-    return result;
-  }
-  // @Mutation(() => String)
-  // async loginUser(@Args('loginUserInput') loginUserInput: CreateUserInput): Promise<string> {
-  //   console.log("🚀 ~ UserResolver ~ loginUser ~ loginUserInput:", loginUserInput)
-  //   const result = await this.userService.login(loginUserInput);
-  //   return result.access_token;
-  // }
-
-  @Mutation(() => User)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
+  @Mutation(() => User, {name: "updateUser"})
+  async updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
     return this.userService.update(updateUserInput.id, updateUserInput);
   }
 
-  @Mutation(() => User)
-  removeUser(@Args('id', { type: () => Int }) id: number) {
+  @Mutation(() => User, {name: 'deleteUser'})
+  async removeUser(@Args('id', { type: () => String }) id: string) {
     return this.userService.remove(id);
   }
+  
+  @Mutation(() => LoginResponse)
+  async loginUser(@Args('email') email: string, @Args('password') password: string) {
+    const { user,token } = await this.userService.login({ email, password });
+    console.log(user,token, 'user', "token")
+    return { user,token };
+  }
 }
+
