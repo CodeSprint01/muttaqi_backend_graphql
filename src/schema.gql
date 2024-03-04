@@ -2,24 +2,24 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type GeneralInformation {
+  id: String!
+  address: String!
+  age: String!
+  user: User!
+}
+
 type User {
   id: String!
   username: String!
   emailaddress: String!
   password: String!
+  generalInfromation: GeneralInformation!
 }
 
 type LoginResponse {
   user: User
   token: String
-}
-
-type GeneralInformation {
-  """Example field (placeholder)"""
-  id: Int!
-  address: String!
-  age: String!
-  user: User!
 }
 
 type FamilyInfromation {
@@ -29,7 +29,7 @@ type FamilyInfromation {
 
 type Query {
   getAllUsers: [User!]!
-  generalInformation(id: Int!): GeneralInformation!
+  generalInformation(id: ID!): GeneralInformation!
   familyInfromation(id: Int!): FamilyInfromation!
 }
 
@@ -39,9 +39,10 @@ type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): User!
   deleteUser(id: String!): User!
   loginUser(email: String!, password: String!): LoginResponse!
+  forgotPassword(email: String!): Boolean!
   createGeneralInformation(createGeneralInformationInput: CreateGeneralInformationInput!): GeneralInformation!
   updateGeneralInformation(updateGeneralInformationInput: UpdateGeneralInformationInput!): GeneralInformation!
-  removeGeneralInformation(id: Int!): GeneralInformation!
+  removeGeneralInformation(id: String!): GeneralInformation!
   createFamilyInfromation(createFamilyInfromationInput: CreateFamilyInfromationInput!): FamilyInfromation!
   updateFamilyInfromation(updateFamilyInfromationInput: UpdateFamilyInfromationInput!): FamilyInfromation!
   removeFamilyInfromation(id: Int!): FamilyInfromation!
@@ -62,26 +63,16 @@ input UpdateUserInput {
 }
 
 input CreateGeneralInformationInput {
-  """Example field (placeholder)"""
-  id: Int!
-
-  """Example field (placeholder)"""
   address: String!
-
-  """Example field (placeholder)"""
   age: String!
-  userid: Int!
+  userid: ID!
 }
 
 input UpdateGeneralInformationInput {
-  id: Int!
-
-  """Example field (placeholder)"""
   address: String
-
-  """Example field (placeholder)"""
   age: String
-  userid: Int
+  userid: ID
+  id: String!
 }
 
 input CreateFamilyInfromationInput {

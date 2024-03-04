@@ -5,6 +5,7 @@ import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { LoginResponse } from '../user/dto/loginRes.Dto'
 import { UpdateUserInput } from './dto/update-user.input';
+// import { ForgotPasswordInput } from './dto/forgot-passwoed.Dto';
 @Resolver(() => User)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
@@ -44,5 +45,11 @@ export class UserResolver {
     console.log(user,token, 'user', "token")
     return { user,token };
   }
-}
+
+  @Mutation(() => Boolean)
+  async forgotPassword(@Args('email') email: string): Promise<boolean> {
+     return this.userService.sendPasswordResetEmail(email);
+  }
+ }
+
 

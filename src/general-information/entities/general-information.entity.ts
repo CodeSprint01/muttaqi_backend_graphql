@@ -1,30 +1,36 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+/* eslint-disable prettier/prettier */
+import { ObjectType, Field } from '@nestjs/graphql';
 import { User } from 'src/user/entities/user.entity';
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-// import { GeneralInformation } from '../dto/general_information';
+import { Column, Entity, OneToOne, PrimaryColumn } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 
 @ObjectType()
 @Entity()
 export class GeneralInformation {
 
-  @PrimaryGeneratedColumn()
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  id: number;
+  @Field()
+  @PrimaryColumn('uuid')
+  id: string;
 
   @Column()
-  @Field(()=> String,{})
+  @Field()
   address: string;
 
 
   @Column()
-  @Field(()=> String,{})  
+  @Field()  
   age: string;
 
-
+  @Column('uuid')
+  userId: string; 
 
   @Field(()=> User)
   @OneToOne(()=> User, user=>user.id)
   user: User;
 
+
+  constructor() {
+  this.id = uuidv4();
+ }
   
 }

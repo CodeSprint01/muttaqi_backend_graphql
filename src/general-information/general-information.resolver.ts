@@ -1,4 +1,5 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+/* eslint-disable prettier/prettier */
+import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
 import { GeneralInformationService } from './general-information.service';
 import { GeneralInformation } from './entities/general-information.entity';
 import { CreateGeneralInformationInput } from './dto/create-general-information.input';
@@ -10,6 +11,7 @@ export class GeneralInformationResolver {
 
   @Mutation(() => GeneralInformation)
   createGeneralInformation(@Args('createGeneralInformationInput') createGeneralInformationInput: CreateGeneralInformationInput) {
+    // console.log("🚀 ~ GeneralInformationResolver ~ createGeneralInformation ~ createGeneralInformationInput:", createGeneralInformationInput)
     return this.generalInformationService.create(createGeneralInformationInput);
   }
 
@@ -19,7 +21,7 @@ export class GeneralInformationResolver {
   }
 
   @Query(() => GeneralInformation, { name: 'generalInformation' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => ID }) id: string) {
     return this.generalInformationService.findOne(id);
   }
 
@@ -29,7 +31,7 @@ export class GeneralInformationResolver {
   }
   
   @Mutation(() => GeneralInformation)
-  removeGeneralInformation(@Args('id', { type: () => Int }) id: number) {
+  removeGeneralInformation(@Args('id') id: string) {
     return this.generalInformationService.remove(id);
   }
 }
