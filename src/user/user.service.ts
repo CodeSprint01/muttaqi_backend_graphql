@@ -86,28 +86,33 @@ export class UserService {
   }
 
   async sendPasswordResetEmail(email: string): Promise<boolean> {
-    const user = await this.userRepository.findOne({ where: { emailaddress: email } });
-    if (!user) {
-      throw new NotFoundException('User not found');
+    try {
+        const user = await this.userRepository.findOne({ where: { emailaddress: email } });
+        if (!user) {
+            throw new NotFoundException('User not found');
+        }
+        const resetToken = uuidv4();
+        user.resetPasswordToken = resetToken;
+        user.resetPasswordExpires = new Date(Date.now() + 3600000); // Token valid for 1 hour
+        await this.userRepository.save(user);
+        const name = user.username;
+        const resetLink = `http://your-app.com/reset-password?token=${resetToken}`;
+        console.log("🚀 ~ UserService ~ sendPasswordResetEmail ~ resetLink:", resetLink);
+
+        await this.mailerService.sendMail({
+            to: user.emailaddress,
+            from: process.env.GMAIL_EMAIL,
+            subject: 'Password Reset',
+            template: './password-reset',
+            html: `<p> Hi ${name}, please copy the link and <a href="http://localhost:3000/reset?token=${resetLink}">  reset your password</a>`,
+        });
+        return true;
+    } catch (error) {
+        console.error("Error sending password reset email:", error);
+        return false;
     }
+}
 
-    const resetToken = uuidv4();
-    user.resetPasswordToken = resetToken;
-    user.resetPasswordExpires = new Date(Date.now() + 3600000); // Token valid for 1 hour
-    await this.userRepository.save(user);
-
-    // Send an email with the reset link
-    await this.mailerService.sendMail({
-      to: user.emailaddress,
-      subject: 'Password Reset',
-      template: './password-reset', // Template for password reset email
-      context: {
-        resetLink: `http://your-app.com/reset-password?token=${resetToken}`, // Your reset password link
-      },
-    });
-
-    return true;
-  }
 
 async resetPassword(token: string, newPassword: string): Promise<boolean> {
   const user = await this.userRepository.findOne({ where: { resetPasswordToken: token } });

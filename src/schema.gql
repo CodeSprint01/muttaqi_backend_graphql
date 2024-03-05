@@ -40,6 +40,7 @@ type Mutation {
   deleteUser(id: String!): User!
   loginUser(email: String!, password: String!): LoginResponse!
   forgotPassword(email: String!): Boolean!
+  resetPassword(token: String!, newPassword: String!): Boolean!
   createGeneralInformation(createGeneralInformationInput: CreateGeneralInformationInput!): GeneralInformation!
   updateGeneralInformation(updateGeneralInformationInput: UpdateGeneralInformationInput!): GeneralInformation!
   removeGeneralInformation(id: String!): GeneralInformation!
