@@ -1,29 +1,32 @@
-/* eslint-disable prettier/prettier */
+// user.entity.ts
 import { ObjectType, Field } from '@nestjs/graphql';
-import { GeneralInformation } from 'src/general-information/entities/general-information.entity';
-import { Column, Entity, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { v4 as uuidv4 } from 'uuid'
-@ObjectType()
-@Entity()
-export class User {
+import {
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { GeneralInformation } from '../../general-information/entities/general-information.entity';
 
+@Entity()
+@ObjectType()
+export class User {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-
   @Column()
-  @Field(()=> String,{})
+  @Field()
   username: string;
 
   @Column()
-  @Field(()=> String,{})
+  @Field()
   emailaddress: string;
- 
-  @Column()
-  @Field(()=> String,{})
-  password: string;
 
+  @Column()
+  @Field()
+  password: string;
 
   @Column({ nullable: true })
   resetPasswordToken: string;
@@ -31,13 +34,10 @@ export class User {
   @Column({ nullable: true })
   resetPasswordExpires: Date;
 
-  @Field(()=> GeneralInformation, {nullable: true})
-  @OneToOne(()=> GeneralInformation, generalInformation=> generalInformation.user)
-  generalInfromation?: GeneralInformation;
-
-
-//   constructor() {
-//     this.id = uuidv4();
-//  }
-
+  @Field(() => [GeneralInformation], { nullable: true }) // Updated to array type
+  @OneToMany(
+    () => GeneralInformation,
+    (generalInformation) => generalInformation.user,
+  )
+  generalInformation?: GeneralInformation[]; // Updated property type to array
 }

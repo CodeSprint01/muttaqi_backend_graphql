@@ -6,8 +6,6 @@ type GeneralInformation {
   id: String!
   address: String!
   age: String!
-  userId: String!
-  user: User!
 }
 
 type User {
@@ -15,7 +13,7 @@ type User {
   username: String!
   emailaddress: String!
   password: String!
-  generalInfromation: GeneralInformation
+  generalInformation: [GeneralInformation!]
 }
 
 type LoginResponse {

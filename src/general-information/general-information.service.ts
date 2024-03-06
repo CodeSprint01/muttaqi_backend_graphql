@@ -10,35 +10,33 @@ import { UpdateGeneralInformationInput } from './dto/update-general-information.
 export class GeneralInformationService {
   constructor(
     @InjectRepository(GeneralInformation)
-    private generalRepository: Repository<GeneralInformation>, 
-    private userService: UserService
-  ) { }
+    private generalRepository: Repository<GeneralInformation>,
+    private userService: UserService,
+  ) {}
   async create(createGeneralInformationInput: CreateGeneralInformationInput) {
-    console.log("ðŸš€ ~ GeneralInformationService ~ create ~ createGeneralInformationInput:", createGeneralInformationInput)
-    const user = await this.userService.findOne(createGeneralInformationInput.userId);
-    console.log("ðŸš€ ~ GeneralInformationService ~ create ~ user:", user)
+    console.log(
+      'ðŸš€ ~ GeneralInformationService ~ create ~ createGeneralInformationInput:',
+      createGeneralInformationInput,
+    );
+    const user = await this.userService.findOne(
+      createGeneralInformationInput.userId,
+    );
+    console.log('ðŸš€ ~ GeneralInformationService ~ create ~ user:', user);
     if (!user) {
       throw new Error('User not found');
     }
 
-    // return this.generalRepository.update({})
-    const general2 = await this.generalRepository.findOne({
-      where: {
-        userId: createGeneralInformationInput.userId
-      }
-    })
-
-    if (general2) {
-      throw new Error("General information already exists")
-    }
     const general = this.generalRepository.create({
       address: createGeneralInformationInput.address,
       age: createGeneralInformationInput.age,
-      userId: user.id,
+      user: user,
     });
     // const general = this.generalRepository.create(createGeneralInformationInput)
 
-    console.log("ðŸš€ ~ GeneralInformationService ~ create ~ general:", general)
+    console.log(
+      'ðŸš€ ~ GeneralInformationService ~ create ~ general:',
+      general,
+    );
     return await this.generalRepository.save(general);
   }
 
@@ -47,7 +45,10 @@ export class GeneralInformationService {
   //   return await this.generalRepository.save(general);
   // }
 
-  async update(id: string, updateGeneralInformationInput: UpdateGeneralInformationInput) {
+  async update(
+    id: string,
+    updateGeneralInformationInput: UpdateGeneralInformationInput,
+  ) {
     const general = await this.generalRepository.findOne({ where: { id: id } });
     if (!general) {
       throw new NotFoundException(`GeneralInformation with ID ${id} not found`);
@@ -63,18 +64,16 @@ export class GeneralInformationService {
     return await this.generalRepository.save(general);
   }
 
-
   findAll() {
     return this.generalRepository.find();
   }
-
 
   findOne(id: string) {
     const general = this.generalRepository.findOne({ where: { id: id } });
     if (!general) {
       throw new NotFoundException(`General with ID ${id} not found`);
     }
-    return general
+    return general;
   }
 
   // async update(id: string, updateGeneralInformationInput: UpdateGeneralInformationInput) {
@@ -85,7 +84,6 @@ export class GeneralInformationService {
   //   Object.assign(general, updateGeneralInformationInput);
   //   return await this.generalRepository.save(general);
   // }
-
 
   remove(id: string) {
     return this.generalRepository.delete(id);

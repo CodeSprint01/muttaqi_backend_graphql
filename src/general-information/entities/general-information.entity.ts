@@ -1,14 +1,19 @@
+// general-information.entity.ts
 import { ObjectType, Field } from '@nestjs/graphql';
-import { User } from 'src/user/entities/user.entity';
-import { Column, Entity, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { v4 as uuidv4 } from 'uuid';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { User } from '../../user/entities/user.entity';
 
-@ObjectType()
 @Entity()
+@ObjectType()
 export class GeneralInformation {
-
   @Field()
-  @PrimaryGeneratedColumn('uuid') 
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -16,17 +21,9 @@ export class GeneralInformation {
   address: string;
 
   @Column()
-  @Field()  
+  @Field()
   age: string;
 
-  @Field()
-  @Column('uuid')
-  userId: string; 
-
-  @Field(()=> User)
-  @OneToOne(()=> User, user=>user.generalInfromation)
+  @ManyToOne(() => User, (user) => user.generalInformation) // Updated to ManyToOne
   user: User;
-
-
-   
 }
