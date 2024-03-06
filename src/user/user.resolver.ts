@@ -41,7 +41,7 @@ export class UserResolver {
   async removeUser(@Args('id', { type: () => String }) id: string) {
     return this.userService.remove(id);
   }
-
+  
   // Login user mutation
   @Mutation(() => LoginResponse)
   async loginUser(@Args('email') email: string, @Args('password') password: string) {

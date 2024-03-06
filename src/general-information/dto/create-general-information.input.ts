@@ -9,7 +9,8 @@ export class CreateGeneralInformationInput {
   @Field()
   age: string;
 
-  // @Field(() => ID)
-  // userid: string
+
+  @Field(() => ID)
+  userId: string
 
 }

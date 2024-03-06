@@ -31,13 +31,13 @@ export class User {
   @Column({ nullable: true })
   resetPasswordExpires: Date;
 
+  @Field(()=> GeneralInformation, {nullable: true})
+  @OneToOne(()=> GeneralInformation, generalInformation=> generalInformation.user)
+  generalInfromation?: GeneralInformation;
 
-  @Field(()=> GeneralInformation)
-  @OneToOne(()=> GeneralInformation, generalInformation=> generalInformation.id)
-  generalInfromation: GeneralInformation;
 
-  constructor() {
-    this.id = uuidv4();
- }
+//   constructor() {
+//     this.id = uuidv4();
+//  }
 
 }

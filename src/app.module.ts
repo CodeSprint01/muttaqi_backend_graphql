@@ -25,17 +25,14 @@ import { FamilyInformationModule } from './family-information/family-information
     host: 'localhost',
     port: 3306,
     database: 'muttaqi',
-    password: '',
+    password: '', 
     username: 'root',
     entities: ['dist/**/*.entity{.ts, .js}'],
     synchronize: true,
     autoLoadEntities: true,
   }),
     UserModule,
-
     GeneralInformationModule,
-
-    FamilyInformationModule,
 
     AuthModule,
 

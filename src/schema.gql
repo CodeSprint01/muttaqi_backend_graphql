@@ -2,11 +2,20 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type GeneralInformation {
+  id: String!
+  address: String!
+  age: String!
+  userId: String!
+  user: User!
+}
+
 type User {
   id: String!
   username: String!
   emailaddress: String!
   password: String!
+  generalInfromation: GeneralInformation
 }
 
 type LoginResponse {
@@ -14,8 +23,6 @@ type LoginResponse {
   token: String
 }
 
-type Query {
-  getAllUsers: [User!]!
 type FamilyInformation {
   """Example field (placeholder)"""
   exampleField: Int!
@@ -59,13 +66,13 @@ input UpdateUserInput {
 input CreateGeneralInformationInput {
   address: String!
   age: String!
-  userid: ID!
+  userId: ID!
 }
 
 input UpdateGeneralInformationInput {
   address: String
   age: String
-  userid: ID
+  userId: ID
   id: String!
 }
 
