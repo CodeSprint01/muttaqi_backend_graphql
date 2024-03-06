@@ -9,7 +9,6 @@ import { MailerModule} from '@nestjs-modules/mailer'
 // import { mailerConfig } from './mailer.config';
 // import { GeneralInformationModule } from 'src/general-information/general-information.module';
 import * as dotenv from 'dotenv';
-
 dotenv.config();
 @Module({
   imports: [TypeOrmModule.forFeature([User]),
