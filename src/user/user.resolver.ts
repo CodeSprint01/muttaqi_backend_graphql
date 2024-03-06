@@ -5,7 +5,6 @@ import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { LoginResponse } from './dto/login.input'
 import { UpdateUserInput } from './dto/update-user.input';
-// import { ForgotPasswordInput } from './dto/forgot-passwoed.Dto';
 @Resolver(() => User)
 export class UserResolver {
   constructor(private readonly userService: UserService) { }
@@ -48,7 +47,6 @@ export class UserResolver {
   async loginUser(@Args('email') email: string, @Args('password') password: string) {
     console.log("🚀 ~ UserResolver ~ loginUser ~ email:", email)
     console.log("🚀 ~ UserResolver ~ loginUser ~ password:", password)
-    // console.log(email, password, 'user', "token")
     const { user, token } = await this.userService.login({ email, password });
     return { user, token };
   }

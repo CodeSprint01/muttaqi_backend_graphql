@@ -12,9 +12,4 @@ export class CreateUserInput {
  
   @Field()
   password: string;
-
-
-  // @Field(()=> CreateGeneralInformationInput, {nullable: true})
-  // generalInformation: CreateGeneralInformationInput;
-  
 }

@@ -22,6 +22,11 @@ export class UserService {
 
   async create(createUserDto: CreateUserInput): Promise<{ user: User, token: string }> {
     const { password, ...rest } = createUserDto;
+    const passwordValidationRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
+
+    if (!passwordValidationRegex.test(password)) {
+      throw new Error('Password must be at least 6 characters long and contain at least one alphabet, one numeric digit, and one special character.');
+    }
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const createdUser = this.userRepository.create({
