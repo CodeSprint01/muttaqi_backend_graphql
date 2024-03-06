@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { ObjectType, Field } from '@nestjs/graphql';
-import { GeneralInformation } from 'src/general-information/entities/general-information.entity';
-import { Column, Entity, OneToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity,  PrimaryColumn } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid'
 @ObjectType()
 @Entity()
@@ -32,9 +31,9 @@ export class User {
   resetPasswordExpires: Date;
 
 
-  @Field(()=> GeneralInformation)
-  @OneToOne(()=> GeneralInformation, generalInformation=> generalInformation.id)
-  generalInfromation: GeneralInformation;
+  // @Field(()=> GeneralInformation)
+  // @OneToOne(()=> GeneralInformation, generalInformation=> generalInformation.id)
+  // generalInfromation: GeneralInformation;
  
   // @OneToMany(() => OfferedPrayer, OfferedPrayer => OfferedPrayer.user)
   // OfferedPrayer: OfferedPrayer[];

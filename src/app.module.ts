@@ -7,12 +7,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
-import { GeneralInformationModule } from './general-information/general-information.module';
-import { FamilyInfromationModule } from './family-infromation/family-infromation.module';
 import { AuthModule } from './auth/auth.module';
-// import { MailerModule } from '@nestjs-modules/mailer';
-// import { mailerConfig } from './user/mailer.config';
-
 @Module({
   imports: [GraphQLModule.forRoot<ApolloDriverConfig>({
     driver: ApolloDriver,
@@ -31,15 +26,7 @@ import { AuthModule } from './auth/auth.module';
     synchronize: true,
     autoLoadEntities: true,
   }),
-
-  // MailerModule.forRoot(mailerConfig),
-
     UserModule,
-
-    GeneralInformationModule,
-
-    FamilyInfromationModule,
-
     AuthModule,
   ],
   controllers: [AppController],
