@@ -8,6 +8,11 @@ import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+// import { MailerModule } from '@nestjs-modules/mailer';
+// import { mailerConfig } from './user/mailer.config';
+import { GeneralInformationModule } from './general-information/general-information.module';
+import { FamilyInformationModule } from './family-information/family-information.module';
+
 @Module({
   imports: [GraphQLModule.forRoot<ApolloDriverConfig>({
     driver: ApolloDriver,
@@ -27,7 +32,14 @@ import { AuthModule } from './auth/auth.module';
     autoLoadEntities: true,
   }),
     UserModule,
+
+    GeneralInformationModule,
+
+    FamilyInformationModule,
+
     AuthModule,
+
+    FamilyInformationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

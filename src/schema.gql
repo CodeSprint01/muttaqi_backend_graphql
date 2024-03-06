@@ -16,6 +16,15 @@ type LoginResponse {
 
 type Query {
   getAllUsers: [User!]!
+type FamilyInformation {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  getAllUsers: [User!]!
+  generalInformation(id: ID!): GeneralInformation!
+  familyInformation(id: Int!): FamilyInformation!
 }
 
 type Mutation {
@@ -26,18 +35,47 @@ type Mutation {
   loginUser(email: String!, password: String!): LoginResponse!
   forgotPassword(email: String!): Boolean!
   resetPassword(token: String!, newPassword: String!): Boolean!
+  createGeneralInformation(createGeneralInformationInput: CreateGeneralInformationInput!): GeneralInformation!
+  updateGeneralInformation(updateGeneralInformationInput: UpdateGeneralInformationInput!): GeneralInformation!
+  removeGeneralInformation(id: String!): GeneralInformation!
+  createFamilyInformation(createFamilyInformationInput: CreateFamilyInformationInput!): FamilyInformation!
+  updateFamilyInformation(updateFamilyInformationInput: UpdateFamilyInformationInput!): FamilyInformation!
+  removeFamilyInformation(id: Int!): FamilyInformation!
 }
 
 input CreateUserInput {
-  id: Int
   username: String!
   emailaddress: String!
   password: String!
 }
 
 input UpdateUserInput {
-  id: String!
   username: String
   emailaddress: String
   password: String
+  id: String!
+}
+
+input CreateGeneralInformationInput {
+  address: String!
+  age: String!
+  userid: ID!
+}
+
+input UpdateGeneralInformationInput {
+  address: String
+  age: String
+  userid: ID
+  id: String!
+}
+
+input CreateFamilyInformationInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateFamilyInformationInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
