@@ -22,7 +22,7 @@ type LoginResponse {
   token: String
 }
 
-type FamilyInfromation {
+type FamilyInformation {
   """Example field (placeholder)"""
   exampleField: Int!
 }
@@ -30,7 +30,7 @@ type FamilyInfromation {
 type Query {
   getAllUsers: [User!]!
   generalInformation(id: ID!): GeneralInformation!
-  familyInfromation(id: Int!): FamilyInfromation!
+  familyInformation(id: Int!): FamilyInformation!
 }
 
 type Mutation {
@@ -44,23 +44,22 @@ type Mutation {
   createGeneralInformation(createGeneralInformationInput: CreateGeneralInformationInput!): GeneralInformation!
   updateGeneralInformation(updateGeneralInformationInput: UpdateGeneralInformationInput!): GeneralInformation!
   removeGeneralInformation(id: String!): GeneralInformation!
-  createFamilyInfromation(createFamilyInfromationInput: CreateFamilyInfromationInput!): FamilyInfromation!
-  updateFamilyInfromation(updateFamilyInfromationInput: UpdateFamilyInfromationInput!): FamilyInfromation!
-  removeFamilyInfromation(id: Int!): FamilyInfromation!
+  createFamilyInformation(createFamilyInformationInput: CreateFamilyInformationInput!): FamilyInformation!
+  updateFamilyInformation(updateFamilyInformationInput: UpdateFamilyInformationInput!): FamilyInformation!
+  removeFamilyInformation(id: Int!): FamilyInformation!
 }
 
 input CreateUserInput {
-  id: Int
   username: String!
   emailaddress: String!
   password: String!
 }
 
 input UpdateUserInput {
-  id: String!
   username: String
   emailaddress: String
   password: String
+  id: String!
 }
 
 input CreateGeneralInformationInput {
@@ -76,12 +75,12 @@ input UpdateGeneralInformationInput {
   id: String!
 }
 
-input CreateFamilyInfromationInput {
+input CreateFamilyInformationInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
-input UpdateFamilyInfromationInput {
+input UpdateFamilyInformationInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
