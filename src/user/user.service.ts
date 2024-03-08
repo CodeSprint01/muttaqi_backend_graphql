@@ -9,7 +9,6 @@ import * as bcrypt from 'bcrypt';
 import { UpdateUserInput } from './dto/update-user.input';
 import { v4 as uuidv4 } from 'uuid';
 import { MailerService } from '@nestjs-modules/mailer';
-
 @Injectable()
 export class UserService {
   constructor(
@@ -64,7 +63,11 @@ export class UserService {
   }
 
   async findOne(userId: string): Promise<User> {
-    const user = await this.userRepository.findOne({ where: { id: userId } });
+    // const user = await this.userRepository.findOne({ where: { id: userId } });
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      relations: ['offeredPrayers'],
+    });
     if (!user) {
       throw new NotFoundException(`User with ID ${userId} not found`);
     }

@@ -9,6 +9,12 @@ type GeneralInformation {
   user: User!
 }
 
+type offeredPrayer {
+  id: String!
+  offeredTime: String!
+  offeredDate: String!
+}
+
 type User {
   id: String!
   username: String!
@@ -27,10 +33,26 @@ type FamilyInformation {
   exampleField: Int!
 }
 
+type Prayer {
+  id: String!
+  prayerName: String!
+  typeOfPrayer: String!
+  startingTime: String!
+  endingTime: String!
+}
+
+type typeOfWorship {
+  id: String!
+  type: String!
+}
+
 type Query {
   getAllUsers: [User!]!
   generalInformation(id: ID!): GeneralInformation!
   familyInformation(id: Int!): FamilyInformation!
+  findAllOfferedPrayer: [offeredPrayer!]!
+  findOfferedPrayer(Id: String!): offeredPrayer!
+  prayer(id: String!): Prayer!
 }
 
 type Mutation {
@@ -47,6 +69,9 @@ type Mutation {
   createFamilyInformation(createFamilyInformationInput: CreateFamilyInformationInput!): FamilyInformation!
   updateFamilyInformation(updateFamilyInformationInput: UpdateFamilyInformationInput!): FamilyInformation!
   removeFamilyInformation(id: Int!): FamilyInformation!
+  createOfferdPrayer(createOfferedPrayerInput: CreateOfferedPrayerInput!): offeredPrayer!
+  createPrayer(createPrayerInput: CreatePrayerInput!): Prayer!
+  typeOfWorship(createTypeOfWorshipInput: CreateTypeOfWorshipInput!): typeOfWorship!
 }
 
 input CreateUserInput {
@@ -65,13 +90,11 @@ input UpdateUserInput {
 input CreateGeneralInformationInput {
   address: String!
   age: String!
-  userid: ID!
 }
 
 input UpdateGeneralInformationInput {
   address: String
   age: String
-  userid: ID
   id: String!
 }
 
@@ -84,4 +107,21 @@ input UpdateFamilyInformationInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
+}
+
+input CreateOfferedPrayerInput {
+  offeredTime: String!
+  offeredDate: String!
+  userId: String!
+}
+
+input CreatePrayerInput {
+  prayerName: String!
+  typeOfPrayer: String!
+  startingTime: String!
+  endingTime: String!
+}
+
+input CreateTypeOfWorshipInput {
+  type: String!
 }

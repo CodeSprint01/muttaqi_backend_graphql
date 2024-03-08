@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { ObjectType, Field } from '@nestjs/graphql';
 import { GeneralInformation } from 'src/general-information/entities/general-information.entity';
-import { Column, Entity, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { offeredPrayer } from 'src/prayer/entities/offered-prayer.entity';
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid'
 @ObjectType()
 @Entity()
@@ -35,6 +36,9 @@ export class User {
   @Field(()=> GeneralInformation)
   @OneToOne(()=> GeneralInformation, generalInformation=> generalInformation.id)
   generalInfromation: GeneralInformation;
+
+  @OneToMany(() => offeredPrayer, offeredPrayer => offeredPrayer.user)
+ offeredPrayers: offeredPrayer[];
 
   constructor() {
     this.id = uuidv4();
