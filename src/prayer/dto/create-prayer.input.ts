@@ -4,13 +4,28 @@ import { Field, InputType } from '@nestjs/graphql';
 @InputType()
 export class CreatePrayerInput {
   @Field()
-  prayerName : string
+  fajarPrayer: string
 
   @Field()
-  startingTime: string
+  zoharPrayer: string
 
   @Field()
-  endingTime: string
+  asarPrayer: string
+
+  @Field()
+  magrabPrayer: string
+
+  @Field()
+  ishaPrayer: string
+
+  @Field()
+  IshraqPrayer : string
+
+  @Field()
+  TahajjudPrayer: string
+
+  @Field()
+  ChashtPrayer: string
 
   @Field()
   typeOfWorshipId: string

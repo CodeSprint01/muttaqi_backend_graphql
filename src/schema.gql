@@ -128,9 +128,14 @@ input CreateOfferedPrayerInput {
 }
 
 input CreatePrayerInput {
-  prayerName: String!
-  startingTime: String!
-  endingTime: String!
+  fajarPrayer: String!
+  zoharPrayer: String!
+  asarPrayer: String!
+  magrabPrayer: String!
+  ishaPrayer: String!
+  IshraqPrayer: String!
+  TahajjudPrayer: String!
+  ChashtPrayer: String!
   typeOfWorshipId: String!
 }
 
