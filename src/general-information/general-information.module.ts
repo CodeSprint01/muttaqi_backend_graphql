@@ -10,5 +10,5 @@ import { GeneralInformationService } from './general-information.service';
   providers: [GeneralInformationResolver, GeneralInformationService],
   exports: [GeneralInformationService]
 })
-export class GeneralInformationModule {}
+export class GeneralInformationModule { }
 

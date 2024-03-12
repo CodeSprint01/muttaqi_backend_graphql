@@ -1,14 +1,35 @@
-import { InputType,  Field,  ID } from '@nestjs/graphql';
+import { InputType, Field, ID } from '@nestjs/graphql';
 
 @InputType()
 export class CreateGeneralInformationInput {
 
-  @Field()
-  address: string; 
-  
-  @Field()
-  age: string;
 
+  @Field()
+  fullName: string;
+
+  @Field()
+  gender: 'male' | 'female';
+
+  @Field()
+  age: string
+
+  @Field()
+  education: string
+
+  @Field()
+  address: string
+
+  @Field()
+  country: string
+
+  @Field()
+  cnic: string
+
+  @Field()
+  sect: string
+
+  @Field()
+  firqah: string
 
   @Field(() => ID)
   userId: string

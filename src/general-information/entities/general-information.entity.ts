@@ -3,6 +3,7 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -18,12 +19,44 @@ export class GeneralInformation {
 
   @Column()
   @Field()
-  address: string;
+  fullName: string;
 
   @Column()
   @Field()
-  age: string;
+  gender: 'male' | 'female';
 
-  @ManyToOne(() => User, (user) => user.generalInformation) // Updated to ManyToOne
+  @Field()
+  @Column()
+  age: string
+
+  @Field()
+  @Column()
+  education: string
+
+  @Field()
+  @Column()
+  address: string
+
+  @Field()
+  @Column()
+  country: string
+
+
+  @Field()
+  @Column()
+  cnic: string
+
+
+  @Field()
+  @Column()
+  sect: string
+
+
+  @Field()
+  @Column()
+  firqah: string
+
+  @OneToOne(() => User, (user) => user.generalInformation) // Updated to ManyToOne
+  @JoinColumn({ name: 'userId' })
   user: User;
 }

@@ -27,8 +27,15 @@ export class GeneralInformationService {
     }
 
     const general = this.generalRepository.create({
+      fullName: createGeneralInformationInput.fullName,
       address: createGeneralInformationInput.address,
       age: createGeneralInformationInput.age,
+      cnic: createGeneralInformationInput.cnic,
+      country: createGeneralInformationInput.country,
+      education: createGeneralInformationInput.education,
+      firqah: createGeneralInformationInput.gender,
+      sect: createGeneralInformationInput.sect,
+      gender: createGeneralInformationInput.gender,
       user: user,
     });
     // const general = this.generalRepository.create(createGeneralInformationInput)

@@ -4,8 +4,19 @@
 
 type GeneralInformation {
   id: String!
-  address: String!
+  fullName: String!
+  gender: String!
   age: String!
+  education: String!
+  address: String!
+  country: String!
+  cnic: String!
+  sect: String!
+  firqah: String!
+}
+
+type FamilyMembers {
+  id: String!
 }
 
 type User {
@@ -13,7 +24,8 @@ type User {
   username: String!
   emailaddress: String!
   password: String!
-  generalInformation: [GeneralInformation!]
+  generalInformation: GeneralInformation
+  familyMembers: [FamilyMembers!]
 }
 
 type LoginResponse {
@@ -21,15 +33,11 @@ type LoginResponse {
   token: String
 }
 
-type FamilyInformation {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 type Query {
   getAllUsers: [User!]!
   generalInformation(id: ID!): GeneralInformation!
-  familyInformation(id: Int!): FamilyInformation!
+  familyMembers: [FamilyMembers!]!
+  familyMember(id: Int!): FamilyMembers!
 }
 
 type Mutation {
@@ -43,9 +51,9 @@ type Mutation {
   createGeneralInformation(createGeneralInformationInput: CreateGeneralInformationInput!): GeneralInformation!
   updateGeneralInformation(updateGeneralInformationInput: UpdateGeneralInformationInput!): GeneralInformation!
   removeGeneralInformation(id: String!): GeneralInformation!
-  createFamilyInformation(createFamilyInformationInput: CreateFamilyInformationInput!): FamilyInformation!
-  updateFamilyInformation(updateFamilyInformationInput: UpdateFamilyInformationInput!): FamilyInformation!
-  removeFamilyInformation(id: Int!): FamilyInformation!
+  createFamilyMember(createFamilyMemberInput: CreateFamilyMemberInput!): FamilyMembers!
+  updateFamilyMember(updateFamilyMemberInput: UpdateFamilyMemberInput!): FamilyMembers!
+  removeFamilyMember(id: Int!): FamilyMembers!
 }
 
 input CreateUserInput {
@@ -62,24 +70,38 @@ input UpdateUserInput {
 }
 
 input CreateGeneralInformationInput {
-  address: String!
+  fullName: String!
+  gender: String!
   age: String!
+  education: String!
+  address: String!
+  country: String!
+  cnic: String!
+  sect: String!
+  firqah: String!
   userId: ID!
 }
 
 input UpdateGeneralInformationInput {
-  address: String
+  fullName: String
+  gender: String
   age: String
+  education: String
+  address: String
+  country: String
+  cnic: String
+  sect: String
+  firqah: String
   userId: ID
   id: String!
 }
 
-input CreateFamilyInformationInput {
+input CreateFamilyMemberInput {
   """Example field (placeholder)"""
   exampleField: Int!
 }
 
-input UpdateFamilyInformationInput {
+input UpdateFamilyMemberInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!

@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { GeneralInformation } from '../../general-information/entities/general-information.entity';
+import { FamilyMembers } from 'src/family-members/entities/family-member.entity';
 
 @Entity()
 @ObjectType()
@@ -34,10 +35,20 @@ export class User {
   @Column({ nullable: true })
   resetPasswordExpires: Date;
 
-  @Field(() => [GeneralInformation], { nullable: true }) // Updated to array type
-  @OneToMany(
+  @Field(() => GeneralInformation, { nullable: true }) 
+  @OneToOne(
     () => GeneralInformation,
     (generalInformation) => generalInformation.user,
   )
-  generalInformation?: GeneralInformation[]; // Updated property type to array
+  generalInformation?: GeneralInformation; 
+
+
+  @Field(() => [FamilyMembers], { nullable: true }) 
+  @OneToMany(
+    () => FamilyMembers,
+    (familyMembers) => familyMembers.user,
+  )
+  familyMembers?: FamilyMembers[]; 
+
+ 
 }
