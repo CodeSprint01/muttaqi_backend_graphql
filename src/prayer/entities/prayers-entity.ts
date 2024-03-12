@@ -13,36 +13,36 @@ export class Prayer {
   id: string
 
   @Field()
-  @Column()
+  @Column({ default: false })
   fajarPrayer: string
 
 
   @Field()
-  @Column()
+  @Column({ default: false })
   zoharPrayer: string
 
   @Field()
-  @Column()
+  @Column({ default: false })
   asarPrayer: string
 
   @Field()
-  @Column()
+  @Column({ default: false })
   magrabPrayer: string
 
   @Field()
-  @Column()
+  @Column({ default: false })
   ishaPrayer: string
 
   @Field()
-  @Column()
+  @Column({ default: false })
   IshraqPrayer : string
 
   @Field()
-  @Column()
+  @Column({ default: false })
   TahajjudPrayer: string
 
   @Field()
-  @Column()
+  @Column({ default: false })
   ChashtPrayer: string
   
   @Column({type: "uuid"})
