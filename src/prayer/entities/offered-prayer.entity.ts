@@ -14,11 +14,11 @@ export class offeredPrayer {
 
   @Field()
   @CreateDateColumn()
-  createdAt: string 
+  createdAt: Date 
 
   @Field()
  @UpdateDateColumn()
-  updatedAt: string
+  updatedAt: Date
 
  @Column({ type: 'uuid' })
  userId: string;

@@ -17,25 +17,30 @@ type typeOfWorship {
 
 type Prayer {
   id: String!
-  fajarPrayer: String!
-  zoharPrayer: String!
-  asarPrayer: String!
-  magrabPrayer: String!
-  ishaPrayer: String!
-  IshraqPrayer: String!
-  TahajjudPrayer: String!
-  ChashtPrayer: String!
+  fajarPrayer: Boolean!
+  zoharPrayer: Boolean!
+  asarPrayer: Boolean!
+  magrabPrayer: Boolean!
+  ishaPrayer: Boolean!
+  IshraqPrayer: Boolean!
+  TahajjudPrayer: Boolean!
+  ChashtPrayer: Boolean!
   offeredPrayers: [offeredPrayer!]!
   typeOfWorship: typeOfWorship!
 }
 
 type offeredPrayer {
   id: String!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   user: User!
   prayer: Prayer!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type User {
   id: String!
@@ -123,19 +128,19 @@ input UpdateFamilyInformationInput {
 input CreateOfferedPrayerInput {
   userId: String!
   prayerId: String!
-  createdAt: String!
-  updatedAt: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input CreatePrayerInput {
-  fajarPrayer: String!
-  zoharPrayer: String!
-  asarPrayer: String!
-  magrabPrayer: String!
-  ishaPrayer: String!
-  IshraqPrayer: String!
-  TahajjudPrayer: String!
-  ChashtPrayer: String!
+  fajarPrayer: Boolean!
+  zoharPrayer: Boolean!
+  asarPrayer: Boolean!
+  magrabPrayer: Boolean!
+  ishaPrayer: Boolean!
+  IshraqPrayer: Boolean!
+  TahajjudPrayer: Boolean!
+  ChashtPrayer: Boolean!
   typeOfWorshipId: String!
 }
 

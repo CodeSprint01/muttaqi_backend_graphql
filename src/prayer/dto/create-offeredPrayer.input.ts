@@ -11,8 +11,8 @@ export class CreateOfferedPrayerInput {
   prayerId: string
 
   @Field()
-  createdAt: string
+  createdAt: Date
 
   @Field()
-  updatedAt: string
+  updatedAt: Date
 }
