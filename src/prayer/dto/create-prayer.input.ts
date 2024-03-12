@@ -4,28 +4,28 @@ import { Field, InputType } from '@nestjs/graphql';
 @InputType()
 export class CreatePrayerInput {
   @Field()
-  fajarPrayer: string
+  fajarPrayer: boolean
 
   @Field()
-  zoharPrayer: string
+  zoharPrayer: boolean
 
   @Field()
-  asarPrayer: string
+  asarPrayer: boolean
 
   @Field()
-  magrabPrayer: string
+  magrabPrayer: boolean
 
   @Field()
-  ishaPrayer: string
+  ishaPrayer: boolean
 
   @Field()
-  IshraqPrayer : string
+  IshraqPrayer : boolean
 
   @Field()
-  TahajjudPrayer: string
+  TahajjudPrayer: boolean
 
   @Field()
-  ChashtPrayer: string
+  ChashtPrayer: boolean
 
   @Field()
   typeOfWorshipId: string

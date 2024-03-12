@@ -14,36 +14,36 @@ export class Prayer {
 
   @Field()
   @Column({ default: false })
-  fajarPrayer: string
+  fajarPrayer: boolean;
 
 
   @Field()
   @Column({ default: false })
-  zoharPrayer: string
+  zoharPrayer: boolean
 
   @Field()
   @Column({ default: false })
-  asarPrayer: string
+  asarPrayer: boolean
 
   @Field()
   @Column({ default: false })
-  magrabPrayer: string
+  magrabPrayer: boolean
 
   @Field()
   @Column({ default: false })
-  ishaPrayer: string
+  ishaPrayer: boolean
 
   @Field()
   @Column({ default: false })
-  IshraqPrayer : string
+  IshraqPrayer : boolean
 
   @Field()
   @Column({ default: false })
-  TahajjudPrayer: string
+  TahajjudPrayer: boolean
 
   @Field()
   @Column({ default: false })
-  ChashtPrayer: string
+  ChashtPrayer: boolean
   
   @Column({type: "uuid"})
   typeOfWorshipId: string
