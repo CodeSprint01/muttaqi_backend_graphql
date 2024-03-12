@@ -14,15 +14,15 @@ export class User {
 
 
   @Column()
-  @Field(()=> String,{})
+  @Field(() => String, {})
   username: string;
 
   @Column()
-  @Field(()=> String,{})
+  @Field(() => String, {})
   emailaddress: string;
- 
+
   @Column()
-  @Field(()=> String,{})
+  @Field(() => String, {})
   password: string;
 
 
@@ -33,15 +33,17 @@ export class User {
   resetPasswordExpires: Date;
 
 
-  @Field(()=> GeneralInformation)
-  @OneToOne(()=> GeneralInformation, generalInformation=> generalInformation.id)
+  @Field(() => GeneralInformation)
+  @OneToOne(() => GeneralInformation, generalInformation => generalInformation.id)
   generalInfromation: GeneralInformation;
 
+
+  @Field(() => [offeredPrayer])
   @OneToMany(() => offeredPrayer, offeredPrayer => offeredPrayer.user)
- offeredPrayers: offeredPrayer[];
+  offeredPrayers: offeredPrayer[];
 
   constructor() {
     this.id = uuidv4();
- }
+  }
 
 }

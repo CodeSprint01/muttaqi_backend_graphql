@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 @InputType()
 export class CreateUserInput {
 
@@ -14,7 +14,6 @@ export class CreateUserInput {
   password: string;
 
 
-  // @Field(()=> CreateGeneralInformationInput, {nullable: true})
-  // generalInformation: CreateGeneralInformationInput;
+
   
 }

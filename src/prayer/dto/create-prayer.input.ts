@@ -7,11 +7,11 @@ export class CreatePrayerInput {
   prayerName : string
 
   @Field()
-  typeOfPrayer: string
-
-  @Field()
   startingTime: string
 
   @Field()
   endingTime: string
+
+  @Field()
+  typeOfWorshipId: string
 }

@@ -28,12 +28,10 @@ export class UserService {
       emailaddress: rest.emailaddress,
       password: hashedPassword,
     });
-    console.log("🚀~ UserService ~ create ~ createdUser:", createdUser)
 
     const savedUser = await this.userRepository.save(createdUser);
     const payload = { email: savedUser.emailaddress, sub: savedUser.id };
     const token = this.jwtService.sign(payload, { secret: 'secret' });
-    console.log("🚀~ UserService ~ create ~ payload:", payload)
 
     return { user: savedUser, token };
   }
@@ -44,7 +42,6 @@ export class UserService {
       throw new UnauthorizedException('Invalid credentials');
     }
     const payload = { email: user.emailaddress, sub: user.id };
-    console.log(payload, 'payload')
     const token = this.jwtService.sign(payload, { secret: 'secret' });
     return { user, token };
   }
@@ -66,7 +63,7 @@ export class UserService {
     // const user = await this.userRepository.findOne({ where: { id: userId } });
     const user = await this.userRepository.findOne({
       where: { id: userId },
-      relations: ['offeredPrayers'],
+      relations: ['offeredPrayers', 'offeredPrayers.prayer']
     });
     if (!user) {
       throw new NotFoundException(`User with ID ${userId} not found`);
@@ -94,7 +91,6 @@ export class UserService {
       await this.userRepository.save(user);
       const name = user.username;
       const resetLink = `http://your-app.com/reset-password?token=${resetToken}`;
-      console.log("🚀 ~ UserService ~ sendPasswordResetEmail ~ resetLink:", resetLink);
 
       await this.mailerService.sendMail({
         to: user.emailaddress,

@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { ObjectType, Field } from '@nestjs/graphql';
 import { User } from 'src/user/entities/user.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid'
+import { Prayer } from './prayers-entity';
 
 @ObjectType()
 @Entity("offeredPrayer")
@@ -12,20 +13,30 @@ export class offeredPrayer {
   id: string
 
   @Field()
-  @Column()
-  offeredTime: string
+  @CreateDateColumn()
+  createdAt: string 
 
   @Field()
-  @Column()
-  offeredDate: string
+ @UpdateDateColumn()
+  updatedAt: string
 
  @Column({ type: 'uuid' })
  userId: string;
 
+ @Column({ type: 'uuid' })
+  prayerId: string;
 
+
+ @Field(() => User)
  @ManyToOne(() => User, user => user.offeredPrayers)
  @JoinColumn({ name: 'userId' })
  user: User;
+
+
+ @Field(() => Prayer)
+ @ManyToOne(() => Prayer, prayer => prayer.offeredPrayers)
+ @JoinColumn({ name: 'prayerId' })
+ prayer: Prayer;
 
   constructor() {
     this.id = uuidv4();

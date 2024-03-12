@@ -49,7 +49,7 @@ export class PrayerResolver {
   }
 
   // findPrayerById query
-  @Query(() => Prayer, { name: 'prayer' })
+  @Mutation(() => Prayer, { name: 'prayer' })
   findOneprayer(@Args('id') id: string) {
     return this.prayerService.findOneprayer(id);
   }

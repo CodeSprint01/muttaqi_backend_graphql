@@ -3,12 +3,16 @@ import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
 export class CreateOfferedPrayerInput {
-  @Field()
-  offeredTime: string
-
-  @Field()
-  offeredDate: string
 
   @Field()
   userId: string
+
+  @Field()
+  prayerId: string
+
+  @Field()
+  createdAt: string
+
+  @Field()
+  updatedAt: string
 }

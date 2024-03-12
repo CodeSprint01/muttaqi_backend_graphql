@@ -9,10 +9,32 @@ type GeneralInformation {
   user: User!
 }
 
+type typeOfWorship {
+  id: String!
+  type: String!
+  prayers: [Prayer!]!
+}
+
+type Prayer {
+  id: String!
+  fajarPrayer: String!
+  zoharPrayer: String!
+  asarPrayer: String!
+  magrabPrayer: String!
+  ishaPrayer: String!
+  IshraqPrayer: String!
+  TahajjudPrayer: String!
+  ChashtPrayer: String!
+  offeredPrayers: [offeredPrayer!]!
+  typeOfWorship: typeOfWorship!
+}
+
 type offeredPrayer {
   id: String!
-  offeredTime: String!
-  offeredDate: String!
+  createdAt: String!
+  updatedAt: String!
+  user: User!
+  prayer: Prayer!
 }
 
 type User {
@@ -21,6 +43,7 @@ type User {
   emailaddress: String!
   password: String!
   generalInfromation: GeneralInformation!
+  offeredPrayers: [offeredPrayer!]!
 }
 
 type LoginResponse {
@@ -33,26 +56,13 @@ type FamilyInformation {
   exampleField: Int!
 }
 
-type Prayer {
-  id: String!
-  prayerName: String!
-  typeOfPrayer: String!
-  startingTime: String!
-  endingTime: String!
-}
-
-type typeOfWorship {
-  id: String!
-  type: String!
-}
-
 type Query {
   getAllUsers: [User!]!
   generalInformation(id: ID!): GeneralInformation!
   familyInformation(id: Int!): FamilyInformation!
   findAllOfferedPrayer: [offeredPrayer!]!
   findOfferedPrayer(Id: String!): offeredPrayer!
-  prayer(id: String!): Prayer!
+  prayer: [Prayer!]!
 }
 
 type Mutation {
@@ -71,6 +81,7 @@ type Mutation {
   removeFamilyInformation(id: Int!): FamilyInformation!
   createOfferdPrayer(createOfferedPrayerInput: CreateOfferedPrayerInput!): offeredPrayer!
   createPrayer(createPrayerInput: CreatePrayerInput!): Prayer!
+  prayer(id: String!): Prayer!
   typeOfWorship(createTypeOfWorshipInput: CreateTypeOfWorshipInput!): typeOfWorship!
 }
 
@@ -110,16 +121,17 @@ input UpdateFamilyInformationInput {
 }
 
 input CreateOfferedPrayerInput {
-  offeredTime: String!
-  offeredDate: String!
   userId: String!
+  prayerId: String!
+  createdAt: String!
+  updatedAt: String!
 }
 
 input CreatePrayerInput {
   prayerName: String!
-  typeOfPrayer: String!
   startingTime: String!
   endingTime: String!
+  typeOfWorshipId: String!
 }
 
 input CreateTypeOfWorshipInput {

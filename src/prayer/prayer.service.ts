@@ -21,20 +21,32 @@ export class PrayerService {
   ) { }
   create(CreateOfferedPrayerInput: CreateOfferedPrayerInput): Promise<offeredPrayer> {
 
-    const {userId, ...otherInputs} = CreateOfferedPrayerInput;
+    const {userId,prayerId,  ...otherInputs} = CreateOfferedPrayerInput;
     if(!userId) {
       throw new Error("userId is required")
     }
+    if(!prayerId) {
+      throw new Error("prayerId is required")
+    }
     const createOfferedPrayer = this.offeredPrayerRepository.create({
       ...otherInputs,
-      userId
+      userId,
+      prayerId,
     });
     const saveOfferedPreayer = this.offeredPrayerRepository.save(createOfferedPrayer)
     return saveOfferedPreayer;
   }
 
   createPrayer(CreatePrayerInput: CreatePrayerInput): Promise<Prayer> {
-    const createPrayer = this.prayerRepository.create(CreatePrayerInput)
+    const { typeOfWorshipId, ...otherInputs } = CreatePrayerInput;
+    if(!typeOfWorshipId) {
+      throw new Error("typeOfWorship Id is required")
+    }
+    
+    const createPrayer = this.prayerRepository.create({
+      ...otherInputs,
+      typeOfWorshipId
+    })
     const savePreayer = this.prayerRepository.save(createPrayer)
     return savePreayer;
   }
@@ -64,7 +76,11 @@ export class PrayerService {
   }
 
   findOneprayer(id: string ) {
-    const findPrayerById =  this.prayerRepository.findOne({where: {id}});
+    const findPrayerById =  this.prayerRepository.findOne({
+      where: {id},
+      relations: ['typeOfWorship']
+    }
+      );
     if(!findPrayerById){
       throw new NotFoundException(`Prayer with ID ${id} not found`);
     }
