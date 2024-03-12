@@ -12,36 +12,36 @@ export class Prayer {
   @PrimaryColumn('uuid')
   id: string
 
-  @Field()
+  @Field({nullable: true})
   @Column({ default: false })
   fajarPrayer: boolean;
 
 
-  @Field()
+  @Field({nullable: true})
   @Column({ default: false })
   zoharPrayer: boolean
 
-  @Field()
+  @Field({nullable: true})
   @Column({ default: false })
   asarPrayer: boolean
 
-  @Field()
+  @Field({nullable: true})
   @Column({ default: false })
   magrabPrayer: boolean
 
-  @Field()
+  @Field({nullable: true})
   @Column({ default: false })
   ishaPrayer: boolean
 
-  @Field()
+  @Field({nullable: true})
   @Column({ default: false })
   IshraqPrayer : boolean
 
-  @Field()
+  @Field({nullable: true})
   @Column({ default: false })
   TahajjudPrayer: boolean
 
-  @Field()
+  @Field({nullable: true})
   @Column({ default: false })
   ChashtPrayer: boolean
   

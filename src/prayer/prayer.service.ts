@@ -47,7 +47,9 @@ export class PrayerService {
       ...otherInputs,
       typeOfWorshipId
     })
+    console.log("🚀 ~ PrayerService ~ createPrayer ~ createPrayer:", createPrayer)
     const savePreayer = this.prayerRepository.save(createPrayer)
+    console.log("🚀 ~ PrayerService ~ createPrayer ~ savePreayer:", savePreayer)
     return savePreayer;
   }
 

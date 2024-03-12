@@ -17,14 +17,14 @@ type typeOfWorship {
 
 type Prayer {
   id: String!
-  fajarPrayer: Boolean!
-  zoharPrayer: Boolean!
-  asarPrayer: Boolean!
-  magrabPrayer: Boolean!
-  ishaPrayer: Boolean!
-  IshraqPrayer: Boolean!
-  TahajjudPrayer: Boolean!
-  ChashtPrayer: Boolean!
+  fajarPrayer: Boolean
+  zoharPrayer: Boolean
+  asarPrayer: Boolean
+  magrabPrayer: Boolean
+  ishaPrayer: Boolean
+  IshraqPrayer: Boolean
+  TahajjudPrayer: Boolean
+  ChashtPrayer: Boolean
   offeredPrayers: [offeredPrayer!]!
   typeOfWorship: typeOfWorship!
 }
@@ -133,15 +133,15 @@ input CreateOfferedPrayerInput {
 }
 
 input CreatePrayerInput {
-  fajarPrayer: Boolean!
-  zoharPrayer: Boolean!
-  asarPrayer: Boolean!
-  magrabPrayer: Boolean!
-  ishaPrayer: Boolean!
-  IshraqPrayer: Boolean!
-  TahajjudPrayer: Boolean!
-  ChashtPrayer: Boolean!
-  typeOfWorshipId: String!
+  fajarPrayer: Boolean
+  zoharPrayer: Boolean
+  asarPrayer: Boolean
+  magrabPrayer: Boolean
+  ishaPrayer: Boolean
+  IshraqPrayer: Boolean
+  TahajjudPrayer: Boolean
+  ChashtPrayer: Boolean
+  typeOfWorshipId: String
 }
 
 input CreateTypeOfWorshipInput {
