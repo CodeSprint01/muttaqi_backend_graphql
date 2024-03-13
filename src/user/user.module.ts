@@ -7,7 +7,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { MailerModule} from '@nestjs-modules/mailer'
 import * as dotenv from 'dotenv';
-
 dotenv.config();
 @Module({
   imports: [TypeOrmModule.forFeature([User]),

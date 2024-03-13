@@ -32,9 +32,6 @@ import { offeredPrayerModule } from './prayer/prayer.module';
     synchronize: true,
     autoLoadEntities: true,
   }),
-
-  // MailerModule.forRoot(mailerConfig),
-
     UserModule,
 
     GeneralInformationModule,
