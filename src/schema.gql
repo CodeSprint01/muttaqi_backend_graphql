@@ -10,7 +10,7 @@ type GeneralInformation {
 }
 
 type typeOfWorship {
-  id: Float!
+  id: String!
   type: String!
   prayers: [Prayer!]!
 }
@@ -18,11 +18,11 @@ type typeOfWorship {
 type Prayer {
   id: String!
   prayerName: String!
-  offeredPrayers: [offeredPrayer!]!
+  offeredPrayers: [OfferedPrayer!]!
   typeOfWorship: typeOfWorship!
 }
 
-type offeredPrayer {
+type OfferedPrayer {
   id: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -38,10 +38,13 @@ scalar DateTime
 type User {
   id: String!
   username: String!
-  emailaddress: String!
+  email: String!
   password: String!
+  resetPasswordToken: String!
+  resetPasswordExpires: DateTime!
+  fatherName: String!
   generalInfromation: GeneralInformation!
-  offeredPrayers: [offeredPrayer!]!
+  offeredPrayers: [OfferedPrayer!]!
 }
 
 type LoginResponse {
@@ -58,14 +61,14 @@ type Query {
   getAllUsers: [User!]!
   generalInformation(id: ID!): GeneralInformation!
   familyInformation(id: Int!): FamilyInformation!
-  findAllOfferedPrayer: [offeredPrayer!]!
-  findOfferedPrayer(Id: String!): offeredPrayer!
+  findAllOfferedPrayer: [OfferedPrayer!]!
+  findOfferedPrayer(Id: String!): OfferedPrayer!
   prayer: [Prayer!]!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): LoginResponse!
-  findUserById(id: String!): User!
+  findone(id: String!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   deleteUser(id: String!): User!
   loginUser(email: String!, password: String!): LoginResponse!
@@ -77,7 +80,7 @@ type Mutation {
   createFamilyInformation(createFamilyInformationInput: CreateFamilyInformationInput!): FamilyInformation!
   updateFamilyInformation(updateFamilyInformationInput: UpdateFamilyInformationInput!): FamilyInformation!
   removeFamilyInformation(id: Int!): FamilyInformation!
-  createOfferdPrayer(createOfferedPrayerInput: CreateOfferedPrayerInput!): offeredPrayer!
+  createOfferdPrayer(createOfferedPrayerInput: CreateOfferedPrayerInput!): OfferedPrayer!
   createPrayer(createPrayerInput: CreatePrayerInput!): Prayer!
   prayer(id: String!): Prayer!
   typeOfWorship(createTypeOfWorshipInput: CreateTypeOfWorshipInput!): typeOfWorship!
@@ -85,13 +88,13 @@ type Mutation {
 
 input CreateUserInput {
   username: String!
-  emailaddress: String!
+  email: String!
   password: String!
 }
 
 input UpdateUserInput {
   username: String
-  emailaddress: String
+  email: String
   password: String
   id: String!
 }
@@ -130,6 +133,6 @@ input CreatePrayerInput {
 }
 
 input CreateTypeOfWorshipInput {
-  id: Float!
+  id: String!
   type: String!
 }

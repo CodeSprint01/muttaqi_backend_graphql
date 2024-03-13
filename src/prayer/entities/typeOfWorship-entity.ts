@@ -3,11 +3,11 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Prayer } from './prayers-entity';
 @ObjectType()
-@Entity("typeOfWorship")
+@Entity()
 export class typeOfWorship {
     @Field()
     @PrimaryGeneratedColumn()
-    id: number
+    id: string
 
     @Field()
     @Column()

@@ -1,15 +1,15 @@
 /* eslint-disable prettier/prettier */
 import { ObjectType, Field } from '@nestjs/graphql';
 import { User } from 'src/user/entities/user.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid'
 import { Prayer } from './prayers-entity';
 
 @ObjectType()
-@Entity("offeredPrayer")
-export class offeredPrayer {
+@Entity()
+export class OfferedPrayer {
   @Field()
-  @PrimaryColumn('uuid')
+  @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Field()
@@ -17,29 +17,25 @@ export class offeredPrayer {
   createdAt: Date 
 
   @Field()
- @UpdateDateColumn()
+  @UpdateDateColumn()
   updatedAt: Date
 
- @Column({ type: 'uuid' })
- userId: string;
+  @Column({ type: 'uuid' })
+  userId: string;
 
- @Column({ type: 'uuid' })
+  @Column({ type: 'uuid' })
   prayerId: string;
 
 
- @Field(() => User)
- @ManyToOne(() => User, user => user.offeredPrayers)
- @JoinColumn({ name: 'userId' })
- user: User;
+  @Field(() => User)
+  @ManyToOne(() => User, user => user.offeredPrayers)
+  @JoinColumn({ name: 'userId' })
+  user: User;
 
 
- @Field(() => Prayer)
- @ManyToOne(() => Prayer, prayer => prayer.offeredPrayers)
- @JoinColumn({ name: 'prayerId' })
- prayer: Prayer;
-
-  constructor() {
-    this.id = uuidv4();
- }
+  @Field(() => Prayer)
+  @ManyToOne(() => Prayer, prayer => prayer.offeredPrayers)
+  @JoinColumn({ name: 'prayerId' })
+  prayer: Prayer;
 
 }

@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { offeredPrayer } from './offered-prayer.entity';
+import { OfferedPrayer } from './offered-prayer.entity';
 import { typeOfWorship } from './typeOfWorship-entity';
 
 @ObjectType()
-@Entity("Prayer")
+@Entity()
 export class Prayer {
   @Field()
   @PrimaryGeneratedColumn()
@@ -19,9 +19,9 @@ export class Prayer {
   @Column({type: "uuid"})
   typeOfWorshipId: string
 
-  @Field(() => [offeredPrayer])
-  @OneToMany(() => offeredPrayer, offeredPrayer => offeredPrayer.prayer)
-  offeredPrayers: offeredPrayer[];
+  @Field(() => [OfferedPrayer])
+  @OneToMany(() => OfferedPrayer, offeredPrayer => offeredPrayer.prayer)
+  offeredPrayers: OfferedPrayer[];
 
 
   @Field(() => typeOfWorship)

@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { offeredPrayer } from './entities/offered-prayer.entity';
+import { OfferedPrayer } from './entities/offered-prayer.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOfferedPrayerInput } from './dto/create-offeredPrayer.input';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,14 +12,14 @@ import { CreateTypeOfWorshipInput } from './dto/create-typeOfWorship.input';
 @Injectable()
 export class PrayerService {
   constructor(
-    @InjectRepository(offeredPrayer)
-    private readonly offeredPrayerRepository: Repository<offeredPrayer>,
+    @InjectRepository(OfferedPrayer)
+    private readonly offeredPrayerRepository: Repository<OfferedPrayer>,
     @InjectRepository(Prayer)
     private readonly prayerRepository: Repository<Prayer>,
     @InjectRepository(typeOfWorship)
     private readonly typeOfWorshipRepository: Repository<typeOfWorship>
   ) { }
-  create(CreateOfferedPrayerInput: CreateOfferedPrayerInput): Promise<offeredPrayer> {
+  create(CreateOfferedPrayerInput: CreateOfferedPrayerInput): Promise<OfferedPrayer> {
 
     const {userId,prayerId,  ...otherInputs} = CreateOfferedPrayerInput;
     if(!userId) {
@@ -53,10 +53,10 @@ export class PrayerService {
     return savePreayer;
   }
 
-  typeOfWorship(CreateTypeOfWorshipInput: CreateTypeOfWorshipInput): Promise<typeOfWorship> {
+  async createtypeOfWorship(CreateTypeOfWorshipInput: CreateTypeOfWorshipInput): Promise<typeOfWorship> {
     const createTypeOfWorship = this.typeOfWorshipRepository.create(CreateTypeOfWorshipInput)
-    const saveTypeOfWorship = this.typeOfWorshipRepository.save(createTypeOfWorship)
-    return saveTypeOfWorship;
+    const saveTypeOfWorship = await this.typeOfWorshipRepository.save(createTypeOfWorship)
+    return  saveTypeOfWorship;
   }
 
   async findAllprayer(): Promise<Prayer[]> {
@@ -64,17 +64,19 @@ export class PrayerService {
     return findprayers
   }
 
-  async findAllOfferedPrayer(): Promise<offeredPrayer[]> {
+  async findAllOfferedPrayer(): Promise<OfferedPrayer[]> {
     const findOfferedPrayers = await this.offeredPrayerRepository.find()
     return findOfferedPrayers
   }
 
-  async findOfferedPrayerById(id: string): Promise<offeredPrayer> {
-    const findOfferedPrayerById = this.offeredPrayerRepository.findOne({where:{ id }});
-    if (!findOfferedPrayerById) {
+  async findOfferedPrayerById(id: string): Promise<OfferedPrayer> {
+    const offeredPrayer = this.offeredPrayerRepository.findOne({where:{ id },
+    relations: ['prayer', 'user']
+    });
+    if (!offeredPrayer) {
       throw new NotFoundException(`offered prayer with Id ${id} not found`);
     }
-    return findOfferedPrayerById
+    return offeredPrayer
   }
 
   findOneprayer(id: string ) {

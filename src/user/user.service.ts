@@ -25,23 +25,23 @@ export class UserService {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const createdUser = this.userRepository.create({
       username: rest.username,
-      emailaddress: rest.emailaddress,
+      email: rest.email,
       password: hashedPassword,
     });
 
     const savedUser = await this.userRepository.save(createdUser);
-    const payload = { email: savedUser.emailaddress, sub: savedUser.id };
+    const payload = { email: savedUser.email, sub: savedUser.id };
     const token = this.jwtService.sign(payload, { secret: 'secret' });
 
     return { user: savedUser, token };
   }
 
   async login({ email, password }: { email: string; password: string }): Promise<{ user: User; token: string }> {
-    const user = await this.userRepository.findOne({ where: { emailaddress: email } });
+    const user = await this.userRepository.findOne({ where: { email: email } });
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
     }
-    const payload = { email: user.emailaddress, sub: user.id };
+    const payload = { email: user.email, sub: user.id };
     const token = this.jwtService.sign(payload, { secret: 'secret' });
     return { user, token };
   }
@@ -63,7 +63,7 @@ export class UserService {
     // const user = await this.userRepository.findOne({ where: { id: userId } });
     const user = await this.userRepository.findOne({
       where: { id: userId },
-      relations: ['offeredPrayers', 'offeredPrayers.prayer']
+      relations: ['offeredPrayers',]
     });
     if (!user) {
       throw new NotFoundException(`User with ID ${userId} not found`);
@@ -72,7 +72,7 @@ export class UserService {
   }
 
   async findOneByEmail(email: string): Promise<User | undefined> {
-    return this.userRepository.findOne({ where: { emailaddress: email } });
+    return this.userRepository.findOne({ where: { email: email } });
   }
 
   async remove(userId: string) {
@@ -81,7 +81,7 @@ export class UserService {
 
   async sendPasswordResetEmail(email: string): Promise<boolean> {
     try {
-      const user = await this.userRepository.findOne({ where: { emailaddress: email } });
+      const user = await this.userRepository.findOne({ where: { email: email } });
       if (!user) {
         throw new NotFoundException('User not found');
       }
@@ -93,7 +93,7 @@ export class UserService {
       const resetLink = `http://your-app.com/reset-password?token=${resetToken}`;
 
       await this.mailerService.sendMail({
-        to: user.emailaddress,
+        to: user.email,
         from: process.env.GMAIL_EMAIL,
         subject: 'Password Reset',
         template: './password-reset',
@@ -120,7 +120,6 @@ export class UserService {
     user.password = hashedPassword;
     user.resetPasswordToken = null;
     user.resetPasswordExpires = null;
-
     await this.userRepository.save(user);
     return true;
   }

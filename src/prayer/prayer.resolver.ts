@@ -2,34 +2,34 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { PrayerService } from './prayer.service';
-import { offeredPrayer } from './entities/offered-prayer.entity';
+import { OfferedPrayer } from './entities/offered-prayer.entity';
 import { CreateOfferedPrayerInput } from './dto/create-offeredPrayer.input';
 import { CreatePrayerInput } from './dto/create-prayer.input';
 import { Prayer } from './entities/prayers-entity';
 import { typeOfWorship } from './entities/typeOfWorship-entity';
 import { CreateTypeOfWorshipInput } from './dto/create-typeOfWorship.input';
 
-@Resolver(() => offeredPrayer)
+@Resolver(() => OfferedPrayer)
 export class PrayerResolver {
   constructor(private readonly prayerService: PrayerService) { }
 
   // {  OFFERED PRAYER MODULE }
 
   // offeredPrayer mutation
-  @Mutation(() => offeredPrayer)
+  @Mutation(() => OfferedPrayer)
   createOfferdPrayer(@Args('createOfferedPrayerInput') CreateOfferedPrayerInput: CreateOfferedPrayerInput) {
     return this.prayerService.create(CreateOfferedPrayerInput);
   }
 
   // find all offeredPrayers query
-  @Query(() => [offeredPrayer])
+  @Query(() => [OfferedPrayer])
   findAllOfferedPrayer() {
     return this.prayerService.findAllOfferedPrayer();
   }
 
   // findOfferedPrayerById query
-  @Query(() => offeredPrayer)
-  findOfferedPrayer(@Args('Id') Id: string): Promise<offeredPrayer> {
+  @Query(() => OfferedPrayer)
+  findOfferedPrayer(@Args('Id') Id: string): Promise<OfferedPrayer> {
     return this.prayerService.findOfferedPrayerById(Id);
   }
 
@@ -57,7 +57,7 @@ export class PrayerResolver {
   // typeOfWorship mutation
   @Mutation(() => typeOfWorship)
   async typeOfWorship(@Args('createTypeOfWorshipInput') createTypeOfWorshipInput: CreateTypeOfWorshipInput): Promise<typeOfWorship> {
-    const createTypeOfWorship = await this.prayerService.typeOfWorship(createTypeOfWorshipInput);
+    const createTypeOfWorship = await this.prayerService.createtypeOfWorship(createTypeOfWorshipInput);
     return createTypeOfWorship;
   }
 

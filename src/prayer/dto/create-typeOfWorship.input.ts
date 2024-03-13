@@ -5,7 +5,7 @@ import { Field, InputType } from '@nestjs/graphql';
 export class  CreateTypeOfWorshipInput {
 
   @Field()
-  id: number
+  id: string
 
   
   @Field()

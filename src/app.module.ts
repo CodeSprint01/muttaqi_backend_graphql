@@ -29,7 +29,7 @@ import { offeredPrayerModule } from './prayer/prayer.module';
     password: '',
     username: 'root',
     entities: ['dist/**/*.entity{.ts, .js}'],
-    // synchronize: true,
+    synchronize: true,
     autoLoadEntities: true,
   }),
 
