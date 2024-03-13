@@ -52,15 +52,9 @@ type LoginResponse {
   token: String
 }
 
-type FamilyInformation {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 type Query {
   getAllUsers: [User!]!
   generalInformation(id: ID!): GeneralInformation!
-  familyInformation(id: Int!): FamilyInformation!
   findAllOfferedPrayer: [OfferedPrayer!]!
   findOfferedPrayer(Id: String!): OfferedPrayer!
   prayer: [Prayer!]!
@@ -77,9 +71,6 @@ type Mutation {
   createGeneralInformation(createGeneralInformationInput: CreateGeneralInformationInput!): GeneralInformation!
   updateGeneralInformation(updateGeneralInformationInput: UpdateGeneralInformationInput!): GeneralInformation!
   removeGeneralInformation(id: String!): GeneralInformation!
-  createFamilyInformation(createFamilyInformationInput: CreateFamilyInformationInput!): FamilyInformation!
-  updateFamilyInformation(updateFamilyInformationInput: UpdateFamilyInformationInput!): FamilyInformation!
-  removeFamilyInformation(id: Int!): FamilyInformation!
   createOfferdPrayer(createOfferedPrayerInput: CreateOfferedPrayerInput!): OfferedPrayer!
   createPrayer(createPrayerInput: CreatePrayerInput!): Prayer!
   prayer(id: String!): Prayer!
@@ -108,17 +99,6 @@ input UpdateGeneralInformationInput {
   address: String
   age: String
   id: String!
-}
-
-input CreateFamilyInformationInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
-input UpdateFamilyInformationInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
 }
 
 input CreateOfferedPrayerInput {

@@ -11,7 +11,6 @@ import { AuthModule } from './auth/auth.module';
 // import { MailerModule } from '@nestjs-modules/mailer';
 // import { mailerConfig } from './user/mailer.config';
 import { GeneralInformationModule } from './general-information/general-information.module';
-import { FamilyInformationModule } from './family-information/family-information.module';
 import { offeredPrayerModule } from './prayer/prayer.module';
 
 @Module({
@@ -36,11 +35,9 @@ import { offeredPrayerModule } from './prayer/prayer.module';
 
     GeneralInformationModule,
 
-    FamilyInformationModule,
 
     AuthModule,
 
-    FamilyInformationModule,
 
     offeredPrayerModule,
   ],
