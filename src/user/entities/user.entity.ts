@@ -54,9 +54,6 @@ export class User {
     (familyMember) => familyMember.user,
   )
   familyMembers?: FamilyMember[]; 
-  @Field()
-  @Column()
-  fatherName: NamedCurve;
 
   @Field(() => GeneralInformation)
   @OneToOne(() => GeneralInformation, generalInformation => generalInformation.id)
@@ -69,4 +66,4 @@ export class User {
 
 
  
-}
+} 
