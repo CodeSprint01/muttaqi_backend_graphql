@@ -1,7 +1,21 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Int, Field, ID } from '@nestjs/graphql';
 
 @InputType()
 export class CreateFamilyMemberInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+
+  @Field()
+  name: string
+
+  @Field()
+  cinic: string
+
+  @Field()
+  isAlive: boolean
+
+  @Field(()=> ID)
+  relationId: string
+
+  @Field(()=> ID)
+  userId: string
+
 }

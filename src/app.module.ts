@@ -11,7 +11,7 @@ import { AuthModule } from './auth/auth.module';
 // import { MailerModule } from '@nestjs-modules/mailer';
 // import { mailerConfig } from './user/mailer.config';
 import { GeneralInformationModule } from './general-information/general-information.module';
-import { FamilyInformationModule } from './family-information/family-information.module';
+import { FamilyMembersModule } from './family-members/family-members.module';
 
 @Module({
   imports: [GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -33,10 +33,8 @@ import { FamilyInformationModule } from './family-information/family-information
   }),
     UserModule,
     GeneralInformationModule,
-
     AuthModule,
-
-    FamilyInformationModule,
+    FamilyMembersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

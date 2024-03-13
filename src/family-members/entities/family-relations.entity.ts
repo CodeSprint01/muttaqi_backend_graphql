@@ -1,17 +1,22 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Column, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { FamilyMember } from './family-member.entity';
 
 @ObjectType()
-export class FamilyRelations {
+@Entity()
+export class FamilyRelation {
 
- @Field(()=> Int)
- @Column()
- id: number
+    @Field(() => Int)
+    @PrimaryColumn()
+    id: string
 
 
- @Field()
- @Column()
- name: string
- 
- 
+    @Field()
+    @Column()
+    name: string
+
+    @Field(()=>FamilyRelation)
+    @OneToOne(() => FamilyMember, (familymember) => familymember.familyRelation)
+    familymember: FamilyMember
+
 }

@@ -1,35 +1,43 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { FamilyMembersService } from './family-members.service';
-import { FamilyMembers } from './entities/family-member.entity';
+import { FamilyMemberService } from './family-members.service';
+import { FamilyMember } from './entities/family-member.entity';
 import { CreateFamilyMemberInput } from './dto/create-family-member.input';
 import { UpdateFamilyMemberInput } from './dto/update-family-member.input';
+import { FamilyRelation } from './entities/family-relations.entity';
+import { CreateFamilyRelationInput } from './dto/create-family-relation.input';
 
-@Resolver(() => FamilyMembers)
-export class FamilyMembersResolver {
-  constructor(private readonly familyMembersService: FamilyMembersService) {}
+@Resolver(() => FamilyMember)
+export class FamilyMemberResolver {
+  constructor(private readonly familyMemberService: FamilyMemberService) {}
 
-  @Mutation(() => FamilyMembers)
+  @Mutation(() => FamilyMember)
   createFamilyMember(@Args('createFamilyMemberInput') createFamilyMemberInput: CreateFamilyMemberInput) {
-    return this.familyMembersService.create(createFamilyMemberInput);
+    return this.familyMemberService.create(createFamilyMemberInput);
   }
 
-  @Query(() => [FamilyMembers], { name: 'familyMembers' })
+  @Query(() => [FamilyMember], { name: 'familyMember' })
   findAll() {
-    return this.familyMembersService.findAll();
+    return this.familyMemberService.findAll();
   }
 
-  @Query(() => FamilyMembers, { name: 'familyMember' })
+  @Query(() => FamilyMember, { name: 'familyMember' })
   findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.familyMembersService.findOne(id);
+    return this.familyMemberService.findOne(id);
   }
 
-  @Mutation(() => FamilyMembers)
+  @Mutation(() => FamilyMember)
   updateFamilyMember(@Args('updateFamilyMemberInput') updateFamilyMemberInput: UpdateFamilyMemberInput) {
-    return this.familyMembersService.update(updateFamilyMemberInput.id, updateFamilyMemberInput);
+    return this.familyMemberService.update(updateFamilyMemberInput.id, updateFamilyMemberInput);
   }
 
-  @Mutation(() => FamilyMembers)
+  @Mutation(() => FamilyMember)
   removeFamilyMember(@Args('id', { type: () => Int }) id: number) {
-    return this.familyMembersService.remove(id);
+    return this.familyMemberService.remove(id);
+  }
+
+  
+  @Mutation(()=> FamilyRelation)
+  createRelation(@Args('craeteRelationinput') createRelationInput: CreateFamilyRelationInput){
+    return this.familyMemberService.createRelations(createRelationInput);
   }
 }

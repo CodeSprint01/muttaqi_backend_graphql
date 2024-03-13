@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
-import { FamilyMembersService } from './family-members.service';
-import { FamilyMembersResolver } from './family-members.resolver';
+import { FamilyMemberService } from './family-members.service';
+import { FamilyMemberResolver } from './family-members.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { FamilyMembers } from './entities/family-member.entity';
+import { FamilyMember} from './entities/family-member.entity';
+import { FamilyRelation } from './entities/family-relations.entity';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([FamilyMembers])],
-  providers: [FamilyMembersResolver, FamilyMembersService],
+  imports:[TypeOrmModule.forFeature([FamilyMember, FamilyRelation]), UserModule],
+  providers: [FamilyMemberResolver, FamilyMemberService],
   exports: [FamilyMembersModule]
 })
 export class FamilyMembersModule {}

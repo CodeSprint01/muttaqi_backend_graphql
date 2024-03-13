@@ -41,16 +41,13 @@ export class GeneralInformation {
   @Column()
   country: string
 
-
   @Field()
   @Column()
   cnic: string
 
-
   @Field()
   @Column()
   sect: string
-
 
   @Field()
   @Column()
@@ -59,4 +56,7 @@ export class GeneralInformation {
   @OneToOne(() => User, (user) => user.generalInformation) // Updated to ManyToOne
   @JoinColumn({ name: 'userId' })
   user: User;
+
+
+
 }

@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { GeneralInformation } from '../../general-information/entities/general-information.entity';
-import { FamilyMembers } from 'src/family-members/entities/family-member.entity';
+import { FamilyMember } from 'src/family-members/entities/family-member.entity';
 
 @Entity()
 @ObjectType()
@@ -43,12 +43,12 @@ export class User {
   generalInformation?: GeneralInformation; 
 
 
-  @Field(() => [FamilyMembers], { nullable: true }) 
+  @Field(() => [FamilyMember], { nullable: true }) 
   @OneToMany(
-    () => FamilyMembers,
-    (familyMembers) => familyMembers.user,
+    () => FamilyMember,
+    (familyMember) => familyMember.user,
   )
-  familyMembers?: FamilyMembers[]; 
+  familyMembers?: FamilyMember[]; 
 
  
 }
