@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 @InputType()
 export class CreateUserInput {
 
@@ -7,8 +7,9 @@ export class CreateUserInput {
   username: string;
 
   @Field()
-  emailaddress: string;
+  email: string;
  
   @Field()
   password: string;
+
 }

@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { GeneralInformation } from '../../general-information/entities/general-information.entity';
 import { FamilyMember } from 'src/family-members/entities/family-member.entity';
+import { OfferedPrayer } from 'src/prayer/entities/offered-prayer.entity';
 
 @Entity()
 @ObjectType()
@@ -21,17 +22,21 @@ export class User {
   @Field()
   username: string;
 
-  @Column()
-  @Field()
-  emailaddress: string;
 
   @Column()
   @Field()
   password: string;
 
+  @Column()
+  @Field(() => String, {})
+  email: string;
+
+
+  @Field()
   @Column({ nullable: true })
   resetPasswordToken: string;
 
+  @Field()
   @Column({ nullable: true })
   resetPasswordExpires: Date;
 
@@ -49,6 +54,19 @@ export class User {
     (familyMember) => familyMember.user,
   )
   familyMembers?: FamilyMember[]; 
+  @Field()
+  @Column()
+  fatherName: NamedCurve;
+
+  @Field(() => GeneralInformation)
+  @OneToOne(() => GeneralInformation, generalInformation => generalInformation.id)
+  generalInfromation: GeneralInformation;
+
+
+  @Field(() => [OfferedPrayer])
+  @OneToMany(() => OfferedPrayer, offeredPrayer => offeredPrayer.user)
+  offeredPrayers: OfferedPrayer[];
+
 
  
 }

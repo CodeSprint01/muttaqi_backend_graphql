@@ -9,7 +9,6 @@ import * as bcrypt from 'bcrypt';
 import { UpdateUserInput } from './dto/update-user.input';
 import { v4 as uuidv4 } from 'uuid';
 import { MailerService } from '@nestjs-modules/mailer';
-
 @Injectable()
 export class UserService {
   constructor(
@@ -30,7 +29,7 @@ export class UserService {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const user = await this.userRepository.findOne({where: {
-  emailaddress: createUserDto.emailaddress      
+  email: createUserDto.email     
     }})
     if(user){
       console.log(user);
@@ -39,15 +38,13 @@ export class UserService {
     }
     const createdUser = this.userRepository.create({
       username: rest.username,
-      emailaddress: rest.emailaddress,
+      email: rest.email,
       password: hashedPassword,
     });
-    console.log("🚀~ UserService ~ create ~ createdUser:", createdUser)
 
     const savedUser = await this.userRepository.save(createdUser);
-    const payload = { email: savedUser.emailaddress, sub: savedUser.id };
+    const payload = { email: savedUser.email, sub: savedUser.id };
     const token = this.jwtService.sign(payload, { secret: 'secret' });
-    console.log("🚀~ UserService ~ create ~ payload:", payload)
 
     return { user: savedUser, token };
   }
@@ -55,7 +52,7 @@ export class UserService {
   async login({ email, password }: { email: string; password: string }): Promise<{ user: User; token: string }> {
  
   const user=await this.userRepository.findOne({
-    where: { emailaddress: email },
+    where: { email: email },
     relations: ['generalInformation'],
     // relations:{
     //   generalInformation: true
@@ -65,8 +62,7 @@ export class UserService {
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
     }
-    const payload = { email: user.emailaddress, sub: user.id };
-    console.log(payload, 'payload')
+    const payload = { email: user.email, sub: user.id };
     const token = this.jwtService.sign(payload, { secret: 'secret' });
     return { user, token };
   }
@@ -85,7 +81,11 @@ export class UserService {
   }
 
   async findOne(userId: string): Promise<User> {
-    const user = await this.userRepository.findOne({ where: { id: userId } });
+    // const user = await this.userRepository.findOne({ where: { id: userId } });
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      relations: ['offeredPrayers',]
+    });
     if (!user) {
       throw new NotFoundException(`User with ID ${userId} not found`);
     }
@@ -93,7 +93,7 @@ export class UserService {
   }
 
   async findOneByEmail(email: string): Promise<User | undefined> {
-    return this.userRepository.findOne({ where: { emailaddress: email } });
+    return this.userRepository.findOne({ where: { email: email } });
   }
 
   async remove(userId: string) {
@@ -102,7 +102,7 @@ export class UserService {
 
   async sendPasswordResetEmail(email: string): Promise<boolean> {
     try {
-      const user = await this.userRepository.findOne({ where: { emailaddress: email } });
+      const user = await this.userRepository.findOne({ where: { email: email } });
       if (!user) {
         throw new NotFoundException('User not found');
       }
@@ -112,10 +112,9 @@ export class UserService {
       await this.userRepository.save(user);
       const name = user.username;
       const resetLink = `http://your-app.com/reset-password?token=${resetToken}`;
-      console.log("🚀 ~ UserService ~ sendPasswordResetEmail ~ resetLink:", resetLink);
 
       await this.mailerService.sendMail({
-        to: user.emailaddress,
+        to: user.email,
         from: process.env.GMAIL_EMAIL,
         subject: 'Password Reset',
         template: './password-reset',
@@ -142,7 +141,6 @@ export class UserService {
     user.password = hashedPassword;
     user.resetPasswordToken = null;
     user.resetPasswordExpires = null;
-
     await this.userRepository.save(user);
     return true;
   }

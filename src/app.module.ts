@@ -12,6 +12,7 @@ import { AuthModule } from './auth/auth.module';
 // import { mailerConfig } from './user/mailer.config';
 import { GeneralInformationModule } from './general-information/general-information.module';
 import { FamilyMembersModule } from './family-members/family-members.module';
+import { offeredPrayerModule } from './prayer/prayer.module';
 
 @Module({
   imports: [GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -35,6 +36,12 @@ import { FamilyMembersModule } from './family-members/family-members.module';
     GeneralInformationModule,
     AuthModule,
     FamilyMembersModule,
+
+
+    AuthModule,
+
+
+    offeredPrayerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

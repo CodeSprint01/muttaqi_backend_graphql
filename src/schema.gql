@@ -28,13 +28,44 @@ type FamilyMember {
   isAlive: Boolean!
 }
 
+type typeOfWorship {
+  id: String!
+  type: String!
+  prayers: [Prayer!]!
+}
+
+type Prayer {
+  id: String!
+  prayerName: String!
+  offeredPrayers: [OfferedPrayer!]!
+  typeOfWorship: typeOfWorship!
+}
+
+type OfferedPrayer {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User!
+  prayer: Prayer!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type User {
   id: String!
   username: String!
-  emailaddress: String!
   password: String!
+  email: String!
+  resetPasswordToken: String!
+  resetPasswordExpires: DateTime!
   generalInformation: GeneralInformation
   familyMembers: [FamilyMember!]
+  fatherName: String!
+  generalInfromation: GeneralInformation!
+  offeredPrayers: [OfferedPrayer!]!
 }
 
 type LoginResponse {
@@ -46,11 +77,14 @@ type Query {
   getAllUsers: [User!]!
   generalInformation(id: ID!): GeneralInformation!
   familyMember(id: Int!): FamilyMember!
+  findAllOfferedPrayer: [OfferedPrayer!]!
+  findOfferedPrayer(Id: String!): OfferedPrayer!
+  prayer: [Prayer!]!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): LoginResponse!
-  findUserById(id: String!): User!
+  findone(id: String!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   deleteUser(id: String!): User!
   loginUser(email: String!, password: String!): LoginResponse!
@@ -63,17 +97,21 @@ type Mutation {
   updateFamilyMember(updateFamilyMemberInput: UpdateFamilyMemberInput!): FamilyMember!
   removeFamilyMember(id: Int!): FamilyMember!
   createRelation(craeteRelationinput: CreateFamilyRelationInput!): FamilyRelation!
+  createOfferdPrayer(createOfferedPrayerInput: CreateOfferedPrayerInput!): OfferedPrayer!
+  createPrayer(createPrayerInput: CreatePrayerInput!): Prayer!
+  prayer(id: String!): Prayer!
+  typeOfWorship(createTypeOfWorshipInput: CreateTypeOfWorshipInput!): typeOfWorship!
 }
 
 input CreateUserInput {
   username: String!
-  emailaddress: String!
+  email: String!
   password: String!
 }
 
 input UpdateUserInput {
   username: String
-  emailaddress: String
+  email: String
   password: String
   id: String!
 }
@@ -125,4 +163,20 @@ input UpdateFamilyMemberInput {
 input CreateFamilyRelationInput {
   id: String!
   name: String!
+}
+
+input CreateOfferedPrayerInput {
+  userId: String!
+  prayerId: String!
+}
+
+input CreatePrayerInput {
+  id: String!
+  prayerName: String!
+  typeOfWorshipId: String
+}
+
+input CreateTypeOfWorshipInput {
+  id: String!
+  type: String!
 }

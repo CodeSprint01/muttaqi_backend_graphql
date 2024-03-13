@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
 import { GeneralInformation } from './entities/general-information.entity';
 import { GeneralInformationService } from './general-information.service';

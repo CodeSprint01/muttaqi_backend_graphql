@@ -25,7 +25,7 @@ export class UserResolver {
   }
 
   // Find user by id  mutation 
-  @Mutation(() => User, { name: 'findUserById' })
+  @Mutation(() => User, { name: 'findone' })
   async findOne(@Args('id') id: string) {
     return this.userService.findOne(id);
   }
