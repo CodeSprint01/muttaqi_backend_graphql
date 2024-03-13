@@ -10,21 +10,14 @@ type GeneralInformation {
 }
 
 type typeOfWorship {
-  id: String!
+  id: Float!
   type: String!
   prayers: [Prayer!]!
 }
 
 type Prayer {
   id: String!
-  fajarPrayer: Boolean
-  zoharPrayer: Boolean
-  asarPrayer: Boolean
-  magrabPrayer: Boolean
-  ishaPrayer: Boolean
-  IshraqPrayer: Boolean
-  TahajjudPrayer: Boolean
-  ChashtPrayer: Boolean
+  prayerName: String!
   offeredPrayers: [offeredPrayer!]!
   typeOfWorship: typeOfWorship!
 }
@@ -128,22 +121,15 @@ input UpdateFamilyInformationInput {
 input CreateOfferedPrayerInput {
   userId: String!
   prayerId: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
 }
 
 input CreatePrayerInput {
-  fajarPrayer: Boolean
-  zoharPrayer: Boolean
-  asarPrayer: Boolean
-  magrabPrayer: Boolean
-  ishaPrayer: Boolean
-  IshraqPrayer: Boolean
-  TahajjudPrayer: Boolean
-  ChashtPrayer: Boolean
+  id: String!
+  prayerName: String!
   typeOfWorshipId: String
 }
 
 input CreateTypeOfWorshipInput {
+  id: Float!
   type: String!
 }

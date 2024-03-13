@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm';
-import { v4 as uuidv4 } from 'uuid'
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { offeredPrayer } from './offered-prayer.entity';
 import { typeOfWorship } from './typeOfWorship-entity';
 
@@ -9,42 +8,14 @@ import { typeOfWorship } from './typeOfWorship-entity';
 @Entity("Prayer")
 export class Prayer {
   @Field()
-  @PrimaryColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string
-
-  @Field({nullable: true})
-  @Column({ default: false })
-  fajarPrayer: boolean;
-
-
-  @Field({nullable: true})
-  @Column({ default: false })
-  zoharPrayer: boolean
-
-  @Field({nullable: true})
-  @Column({ default: false })
-  asarPrayer: boolean
-
-  @Field({nullable: true})
-  @Column({ default: false })
-  magrabPrayer: boolean
-
-  @Field({nullable: true})
-  @Column({ default: false })
-  ishaPrayer: boolean
-
-  @Field({nullable: true})
-  @Column({ default: false })
-  IshraqPrayer : boolean
-
-  @Field({nullable: true})
-  @Column({ default: false })
-  TahajjudPrayer: boolean
-
-  @Field({nullable: true})
-  @Column({ default: false })
-  ChashtPrayer: boolean
   
+  @Field()
+  @Column()
+  prayerName: string
+
+
   @Column({type: "uuid"})
   typeOfWorshipId: string
 
@@ -57,9 +28,5 @@ export class Prayer {
   @ManyToOne(() => typeOfWorship, typeOfWorship => typeOfWorship.prayers)
   @JoinColumn({ name: 'typeOfWorshipId' })
   typeOfWorship: typeOfWorship;
-  
-  constructor() {
-    this.id = uuidv4();
- }
 
 }

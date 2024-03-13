@@ -9,10 +9,4 @@ export class CreateOfferedPrayerInput {
 
   @Field()
   prayerId: string
-
-  @Field()
-  createdAt: Date
-
-  @Field()
-  updatedAt: Date
 }
