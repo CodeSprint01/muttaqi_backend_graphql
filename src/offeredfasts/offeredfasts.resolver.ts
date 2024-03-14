@@ -8,18 +8,21 @@ import { UpdateOfferedfastInput } from './dto/update-offeredfast.input';
 export class OfferedfastsResolver {
   constructor(private readonly offeredfastsService: OfferedfastsService) {}
 
+// create offeredFast
   @Mutation(() => Offeredfast)
   createOfferedfast(@Args('createOfferedfastInput') createOfferedfastInput: CreateOfferedfastInput) {
     return this.offeredfastsService.create(createOfferedfastInput);
   }
 
-  @Query(() => [Offeredfast], { name: 'offeredfasts' })
+  // findAll offeredFast
+  @Query(() => [Offeredfast])
   findAll() {
     return this.offeredfastsService.findAll();
   }
-
+ 
+  //findOne offeredfast
   @Query(() => Offeredfast, { name: 'offeredfast' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id') id: number): Promise<Offeredfast> {
     return this.offeredfastsService.findOne(id);
   }
 

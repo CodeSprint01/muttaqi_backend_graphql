@@ -1,10 +1,11 @@
+import { typeOfWorship } from 'src/prayer/entities/typeOfWorship-entity';
 import { InputType, Int, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateOfferedfastInput {
-  @Field()
-  createdAt: string 
+    @Field()
+    typeOfWorshipId: string
 
-  @Field()
-  updateAt: string
+    @Field()
+    UserId: string
 }

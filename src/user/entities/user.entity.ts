@@ -10,6 +10,7 @@ import {
 import { GeneralInformation } from '../../general-information/entities/general-information.entity';
 import { FamilyMember } from 'src/family-members/entities/family-member.entity';
 import { OfferedPrayer } from 'src/prayer/entities/offered-prayer.entity';
+import { Offeredfast } from 'src/offeredfasts/entities/offeredfast.entity';
 
 @Entity()
 @ObjectType()
@@ -64,6 +65,8 @@ export class User {
   @OneToMany(() => OfferedPrayer, offeredPrayer => offeredPrayer.user)
   offeredPrayers: OfferedPrayer[];
 
-
+@Field(() => [Offeredfast])
+@OneToMany(() => Offeredfast, offeredFast=> offeredFast.User)
+Offeredfast: Offeredfast
  
 } 

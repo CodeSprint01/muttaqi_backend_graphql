@@ -28,10 +28,24 @@ type FamilyMember {
   isAlive: Boolean!
 }
 
+type Offeredfast {
+  id: Float!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  typeOfWorship: typeOfWorship!
+  User: User!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type typeOfWorship {
   id: String!
   type: String!
   prayers: [Prayer!]!
+  Offeredfast: [Offeredfast!]!
 }
 
 type Prayer {
@@ -49,11 +63,6 @@ type OfferedPrayer {
   prayer: Prayer!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type User {
   id: String!
   username: String!
@@ -65,17 +74,12 @@ type User {
   familyMembers: [FamilyMember!]
   generalInfromation: GeneralInformation!
   offeredPrayers: [OfferedPrayer!]!
+  Offeredfast: [Offeredfast!]!
 }
 
 type LoginResponse {
   user: User
   token: String
-}
-
-type Offeredfast {
-  id: String!
-  createdAt: DateTime!
-  updateAt: DateTime!
 }
 
 type Query {
@@ -85,8 +89,8 @@ type Query {
   findAllOfferedPrayer: [OfferedPrayer!]!
   findOfferedPrayer(Id: String!): OfferedPrayer!
   prayer: [Prayer!]!
-  offeredfasts: [Offeredfast!]!
-  offeredfast(id: Int!): Offeredfast!
+  findAll: [Offeredfast!]!
+  offeredfast(id: Float!): Offeredfast!
 }
 
 type Mutation {
@@ -192,12 +196,12 @@ input CreateTypeOfWorshipInput {
 }
 
 input CreateOfferedfastInput {
-  createdAt: String!
-  updateAt: String!
+  typeOfWorshipId: String!
+  UserId: String!
 }
 
 input UpdateOfferedfastInput {
-  createdAt: String
-  updateAt: String
-  id: Int!
+  typeOfWorshipId: String
+  UserId: String
+  id: String!
 }
