@@ -72,6 +72,12 @@ type LoginResponse {
   token: String
 }
 
+type Offeredfast {
+  id: String!
+  createdAt: DateTime!
+  updateAt: DateTime!
+}
+
 type Query {
   getAllUsers: [User!]!
   generalInformation(id: ID!): GeneralInformation!
@@ -79,6 +85,8 @@ type Query {
   findAllOfferedPrayer: [OfferedPrayer!]!
   findOfferedPrayer(Id: String!): OfferedPrayer!
   prayer: [Prayer!]!
+  offeredfasts: [Offeredfast!]!
+  offeredfast(id: Int!): Offeredfast!
 }
 
 type Mutation {
@@ -100,6 +108,9 @@ type Mutation {
   createPrayer(createPrayerInput: CreatePrayerInput!): Prayer!
   prayer(id: String!): Prayer!
   typeOfWorship(createTypeOfWorshipInput: CreateTypeOfWorshipInput!): typeOfWorship!
+  createOfferedfast(createOfferedfastInput: CreateOfferedfastInput!): Offeredfast!
+  updateOfferedfast(updateOfferedfastInput: UpdateOfferedfastInput!): Offeredfast!
+  removeOfferedfast(id: Int!): Offeredfast!
 }
 
 input CreateUserInput {
@@ -178,4 +189,15 @@ input CreatePrayerInput {
 input CreateTypeOfWorshipInput {
   id: String!
   type: String!
+}
+
+input CreateOfferedfastInput {
+  createdAt: String!
+  updateAt: String!
+}
+
+input UpdateOfferedfastInput {
+  createdAt: String
+  updateAt: String
+  id: Int!
 }
