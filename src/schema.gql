@@ -2,6 +2,19 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Bookmark_type {
+  id: String!
+  name: String!
+  bookmarks: [Bookmark!]!
+}
+
+type Bookmark {
+  id: String!
+  content: String!
+  bookmark_type: Bookmark_type!
+  user: User!
+}
+
 type GeneralInformation {
   id: String!
   fullName: String!
@@ -65,6 +78,7 @@ type User {
   familyMembers: [FamilyMember!]
   generalInfromation: GeneralInformation!
   offeredPrayers: [OfferedPrayer!]!
+  bookmarks: [Bookmark!]!
 }
 
 type LoginResponse {
@@ -79,6 +93,8 @@ type Query {
   findAllOfferedPrayer: [OfferedPrayer!]!
   findOfferedPrayer(Id: String!): OfferedPrayer!
   prayer: [Prayer!]!
+  findAll: [Bookmark!]!
+  findOne(id: String!): Bookmark!
 }
 
 type Mutation {
@@ -100,6 +116,10 @@ type Mutation {
   createPrayer(createPrayerInput: CreatePrayerInput!): Prayer!
   prayer(id: String!): Prayer!
   typeOfWorship(createTypeOfWorshipInput: CreateTypeOfWorshipInput!): typeOfWorship!
+  createBookmark(createBookmarkInput: CreateBookmarkInput!): Bookmark!
+  updateBookmark(updateBookmarkInput: UpdateBookmarkInput!): Bookmark!
+  removeBookmark(id: Int!): Bookmark!
+  createBookmark_type(CreateBookmark_typeInput: CreateBookmark_typeInput!): Bookmark_type!
 }
 
 input CreateUserInput {
@@ -178,4 +198,21 @@ input CreatePrayerInput {
 input CreateTypeOfWorshipInput {
   id: String!
   type: String!
+}
+
+input CreateBookmarkInput {
+  content: String!
+  Bookmark_typeId: String!
+  UserId: String!
+}
+
+input UpdateBookmarkInput {
+  content: String
+  Bookmark_typeId: String
+  UserId: String
+  id: Int!
+}
+
+input CreateBookmark_typeInput {
+  name: String!
 }

@@ -1,3 +1,4 @@
+import { Bookmark } from './../../bookmark/entities/bookmark.entity';
 // user.entity.ts
 import { ObjectType, Field } from '@nestjs/graphql';
 import {
@@ -65,5 +66,8 @@ export class User {
   offeredPrayers: OfferedPrayer[];
 
 
+  @Field(() => [Bookmark])
+ @OneToMany(() => Bookmark, bookmark => bookmark.user)
+ bookmarks: Bookmark[];
  
 } 
