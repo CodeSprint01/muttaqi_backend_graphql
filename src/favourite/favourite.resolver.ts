@@ -24,8 +24,8 @@ export class FavouriteResolver {
 
 
 // find one favourite mutation 
-  @Query(() => Favourite)
-  findOne(@Args('id') id: string) {
+  @Mutation(() => Favourite)
+  findOneFavourite(@Args('id') id: string) {
     return this.favouriteService.findOne(id);
   }
 
@@ -45,7 +45,7 @@ findAllFavouriteType() {
 
 
 // find one FavouriteType mutation
-@Query(() => Favourite_type)
+@Mutation(() => Favourite_type)
   findOneFavouriteType(@Args('id') id: string) {
     return this.favouriteService.findOne(id);
   }

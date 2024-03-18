@@ -13,9 +13,9 @@ export class FavouriteService {
     @InjectRepository(Favourite)
     private readonly FavouriteRepository: Repository<Favourite>,
     @InjectRepository(Favourite_type)
-      private readonly FavouriteTypeRepository:Repository<Favourite_type>
-    
-  ){}
+    private readonly FavouriteTypeRepository: Repository<Favourite_type>
+
+  ) { }
   create(createFavouriteInput: CreateFavouriteInput) {
     const createFavourite = this.FavouriteRepository.create(createFavouriteInput)
     return this.FavouriteRepository.save(createFavourite);
@@ -26,12 +26,15 @@ export class FavouriteService {
   }
 
   findOne(id: string) {
-    return this.FavouriteRepository.findOne({where:{id}})
+    return this.FavouriteRepository.findOne({
+      where: { id },
+      relations: ["Favourite_type"]
+    })
   }
 
-   createFavouriteType(CreateFavourite_typeInput: CreateFavourite_typeInput){
+  createFavouriteType(CreateFavourite_typeInput: CreateFavourite_typeInput) {
     const createFavouriteType = this.FavouriteTypeRepository.create(CreateFavourite_typeInput)
-    return  this.FavouriteTypeRepository.save(createFavouriteType)
+    return this.FavouriteTypeRepository.save(createFavouriteType)
   }
 
 
@@ -41,7 +44,7 @@ export class FavouriteService {
 
 
   findOneFavouriteType(id: string) {
-    return this.FavouriteTypeRepository.findOne({where:{id}})
+    return this.FavouriteTypeRepository.findOne({ where: { id } })
   }
 
   update(id: number, updateFavouriteInput: UpdateFavouriteInput) {

@@ -93,9 +93,7 @@ type Query {
   findOfferedPrayer(Id: String!): OfferedPrayer!
   prayer: [Prayer!]!
   findAll: [Favourite!]!
-  findOne(id: String!): Favourite!
   findAllFavouriteType: [Favourite_type!]!
-  findOneFavouriteType(id: String!): Favourite_type!
 }
 
 type Mutation {
@@ -118,7 +116,9 @@ type Mutation {
   prayer(id: String!): Prayer!
   typeOfWorship(createTypeOfWorshipInput: CreateTypeOfWorshipInput!): typeOfWorship!
   createFavourite(createFavouriteInput: CreateFavouriteInput!): Favourite!
+  findOneFavourite(id: String!): Favourite!
   createFavouriteType(CreateFavourite_typeInput: CreateFavourite_typeInput!): Favourite_type!
+  findOneFavouriteType(id: String!): Favourite_type!
   updateFavourite(updateFavouriteInput: UpdateFavouriteInput!): Favourite!
   removeFavourite(id: Int!): Favourite!
 }
