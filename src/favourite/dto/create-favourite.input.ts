@@ -2,6 +2,12 @@ import { InputType, Int, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateFavouriteInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field()
+  content: string
+
+  @Field()
+  favouriteTypeId: string
+
+  @Field()
+  userId: string
 }

@@ -10,6 +10,7 @@ import {
 import { GeneralInformation } from '../../general-information/entities/general-information.entity';
 import { FamilyMember } from 'src/family-members/entities/family-member.entity';
 import { OfferedPrayer } from 'src/prayer/entities/offered-prayer.entity';
+import { Favourite } from 'src/favourite/entities/favourite.entity';
 
 @Entity()
 @ObjectType()
@@ -40,20 +41,20 @@ export class User {
   @Column({ nullable: true })
   resetPasswordExpires: Date;
 
-  @Field(() => GeneralInformation, { nullable: true }) 
+  @Field(() => GeneralInformation, { nullable: true })
   @OneToOne(
     () => GeneralInformation,
     (generalInformation) => generalInformation.user,
   )
-  generalInformation?: GeneralInformation; 
+  generalInformation?: GeneralInformation;
 
 
-  @Field(() => [FamilyMember], { nullable: true }) 
+  @Field(() => [FamilyMember], { nullable: true })
   @OneToMany(
     () => FamilyMember,
     (familyMember) => familyMember.user,
   )
-  familyMembers?: FamilyMember[]; 
+  familyMembers?: FamilyMember[];
 
   @Field(() => GeneralInformation)
   @OneToOne(() => GeneralInformation, generalInformation => generalInformation.id)
@@ -65,5 +66,7 @@ export class User {
   offeredPrayers: OfferedPrayer[];
 
 
- 
+  @Field(() => [Favourite])
+  @OneToMany(() => Favourite, favourite => favourite.user)
+  favourites: Favourite[];
 } 
