@@ -93,8 +93,7 @@ type Query {
   findAllOfferedPrayer: [OfferedPrayer!]!
   findOfferedPrayer(Id: String!): OfferedPrayer!
   prayer: [Prayer!]!
-  findAll: [Bookmark!]!
-  findOne(id: String!): Bookmark!
+  findAllBookmark: [Bookmark!]!
 }
 
 type Mutation {
@@ -117,6 +116,7 @@ type Mutation {
   prayer(id: String!): Prayer!
   typeOfWorship(createTypeOfWorshipInput: CreateTypeOfWorshipInput!): typeOfWorship!
   createBookmark(createBookmarkInput: CreateBookmarkInput!): Bookmark!
+  findOneBookmark(id: String!): Bookmark!
   updateBookmark(updateBookmarkInput: UpdateBookmarkInput!): Bookmark!
   removeBookmark(id: Int!): Bookmark!
   createBookmark_type(CreateBookmark_typeInput: CreateBookmark_typeInput!): Bookmark_type!

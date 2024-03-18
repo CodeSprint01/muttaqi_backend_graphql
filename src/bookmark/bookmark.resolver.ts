@@ -18,13 +18,13 @@ export class BookmarkResolver {
 
 //find all bookmark query 
   @Query(() => [Bookmark])
-  findAll() {
+  findAllBookmark() {
     return this.bookmarkService.findAll();
   }
 
 // find one bookmark query
-  @Query(() => Bookmark)
-  findOne(@Args('id') id: string) {
+  @Mutation(() => Bookmark)
+  findOneBookmark(@Args('id') id: string) {
     return this.bookmarkService.findOne(id);
   }
 

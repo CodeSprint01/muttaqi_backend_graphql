@@ -38,7 +38,10 @@ export class BookmarkService {
   }
 
   findOne(id: string) {
-    const findOneBookmark = this .bookmarkRepository.findOne({where: {id}})
+    const findOneBookmark = this .bookmarkRepository.findOne({
+      where: {id},
+    relations: ['bookmark_type']
+  })
     return findOneBookmark;
   }
   createBookmarktype(CreateBookmark_typeInput: CreateBookmark_typeInput){
