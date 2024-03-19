@@ -1,7 +1,7 @@
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class CreateBookmark_typeInput {
+export class CreateBookmarkTypeInput {
   @Field()
   name: string
 }

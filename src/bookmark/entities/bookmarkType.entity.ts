@@ -4,7 +4,7 @@ import { Bookmark } from './bookmark.entity';
 
 @ObjectType()
 @Entity()
-export class Bookmark_type {
+export class BookmarkType {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string
@@ -15,6 +15,6 @@ export class Bookmark_type {
  
 
   @Field(() => [Bookmark])
- @OneToMany(() => Bookmark, bookmark => bookmark.bookmark_type)
+ @OneToMany(() => Bookmark, bookmark => bookmark.BookmarkType)
  bookmarks: Bookmark[];
 }

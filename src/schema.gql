@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Bookmark_type {
+type BookmarkType {
   id: String!
   name: String!
   bookmarks: [Bookmark!]!
@@ -11,7 +11,7 @@ type Bookmark_type {
 type Bookmark {
   id: String!
   content: String!
-  bookmark_type: Bookmark_type!
+  BookmarkType: BookmarkType!
   user: User!
 }
 
@@ -119,7 +119,7 @@ type Mutation {
   findOneBookmark(id: String!): Bookmark!
   updateBookmark(updateBookmarkInput: UpdateBookmarkInput!): Bookmark!
   removeBookmark(id: Int!): Bookmark!
-  createBookmark_type(CreateBookmark_typeInput: CreateBookmark_typeInput!): Bookmark_type!
+  createBookmarkType(CreateBookmarkTypeInput: CreateBookmarkTypeInput!): BookmarkType!
 }
 
 input CreateUserInput {
@@ -202,17 +202,17 @@ input CreateTypeOfWorshipInput {
 
 input CreateBookmarkInput {
   content: String!
-  Bookmark_typeId: String!
+  BookmarkTypeId: String!
   UserId: String!
 }
 
 input UpdateBookmarkInput {
   content: String
-  Bookmark_typeId: String
+  BookmarkTypeId: String
   UserId: String
   id: Int!
 }
 
-input CreateBookmark_typeInput {
+input CreateBookmarkTypeInput {
   name: String!
 }

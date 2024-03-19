@@ -1,4 +1,4 @@
-import { Bookmark_type } from './../entities/bookmarkType.entity';
+import { BookmarkType } from './../entities/bookmarkType.entity';
 import { InputType, Int, Field } from '@nestjs/graphql';
 
 @InputType()
@@ -8,7 +8,7 @@ export class CreateBookmarkInput {
   content: string
 
   @Field()
-  Bookmark_typeId: string
+  BookmarkTypeId: string
 
   @Field()
   UserId: string;

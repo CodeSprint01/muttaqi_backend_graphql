@@ -3,8 +3,8 @@ import { BookmarkService } from './bookmark.service';
 import { Bookmark } from './entities/bookmark.entity';
 import { CreateBookmarkInput } from './dto/create-bookmark.input';
 import { UpdateBookmarkInput } from './dto/update-bookmark.input';
-import { Bookmark_type } from './entities/bookmarkType.entity';
-import { CreateBookmark_typeInput } from './dto/create-bookmarkType.input';
+import { BookmarkType } from './entities/bookmarkType.entity';
+import { CreateBookmarkTypeInput } from './dto/create-bookmarkType.input';
 
 @Resolver(() => Bookmark)
 export class BookmarkResolver {
@@ -39,9 +39,9 @@ export class BookmarkResolver {
     return this.bookmarkService.remove(id);
   }
 
-  // create bookmark_type mutation
-  @Mutation(() => Bookmark_type)
-  createBookmark_type(@Args("CreateBookmark_typeInput")CreateBookmark_typeInput: CreateBookmark_typeInput) {
-    return this.bookmarkService.createBookmarktype(CreateBookmark_typeInput)
+  // create BookmarkType mutation
+  @Mutation(() => BookmarkType)
+  createBookmarkType(@Args("CreateBookmarkTypeInput")CreateBookmarkTypeInput: CreateBookmarkTypeInput) {
+    return this.bookmarkService.createBookmarktype(CreateBookmarkTypeInput)
   }
 }

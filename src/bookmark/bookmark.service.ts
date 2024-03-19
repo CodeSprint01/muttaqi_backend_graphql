@@ -1,6 +1,6 @@
-import { CreateBookmark_typeInput } from './dto/create-bookmarkType.input';
-import { Bookmark_type } from './entities/bookmarkType.entity';
-import { Injectable, Controller } from '@nestjs/common';
+import { CreateBookmarkTypeInput } from './dto/create-bookmarkType.input';
+import { BookmarkType } from './entities/bookmarkType.entity';
+import { Injectable } from '@nestjs/common';
 import { CreateBookmarkInput } from './dto/create-bookmark.input';
 import { UpdateBookmarkInput } from './dto/update-bookmark.input';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,13 +12,13 @@ export class BookmarkService {
   constructor(
     @InjectRepository(Bookmark)
     private readonly bookmarkRepository: Repository<Bookmark>,
-    @InjectRepository(Bookmark_type)
-    private readonly bookmark_typeRepository: Repository<Bookmark_type>
+    @InjectRepository(BookmarkType)
+    private readonly BookmarkTypeRepository: Repository<BookmarkType>
   ) {}
   create(createBookmarkInput: CreateBookmarkInput) {
-    const { Bookmark_typeId,UserId,  ...otherinput } = createBookmarkInput;
-    if (!Bookmark_typeId) {
-       throw new Error("Bookmark_type id is required");
+    const { BookmarkTypeId,UserId,  ...otherinput } = createBookmarkInput;
+    if (!BookmarkTypeId) {
+       throw new Error("BookmarkType id is required");
     }
     if (!UserId) {
        throw new Error("user id is required");
@@ -26,7 +26,7 @@ export class BookmarkService {
     const createBookmark = this.bookmarkRepository.create({
        ...otherinput,
        UserId,
-       Bookmark_typeId, 
+       BookmarkTypeId, 
     });
     console.log("🚀 ~ BookmarkService ~ create ~ createBookmark:", createBookmark)
     return  this.bookmarkRepository.save(createBookmark);;
@@ -40,13 +40,13 @@ export class BookmarkService {
   findOne(id: string) {
     const findOneBookmark = this .bookmarkRepository.findOne({
       where: {id},
-    relations: ['bookmark_type']
+    relations: ['BookmarkType']
   })
     return findOneBookmark;
   }
-  createBookmarktype(CreateBookmark_typeInput: CreateBookmark_typeInput){
-    const createBookmarktype = this.bookmark_typeRepository.create(CreateBookmark_typeInput)
-    return this.bookmark_typeRepository.save(createBookmarktype)
+  createBookmarktype(CreateBookmarkTypeInput: CreateBookmarkTypeInput){
+    const createBookmarktype = this.BookmarkTypeRepository.create(CreateBookmarkTypeInput)
+    return this.BookmarkTypeRepository.save(createBookmarktype)
   }
 
   update(id: number, updateBookmarkInput: UpdateBookmarkInput) {
