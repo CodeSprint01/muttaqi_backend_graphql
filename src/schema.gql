@@ -54,7 +54,7 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type Favourite_type {
+type FavouriteType {
   id: String!
   name: String!
 }
@@ -62,7 +62,7 @@ type Favourite_type {
 type Favourite {
   id: String!
   content: String!
-  Favourite_type: Favourite_type!
+  FavouriteType: FavouriteType!
   user: User!
 }
 
@@ -93,7 +93,7 @@ type Query {
   findOfferedPrayer(Id: String!): OfferedPrayer!
   prayer: [Prayer!]!
   findAll: [Favourite!]!
-  findAllFavouriteType: [Favourite_type!]!
+  findAllFavouriteType: [FavouriteType!]!
 }
 
 type Mutation {
@@ -117,8 +117,8 @@ type Mutation {
   typeOfWorship(createTypeOfWorshipInput: CreateTypeOfWorshipInput!): typeOfWorship!
   createFavourite(createFavouriteInput: CreateFavouriteInput!): Favourite!
   findOneFavourite(id: String!): Favourite!
-  createFavouriteType(CreateFavourite_typeInput: CreateFavourite_typeInput!): Favourite_type!
-  findOneFavouriteType(id: String!): Favourite_type!
+  createFavouriteType(CreateFavouriteTypeInput: CreateFavouriteTypeInput!): FavouriteType!
+  findOneFavouriteType(id: String!): FavouriteType!
   updateFavourite(updateFavouriteInput: UpdateFavouriteInput!): Favourite!
   removeFavourite(id: Int!): Favourite!
 }
@@ -207,7 +207,7 @@ input CreateFavouriteInput {
   userId: String!
 }
 
-input CreateFavourite_typeInput {
+input CreateFavouriteTypeInput {
   name: String!
 }
 

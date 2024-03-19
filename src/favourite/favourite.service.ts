@@ -4,16 +4,16 @@ import { UpdateFavouriteInput } from './dto/update-favourite.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Favourite } from './entities/favourite.entity';
 import { Repository } from 'typeorm';
-import { CreateFavourite_typeInput } from './dto/create-favourite_type.input';
-import { Favourite_type } from './entities/favourite_type.entity';
+import { FavouriteType } from './entities/favourite_type.entity';
+import { CreateFavouriteTypeInput } from './dto/create-favourite_type.input';
 
 @Injectable()
 export class FavouriteService {
   constructor(
     @InjectRepository(Favourite)
     private readonly FavouriteRepository: Repository<Favourite>,
-    @InjectRepository(Favourite_type)
-    private readonly FavouriteTypeRepository: Repository<Favourite_type>
+    @InjectRepository(FavouriteType)
+    private readonly FavouriteTypeRepository: Repository<FavouriteType>
 
   ) { }
   create(createFavouriteInput: CreateFavouriteInput) {
@@ -28,17 +28,17 @@ export class FavouriteService {
   findOne(id: string) {
     return this.FavouriteRepository.findOne({
       where: { id },
-      relations: ["Favourite_type"]
+      relations: ["FavouriteType"]
     })
   }
 
-  createFavouriteType(CreateFavourite_typeInput: CreateFavourite_typeInput) {
-    const createFavouriteType = this.FavouriteTypeRepository.create(CreateFavourite_typeInput)
+  createFavouriteType(CreateFavouriteTypeInput: CreateFavouriteTypeInput) {
+    const createFavouriteType = this.FavouriteTypeRepository.create(CreateFavouriteTypeInput)
     return this.FavouriteTypeRepository.save(createFavouriteType)
   }
 
 
-  findAllFavouriteType(): Promise<Favourite_type[]> {
+  findAllFavouriteType(): Promise<FavouriteType[]> {
     return this.FavouriteTypeRepository.find();
   }
 

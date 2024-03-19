@@ -1,10 +1,10 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Favourite } from './favourite.entity';
 
 @ObjectType()
 @Entity()
-export class Favourite_type {
+export class FavouriteType {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id : string
@@ -14,6 +14,6 @@ export class Favourite_type {
   name: string
 
 
-  @OneToMany(() => Favourite, favourite => favourite.Favourite_type)
+  @OneToMany(() => Favourite, favourite => favourite.FavouriteType)
   favourites: Favourite[];
 }

@@ -1,7 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Favourite_type } from './favourite_type.entity';
 import { User } from 'src/user/entities/user.entity';
+import { FavouriteType } from './favourite_type.entity';
 
 @ObjectType()
 @Entity()
@@ -20,10 +20,10 @@ export class Favourite {
   @Column()
   userId: string
 
-  @Field(() => Favourite_type)
-  @ManyToOne(() => Favourite_type, Favourite_type => Favourite_type.favourites)
+  @Field(() => FavouriteType)
+  @ManyToOne(() => FavouriteType, FavouriteType => FavouriteType.favourites)
   @JoinColumn({name: 'favouriteTypeId'})
-  Favourite_type: Favourite_type;
+  FavouriteType: FavouriteType;
 
 
   @Field(() => User)

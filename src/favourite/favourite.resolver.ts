@@ -1,10 +1,10 @@
-import { CreateFavourite_typeInput } from './dto/create-favourite_type.input';
+import { CreateFavouriteTypeInput } from './dto/create-FavouriteType.input';
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { FavouriteService } from './favourite.service';
 import { Favourite } from './entities/favourite.entity';
 import { CreateFavouriteInput } from './dto/create-favourite.input';
 import { UpdateFavouriteInput } from './dto/update-favourite.input';
-import { Favourite_type } from './entities/favourite_type.entity';
+import { FavouriteType } from './entities/FavouriteType.entity';
 
 @Resolver(() => Favourite)
 export class FavouriteResolver {
@@ -31,21 +31,21 @@ export class FavouriteResolver {
 
 
 // create favourite mutation  
-@Mutation(() => Favourite_type)
-createFavouriteType(@Args('CreateFavourite_typeInput')CreateFavourite_typeInput: CreateFavourite_typeInput){
-return this.favouriteService.createFavouriteType(CreateFavourite_typeInput)
+@Mutation(() => FavouriteType)
+createFavouriteType(@Args('CreateFavouriteTypeInput')CreateFavouriteTypeInput: CreateFavouriteTypeInput){
+return this.favouriteService.createFavouriteType(CreateFavouriteTypeInput)
 }
 
 
 // find all createFavouriteType query 
-@Query(() => [Favourite_type])
+@Query(() => [FavouriteType])
 findAllFavouriteType() {
   return this.favouriteService.findAll();
 }
 
 
 // find one FavouriteType mutation
-@Mutation(() => Favourite_type)
+@Mutation(() => FavouriteType)
   findOneFavouriteType(@Args('id') id: string) {
     return this.favouriteService.findOne(id);
   }
