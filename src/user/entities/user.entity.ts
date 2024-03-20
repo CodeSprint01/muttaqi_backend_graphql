@@ -10,7 +10,7 @@ import {
 import { GeneralInformation } from '../../general-information/entities/general-information.entity';
 import { FamilyMember } from 'src/family-members/entities/family-member.entity';
 import { OfferedPrayer } from 'src/prayer/entities/offered-prayer.entity';
-
+import { Liability } from 'src/liability/entities/liability.entity';
 @Entity()
 @ObjectType()
 export class User {
@@ -65,5 +65,7 @@ export class User {
   offeredPrayers: OfferedPrayer[];
 
 
- 
+  @Field(() => [Liability], { nullable: true })
+  @OneToMany(() => Liability, liability => liability.user)
+  liabilities?: Liability[];
 } 
