@@ -71,7 +71,9 @@ export class PrayerService {
 
   async findOfferedPrayerById(id: string): Promise<OfferedPrayer> {
     const offeredPrayer = this.offeredPrayerRepository.findOne({where:{ id },
-    relations: ['prayer', 'user']
+    relations: {
+      prayer: true 
+    }
     });
     if (!offeredPrayer) {
       throw new NotFoundException(`offered prayer with Id ${id} not found`);

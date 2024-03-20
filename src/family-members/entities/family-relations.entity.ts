@@ -1,5 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { FamilyMember } from './family-member.entity';
 
 @ObjectType()
@@ -15,8 +15,8 @@ export class FamilyRelation {
     @Column()
     name: string
 
-    @Field(()=>FamilyRelation)
-    @OneToOne(() => FamilyMember, (familymember) => familymember.familyRelation)
-    familymember: FamilyMember
-
+    @Field(()=>[FamilyRelation])
+    @OneToMany(() => FamilyMember, (familymember) => familymember.familyRelation)
+    familymembers: FamilyMember[]
+    
 }

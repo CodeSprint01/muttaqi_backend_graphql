@@ -24,7 +24,7 @@ export class FamilyMember {
     isAlive: boolean
 
     
-    @OneToOne(()=> FamilyRelation, (familyRelation)=> familyRelation.familymember)
+    @ManyToOne(()=> FamilyRelation, (familyRelation)=> familyRelation.familymembers)
     @JoinColumn({name: 'relationId'})
     familyRelation: FamilyRelation
     
@@ -33,3 +33,4 @@ export class FamilyMember {
     @JoinColumn({ name: 'userId' })
     user: User
 }
+ 

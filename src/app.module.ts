@@ -13,6 +13,8 @@ import { AuthModule } from './auth/auth.module';
 import { GeneralInformationModule } from './general-information/general-information.module';
 import { FamilyMembersModule } from './family-members/family-members.module';
 import { offeredPrayerModule } from './prayer/prayer.module';
+import { NomineeModule } from './nominee/nominee.module';
+import { BequestModule } from './bequest/bequest.module';
 
 @Module({
   imports: [GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -36,12 +38,10 @@ import { offeredPrayerModule } from './prayer/prayer.module';
     GeneralInformationModule,
     AuthModule,
     FamilyMembersModule,
-
-
     AuthModule,
-
-
     offeredPrayerModule,
+    NomineeModule,
+    BequestModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -84,7 +84,18 @@ export class UserService {
     // const user = await this.userRepository.findOne({ where: { id: userId } });
     const user = await this.userRepository.findOne({
       where: { id: userId },
-      relations: ['offeredPrayers',]
+      relations:{
+        generalInformation: true,
+        offeredPrayers:{
+          prayer: {
+            typeOfWorship: true
+          }
+        },
+        familyMembers: {
+          familyRelation: true
+        },
+        nominee: true,
+      }
     });
     if (!user) {
       throw new NotFoundException(`User with ID ${userId} not found`);

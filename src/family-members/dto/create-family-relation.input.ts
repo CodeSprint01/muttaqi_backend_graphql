@@ -7,5 +7,5 @@ export class CreateFamilyRelationInput {
 
   @Field()
   name: string
-
+  
 }

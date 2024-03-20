@@ -52,22 +52,54 @@ export class FamilyMemberService {
     return await this.familyMemberRepsitory.save(member);
   }
 
-  findAll() {
-    return `This action returns all familyMembers`;
+  async findAll() {
+    const familyMemebrs = await this.familyMemberRepsitory.find(
+      {
+        relations: ['familyRelation']
+      }
+    )
+    return familyMemebrs;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} familyMember`;
+  async findOne(id: string) {
+    try {
+      const familyMember = await this.familyMemberRepsitory.findOne({
+        where: {
+          id
+        },
+        relations: ['familyRelation']
+      })
+      return familyMember
+    } catch (error) {
+    }
   }
 
-  update(id: number, updateFamilyMemberInput: UpdateFamilyMemberInput) {
-    return `This action updates a #${id} familyMember`;
+
+  async update(id: string, updateFamilyMemberInput: UpdateFamilyMemberInput) {
+    const member = this.familyMemberRepsitory.findOne({
+      where: {
+        id
+      }
+    })
+    if (!member) {
+      throw new Error(`Member not find with #${id} id `);
+    }
+    await this.familyMemberRepsitory.update({ id },{ ...updateFamilyMemberInput })
+    return member;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} familyMember`;
+  remove(id: string) {
+    const Member = this.familyMemberRepsitory.findOne({
+      where: {
+        id
+      }
+    })
+    if (!Member) {
+      throw new Error(`Member not find with #${id} id `);
+    }
+    return this.familyMemberRepsitory.delete(id);
   }
-
+// Create relations 
   async createRelations(createRelation: CreateFamilyRelationInput) {
     const relation = this.familyRelationRepository.create(createRelation);
     return await this.familyRelationRepository.save(relation);

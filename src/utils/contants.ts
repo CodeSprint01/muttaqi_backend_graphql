@@ -13,7 +13,17 @@
 // const mother = new FamilyRelation('2', "mother");
 // const brother = new FamilyRelation('3', "brother");
 
+// enum FAMILY_RELATIONS {
+//     father = '1',
+//     mother = '2',
+//     brother = '3',
+//     sister = '4',
+//     wife = '5',
+//     son = '6',
+//     duaghter = '7'
+// }
 
+const family_relations=['father','mother','brother','sister', 'wife','son','duaghter','grandFather','grandmother','paternalUncle','aunty',]
 
 
 

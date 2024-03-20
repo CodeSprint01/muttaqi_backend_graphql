@@ -16,12 +16,12 @@ export class FamilyMemberResolver {
   }
 
   @Query(() => [FamilyMember], { name: 'familyMember' })
-  findAll() {
+  findAllFamilyMembers() {
     return this.familyMemberService.findAll();
   }
 
   @Query(() => FamilyMember, { name: 'familyMember' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOneFamilyMember(@Args('id', { type: () => Int }) id: string) {
     return this.familyMemberService.findOne(id);
   }
 
@@ -31,7 +31,7 @@ export class FamilyMemberResolver {
   }
 
   @Mutation(() => FamilyMember)
-  removeFamilyMember(@Args('id', { type: () => Int }) id: number) {
+  removeFamilyMember(@Args('id', { type: () => Int }) id: string) {
     return this.familyMemberService.remove(id);
   }
 
