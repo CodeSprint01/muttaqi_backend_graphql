@@ -14,12 +14,12 @@ export class AssetsResolver {
   }
 
   @Query(() => [Asset])
-  findAll() {
+  findAllAssets() {
     return this.assetsService.findAll();
   }
 
   @Query(() => Asset)
-  findOne(@Args('id') id: string) {
+  findOneAssets(@Args('id') id: string) {
     return this.assetsService.findOne(id);
   }
 

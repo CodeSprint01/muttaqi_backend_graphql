@@ -1,5 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/user/entities/user.entity';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
 @Entity()
@@ -7,7 +8,7 @@ export class Asset {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string
-  
+
   @Field()
   @Column()
   name: string
@@ -20,5 +21,14 @@ export class Asset {
   @Field()
   @Column()
   value: string
-  
+
+  @Column()
+  userId: string
+
+
+  @Field(() => User)
+  @ManyToOne(() => User, user => user.assets)
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
 }

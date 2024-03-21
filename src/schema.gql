@@ -54,6 +54,14 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Asset {
+  id: String!
+  name: String!
+  type: String!
+  value: String!
+  user: User!
+}
+
 type User {
   id: String!
   username: String!
@@ -65,6 +73,7 @@ type User {
   familyMembers: [FamilyMember!]
   generalInfromation: GeneralInformation!
   offeredPrayers: [OfferedPrayer!]!
+  assets: [Asset!]
 }
 
 type LoginResponse {
@@ -79,6 +88,8 @@ type Query {
   findAllOfferedPrayer: [OfferedPrayer!]!
   findOfferedPrayer(Id: String!): OfferedPrayer!
   prayer: [Prayer!]!
+  findAllAssets: [Asset!]!
+  findOneAssets(id: String!): Asset!
 }
 
 type Mutation {
@@ -100,6 +111,9 @@ type Mutation {
   createPrayer(createPrayerInput: CreatePrayerInput!): Prayer!
   prayer(id: String!): Prayer!
   typeOfWorship(createTypeOfWorshipInput: CreateTypeOfWorshipInput!): typeOfWorship!
+  createAsset(createAssetInput: CreateAssetInput!): Asset!
+  updateAsset(updateAssetInput: UpdateAssetInput!): Asset!
+  removeAsset(id: String!): Asset!
 }
 
 input CreateUserInput {
@@ -178,4 +192,19 @@ input CreatePrayerInput {
 input CreateTypeOfWorshipInput {
   id: String!
   type: String!
+}
+
+input CreateAssetInput {
+  name: String!
+  type: String!
+  value: String!
+  userId: String!
+}
+
+input UpdateAssetInput {
+  name: String
+  type: String
+  value: String
+  userId: String
+  id: String!
 }

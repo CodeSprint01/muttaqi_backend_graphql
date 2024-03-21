@@ -1,4 +1,4 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateAssetInput {
@@ -10,5 +10,8 @@ export class CreateAssetInput {
 
   @Field()
   value: string
+
+  @Field()
+  userId: string
   
 }

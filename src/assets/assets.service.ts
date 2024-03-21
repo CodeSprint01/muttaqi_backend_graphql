@@ -1,4 +1,3 @@
-import { ApolloDriverConfig } from '@nestjs/apollo';
 import { Injectable } from '@nestjs/common';
 import { CreateAssetInput } from './dto/create-asset.input';
 import { UpdateAssetInput } from './dto/update-asset.input';
@@ -23,13 +22,13 @@ export class AssetsService {
     return this.assetRepository.findOne({where: {id}});
   }
 
-  update(id: string, updateAssetInput: UpdateAssetInput) {
-    const findId = this.assetRepository.findOne({where: {id}})
+  async update(id: string, updateAssetInput: UpdateAssetInput) {
+    const findId = await this.assetRepository.findOne({where: {id}})
     if(!findId){
       throw new Error('assets id is required')
     }
     Object.assign(findId, updateAssetInput)
-    return this.assetRepository.save(findId)
+    return await this.assetRepository.save(findId)
   }
 
   remove(id: string) {
