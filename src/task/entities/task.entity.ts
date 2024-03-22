@@ -30,12 +30,6 @@ export class Task {
   @Column()
   descripition: string
 
-  @Column({ type: 'uuid' })
-  taskCategoryId: string
-
-  @Column({type: 'uuid'})
-  userId: string
-
   @Field(() => TaskCategory)
   @ManyToOne(() => TaskCategory, taskCategory => taskCategory.tasks)
   @JoinColumn({ name: 'taskCategoryId' })

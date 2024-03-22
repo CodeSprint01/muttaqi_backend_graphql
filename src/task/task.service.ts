@@ -1,3 +1,4 @@
+import { UserService } from './../user/user.service';
 import { CreateTaskCategoryInput } from './dto/create-task-category.input';
 import { Injectable } from '@nestjs/common';
 import { CreateTaskInput } from './dto/create-task.input';
@@ -13,10 +14,24 @@ export class TaskService {
     @InjectRepository(Task)
     private readonly taskRepository: Repository<Task>,
     @InjectRepository(TaskCategory)
-    private readonly TaskCategoryRepository: Repository<TaskCategory>
+    private readonly TaskCategoryRepository: Repository<TaskCategory>,
+    private UserService: UserService
   ) { }
-  create(createTaskInput: CreateTaskInput) {
-    const createTask = this.taskRepository.create(createTaskInput)
+  async create(createTaskInput: CreateTaskInput) {
+    const {taskCategoryId,userId,  ...otherInputs} = createTaskInput;
+    const findTaskCategoryId = await this.findOneCategory(taskCategoryId)
+    if(!findTaskCategoryId){
+      throw new Error("This taskCategoryId does not exist")
+    }
+    const findUserId = await this.UserService.findOne(userId)
+    if(!findUserId){
+      throw new Error('this userId does not exist')
+    }
+    const createTask = this.taskRepository.create({
+      ...otherInputs,
+      taskCategory: findTaskCategoryId,
+      user: findUserId,
+    })
     return this.taskRepository.save(createTask);
   }
 
@@ -43,11 +58,16 @@ export class TaskService {
   findOneCategory(id: string) {
     return this.TaskCategoryRepository.findOne({ where: { id } })
   }
-  update(id: number, updateTaskInput: UpdateTaskInput) {
-    return `This action updates a #${id} task`;
+  async update(id: string, updateTaskInput: UpdateTaskInput) {
+    const taskId = await this.taskRepository.findOne({where: {id}})
+    if(!taskId){
+      throw new Error("task id not found")
+    }
+    Object.assign(taskId, updateTaskInput);
+    return await this.taskRepository.save(taskId) ;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  async remove(id: string) {
+    return await this.taskRepository.delete(id);
   }
 }

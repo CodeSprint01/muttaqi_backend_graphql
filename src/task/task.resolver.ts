@@ -53,7 +53,7 @@ findOneCategry(@Args('id') id: string){
   }
 
   @Mutation(() => Task)
-  removeTask(@Args('id', { type: () => Int }) id: number) {
+  removeTask(@Args('id') id: string) {
     return this.taskService.remove(id);
   }
 }
