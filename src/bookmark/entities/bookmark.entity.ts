@@ -14,21 +14,15 @@ export class Bookmark {
   @Column()
   content: string
 
-  @Column({ type: 'uuid'})
-  BookmarkTypeId: string
- 
-  @Column({ type: 'uuid'})
-  UserId: string;
-
   @Field(() => BookmarkType)
  @ManyToOne(() => BookmarkType, BookmarkType => BookmarkType.bookmarks)
- @JoinColumn({name: 'BookmarkTypeId'})
+ @JoinColumn({name: 'bookmarkTypeId'})
  BookmarkType: BookmarkType;
 
 
  @Field(() => User)
  @ManyToOne(() => User, user => user.bookmarks)
- @JoinColumn({name: 'UserId'})
+ @JoinColumn({name: 'userId'})
  user: User;
 
 }

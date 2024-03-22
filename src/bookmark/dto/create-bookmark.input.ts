@@ -8,8 +8,8 @@ export class CreateBookmarkInput {
   content: string
 
   @Field()
-  BookmarkTypeId: string
+  bookmarkTypeId: string
 
   @Field()
-  UserId: string;
+  userId: string;
 }

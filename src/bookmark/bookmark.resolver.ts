@@ -35,7 +35,7 @@ export class BookmarkResolver {
   }
 // remove bookmark mutation
   @Mutation(() => Bookmark)
-  removeBookmark(@Args('id', { type: () => Int }) id: number) {
+  removeBookmark(@Args('id') id: string) {
     return this.bookmarkService.remove(id);
   }
 
@@ -43,5 +43,11 @@ export class BookmarkResolver {
   @Mutation(() => BookmarkType)
   createBookmarkType(@Args("CreateBookmarkTypeInput")CreateBookmarkTypeInput: CreateBookmarkTypeInput) {
     return this.bookmarkService.createBookmarktype(CreateBookmarkTypeInput)
+  }
+
+  // find one BookmarkType query
+  @Query(() => BookmarkType)
+  findOneBookmarkType(@Args('id') id: string) {
+    return this.bookmarkService.findOne(id);
   }
 }
