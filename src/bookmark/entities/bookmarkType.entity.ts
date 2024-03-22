@@ -6,7 +6,7 @@ import { Bookmark } from './bookmark.entity';
 @Entity()
 export class BookmarkType {
   @Field()
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('increment')
   id: string
 
   @Field()

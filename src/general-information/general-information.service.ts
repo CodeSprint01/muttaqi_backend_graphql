@@ -15,36 +15,28 @@ export class GeneralInformationService {
     private userService: UserService,
   ) {}
   async create(createGeneralInformationInput: CreateGeneralInformationInput) {
-    console.log(
-      'ðŸš€ ~ GeneralInformationService ~ create ~ createGeneralInformationInput:',
-      createGeneralInformationInput,
-    );
+    const {userId, ...otherFields} = createGeneralInformationInput;
     const user = await this.userService.findOne(
-      createGeneralInformationInput.userId,
+      userId
     );
-    console.log('ðŸš€ ~ GeneralInformationService ~ create ~ user:', user);
     if (!user) {
       throw new Error('User not found');
     }
 
     const general = this.generalRepository.create({
-      fullName: createGeneralInformationInput.fullName,
-      address: createGeneralInformationInput.address,
-      age: createGeneralInformationInput.age,
-      cnic: createGeneralInformationInput.cnic,
-      country: createGeneralInformationInput.country,
-      education: createGeneralInformationInput.education,
-      firqah: createGeneralInformationInput.gender,
-      sect: createGeneralInformationInput.sect,
-      gender: createGeneralInformationInput.gender,
+      // fullName: createGeneralInformationInput.fullName,
+      // address: createGeneralInformationInput.address,
+      // age: createGeneralInformationInput.age,
+      // cnic: createGeneralInformationInput.cnic,
+      // country: createGeneralInformationInput.country,
+      // education: createGeneralInformationInput.education,
+      // firqah: createGeneralInformationInput.gender,
+      // sect: createGeneralInformationInput.sect,
+      // gender: createGeneralInformationInput.gender,
+      ...otherFields,
       user: user,
     });
     // const general = this.generalRepository.create(createGeneralInformationInput)
-
-    console.log(
-      'ðŸš€ ~ GeneralInformationService ~ create ~ general:',
-      general,
-    );
     return await this.generalRepository.save(general);
   }
 
