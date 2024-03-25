@@ -5,7 +5,6 @@ import { UpdateOfferedfastInput } from './dto/update-offeredfast.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Offeredfast } from './entities/offeredfast.entity';
 import { Repository } from 'typeorm';
-import { promises } from 'dns';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
@@ -37,7 +36,7 @@ export class OfferedfastsService {
         User: user
       }
     );
- 
+    return this.offeredFastRepository.save(fast)
   }
   
 
