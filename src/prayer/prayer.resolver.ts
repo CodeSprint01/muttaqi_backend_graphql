@@ -43,13 +43,13 @@ export class PrayerResolver {
 
 
   // find all prayers query
-  @Query(() => [Prayer], { name: 'prayer' })
-  findAll() {
+  @Query(() => [Prayer])
+  findAllPrayers() {
     return this.prayerService.findAllprayer();
   }
 
   // findPrayerById query
-  @Mutation(() => Prayer, { name: 'prayer' })
+  @Query(() => Prayer)
   findOneprayer(@Args('id') id: string) {
     return this.prayerService.findOneprayer(id);
   }
@@ -61,4 +61,9 @@ export class PrayerResolver {
     return createTypeOfWorship;
   }
 
+  //  find one id of typeOfWorship
+@Query(() => typeOfWorship)
+async findOneTypeOfWorship(@Args('id') id: string) {
+  return this.prayerService.findOneTypeOfWorship(id)
+}
 }

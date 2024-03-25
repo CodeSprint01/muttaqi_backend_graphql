@@ -16,8 +16,6 @@ export class Prayer {
   prayerName: string
 
 
-  @Column({type: "uuid"})
-  typeOfWorshipId: string
 
   @Field(() => [OfferedPrayer])
   @OneToMany(() => OfferedPrayer, offeredPrayer => offeredPrayer.prayer)

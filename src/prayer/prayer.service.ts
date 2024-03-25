@@ -1,3 +1,4 @@
+import { UserService } from './../user/user.service';
 /* eslint-disable prettier/prettier */
 import { OfferedPrayer } from './entities/offered-prayer.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
@@ -17,40 +18,50 @@ export class PrayerService {
     @InjectRepository(Prayer)
     private readonly prayerRepository: Repository<Prayer>,
     @InjectRepository(typeOfWorship)
-    private readonly typeOfWorshipRepository: Repository<typeOfWorship>
-  ) { }
-  create(CreateOfferedPrayerInput: CreateOfferedPrayerInput): Promise<OfferedPrayer> {
+    private readonly typeOfWorshipRepository: Repository<typeOfWorship>,
+    private userService: UserService
 
-    const {userId,prayerId,  ...otherInputs} = CreateOfferedPrayerInput;
-    if(!userId) {
-      throw new Error("userId is required")
+  ) { }
+  async create(CreateOfferedPrayerInput: CreateOfferedPrayerInput): Promise<OfferedPrayer> {
+    const { userId, prayerId,  ...otherInputs } = CreateOfferedPrayerInput;
+
+    const findUser = await this.userService.findOne(userId);
+
+    if (!findUser) {
+      throw new NotFoundException("User does not exist");
     }
-    if(!prayerId) {
-      throw new Error("prayerId is required")
+
+    const findPrayer = await this.findOneprayer(prayerId);
+  
+    if (!findPrayer) {
+      throw new NotFoundException("Prayer does not exist");
     }
+
     const createOfferedPrayer = this.offeredPrayerRepository.create({
+      user: findUser,
+      prayer: findPrayer,
       ...otherInputs,
-      userId,
-      prayerId,
     });
-    const saveOfferedPreayer = this.offeredPrayerRepository.save(createOfferedPrayer)
-    return saveOfferedPreayer;
+
+    return this.offeredPrayerRepository.save(createOfferedPrayer);
   }
 
-  createPrayer(CreatePrayerInput: CreatePrayerInput): Promise<Prayer> {
+  async createPrayer(CreatePrayerInput: CreatePrayerInput): Promise<Prayer> {
+
     const { typeOfWorshipId, ...otherInputs } = CreatePrayerInput;
-    if(!typeOfWorshipId) {
-      throw new Error("typeOfWorship Id is required")
+
+    const findTypeOfWorshipId = await this.findOneTypeOfWorship(typeOfWorshipId)
+
+    if(!findTypeOfWorshipId) {
+
+      throw new Error("typeOfWorshipId does not exist")
     }
     
     const createPrayer = this.prayerRepository.create({
       ...otherInputs,
-      typeOfWorshipId
+      typeOfWorship: findTypeOfWorshipId
     })
-    console.log("🚀 ~ PrayerService ~ createPrayer ~ createPrayer:", createPrayer)
-    const savePreayer = this.prayerRepository.save(createPrayer)
-    console.log("🚀 ~ PrayerService ~ createPrayer ~ savePreayer:", savePreayer)
-    return savePreayer;
+    return this.prayerRepository.save(createPrayer)
   }
 
   async createtypeOfWorship(CreateTypeOfWorshipInput: CreateTypeOfWorshipInput): Promise<typeOfWorship> {
@@ -89,5 +100,13 @@ export class PrayerService {
       throw new NotFoundException(`Prayer with ID ${id} not found`);
     }
     return findPrayerById
+  }
+
+  findOneTypeOfWorship(id: string) {
+    const findId = this.typeOfWorshipRepository.findOne({where: {id}})
+    if(!findId) {
+     throw new Error("this is does not exist")
+    } 
+    return findId
   }
 }

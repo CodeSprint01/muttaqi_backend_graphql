@@ -8,10 +8,10 @@ import { Prayer } from './entities/prayers-entity';
 import { typeOfWorship } from './entities/typeOfWorship-entity';
 
 @Module({
-  imports:[
-TypeOrmModule.forFeature([OfferedPrayer, Prayer, typeOfWorship])
+  imports: [
+    TypeOrmModule.forFeature([OfferedPrayer, Prayer, typeOfWorship])
   ],
   providers: [PrayerResolver, PrayerService],
   exports: [PrayerService]
 })
-export class offeredPrayerModule {}
+export class offeredPrayerModule { }
