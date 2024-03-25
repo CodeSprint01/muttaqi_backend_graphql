@@ -4,13 +4,24 @@ import { UpdateAssetInput } from './dto/update-asset.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Asset } from './entities/asset.entity';
 import { Repository } from 'typeorm';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AssetsService {
   @InjectRepository(Asset)
   private readonly assetRepository: Repository<Asset>
-  create(createAssetInput: CreateAssetInput) {
-    const createAssets = this.assetRepository.create(createAssetInput)
+  private userService: UserService
+
+  async create(createAssetInput: CreateAssetInput) {
+    const {userId, ...otherFields} = createAssetInput
+    const finUserId = await this.userService.findOne(userId)
+    if (!finUserId){
+      throw new Error('user id does not exist')
+    }
+    const createAssets = this.assetRepository.create({
+      user: finUserId,
+      ...otherFields
+    })
     return this.assetRepository.save(createAssets);
   }
 

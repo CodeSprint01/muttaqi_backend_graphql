@@ -22,9 +22,6 @@ export class Asset {
   @Column()
   value: string
 
-  @Column()
-  userId: string
-
 
   @Field(() => User)
   @ManyToOne(() => User, user => user.assets)
