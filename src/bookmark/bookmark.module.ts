@@ -7,12 +7,13 @@ import { BookmarkType } from './entities/bookmarkType.entity';
 import { User } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { JwtModule } from '@nestjs/jwt';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Bookmark,BookmarkType, User]),
-  JwtModule
+  JwtModule, UserModule
   ],
   providers: [BookmarkResolver, BookmarkService, UserService],
-  exports: [BookmarkService, UserService]
+  exports: [BookmarkModule]
 })
 export class BookmarkModule {}
