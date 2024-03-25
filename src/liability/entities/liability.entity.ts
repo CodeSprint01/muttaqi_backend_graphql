@@ -20,11 +20,7 @@ export class Liability {
   @Field()
   @Column()
   value: string
-
-  @Column()
-  userId: string;
  
-  // Establish the relationship with the User entity
   @Field(() => User)
   @ManyToOne(() => User, user => user.liabilities)
   @JoinColumn({name: 'userId'})

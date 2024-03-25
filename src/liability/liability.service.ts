@@ -4,15 +4,26 @@ import { UpdateLiabilityInput } from './dto/update-liability.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Liability } from './entities/liability.entity';
 import { Repository } from 'typeorm';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class LiabilityService {
   constructor(
     @InjectRepository(Liability)
-    private readonly liabilityRepository: Repository<Liability>
+    private readonly liabilityRepository: Repository<Liability>,
+    private userService: UserService
   ){}
-  create(createLiabilityInput: CreateLiabilityInput) {
-    const createLiability = this.liabilityRepository.create(createLiabilityInput)
+  async create(createLiabilityInput: CreateLiabilityInput) {
+    const { userId, ...otherFields } = createLiabilityInput;
+
+    const findUserId =await  this.userService.findOne(userId)
+    if(!findUserId){
+      throw new Error('user id does not exist')
+    }
+    const createLiability = this.liabilityRepository.create({
+      user: findUserId,
+      ...otherFields
+    })
     return this.liabilityRepository.save(createLiability);
   }
 
@@ -24,9 +35,6 @@ export class LiabilityService {
     return this.liabilityRepository.findOne({where: {id}}) ;
   }
 
-  // update(id: string, updateLiabilityInput: UpdateLiabilityInput) {
-  //   const findId = this.liabilityRepository.findOne({where: {id}})
-  // }
   async update(id: string, updateLiabilityInput: UpdateLiabilityInput): Promise<Liability> {
     const liability = await this.liabilityRepository.findOne({where: {id}});
     if (!liability) {
