@@ -105,7 +105,7 @@ export class PrayerService {
   findOneTypeOfWorship(id: string) {
     const findId = this.typeOfWorshipRepository.findOne({where: {id}})
     if(!findId) {
-     throw new Error("this is does not exist")
+     throw new Error("this id does not exist")
     } 
     return findId
   }
