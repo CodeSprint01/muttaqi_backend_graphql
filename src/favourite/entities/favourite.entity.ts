@@ -14,11 +14,6 @@ export class Favourite {
   @Column()
   content: string
 
-  @Column({type: 'uuid'})
-  favouriteTypeId: string
-
-  @Column()
-  userId: string
 
   @Field(() => FavouriteType)
   @ManyToOne(() => FavouriteType, FavouriteType => FavouriteType.favourites)

@@ -117,7 +117,7 @@ type Mutation {
   typeOfWorship(createTypeOfWorshipInput: CreateTypeOfWorshipInput!): typeOfWorship!
   createFavourite(createFavouriteInput: CreateFavouriteInput!): Favourite!
   findOneFavourite(id: String!): Favourite!
-  createFavouriteType(CreateFavouriteTypeInput: CreateFavouriteTypeInput!): FavouriteType!
+  createFavouriteType(createFavouriteTypeInput: CreateFavouriteTypeInput!): FavouriteType!
   findOneFavouriteType(id: String!): FavouriteType!
   updateFavourite(updateFavouriteInput: UpdateFavouriteInput!): Favourite!
   removeFavourite(id: Int!): Favourite!
