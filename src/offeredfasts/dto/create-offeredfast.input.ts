@@ -7,5 +7,5 @@ export class CreateOfferedfastInput {
     typeOfWorshipId: string
 
     @Field()
-    UserId: string
+    userId: string
 }

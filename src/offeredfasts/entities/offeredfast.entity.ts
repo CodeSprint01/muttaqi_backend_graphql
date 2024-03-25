@@ -19,20 +19,15 @@ createdAt: Date
 updatedAt: Date
 
 
-@Column({type: "uuid"})
-  typeOfWorshipId: string
 
-  @Column({type: "uuid"})
-  UserId: string
-
-@Field(() => typeOfWorship)
+// @Field(() => typeOfWorship)
 @ManyToOne(() => typeOfWorship, typeOfWorship => typeOfWorship.Offeredfast)
 @JoinColumn({name: "typeOfWorshipId"})
 typeOfWorship: typeOfWorship
 
 
-@Field(() => User)
+// @Field(() => User)
 @ManyToOne(() => User, User => User.Offeredfast)
-@JoinColumn({name: "UserId"})
+@JoinColumn({name: "userId"})
 User: User
 }

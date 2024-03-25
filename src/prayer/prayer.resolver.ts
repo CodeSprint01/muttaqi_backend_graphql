@@ -61,4 +61,10 @@ export class PrayerResolver {
     return createTypeOfWorship;
   }
 
+  // find typeOfWorship id query
+@Query(() => typeOfWorship)
+findOneTypeId(@Args('id') id: string){
+  return this.prayerService.findOneTypeId(id)
+}
+
 }

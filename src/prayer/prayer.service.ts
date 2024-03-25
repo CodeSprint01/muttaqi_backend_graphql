@@ -8,6 +8,7 @@ import { Prayer } from './entities/prayers-entity';
 import { CreatePrayerInput } from './dto/create-prayer.input';
 import { typeOfWorship } from './entities/typeOfWorship-entity';
 import { CreateTypeOfWorshipInput } from './dto/create-typeOfWorship.input';
+import { error } from 'console';
 
 @Injectable()
 export class PrayerService {
@@ -37,20 +38,19 @@ export class PrayerService {
     return saveOfferedPreayer;
   }
 
-  createPrayer(CreatePrayerInput: CreatePrayerInput): Promise<Prayer> {
+  async createPrayer(CreatePrayerInput: CreatePrayerInput): Promise<Prayer> {
     const { typeOfWorshipId, ...otherInputs } = CreatePrayerInput;
-    if(!typeOfWorshipId) {
-      throw new Error("typeOfWorship Id is required")
+    const findId =await this.findOneTypeId(typeOfWorshipId)
+    if(!findId) {
+      throw new Error("id does not exist")
     }
+    const creatPra = {
+      typeID: findId,
+      ...otherInputs
+    }
+    const createPrayer = this.prayerRepository.create(creatPra)
+    return this.prayerRepository.save(createPrayer)
     
-    const createPrayer = this.prayerRepository.create({
-      ...otherInputs,
-      typeOfWorshipId
-    })
-    console.log("🚀 ~ PrayerService ~ createPrayer ~ createPrayer:", createPrayer)
-    const savePreayer = this.prayerRepository.save(createPrayer)
-    console.log("🚀 ~ PrayerService ~ createPrayer ~ savePreayer:", savePreayer)
-    return savePreayer;
   }
 
   async createtypeOfWorship(CreateTypeOfWorshipInput: CreateTypeOfWorshipInput): Promise<typeOfWorship> {
@@ -89,5 +89,13 @@ export class PrayerService {
       throw new NotFoundException(`Prayer with ID ${id} not found`);
     }
     return findPrayerById
+  }
+
+  findOneTypeId(id: string){
+    const findId = this.typeOfWorshipRepository.findOne({where: {id}})
+    if(!findId) { 
+    throw new Error('id does not exist')
+    }
+    return findId
   }
 }

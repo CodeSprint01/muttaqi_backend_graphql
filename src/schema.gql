@@ -32,8 +32,6 @@ type Offeredfast {
   id: Float!
   createdAt: DateTime!
   updatedAt: DateTime!
-  typeOfWorship: typeOfWorship!
-  User: User!
 }
 
 """
@@ -89,6 +87,7 @@ type Query {
   findAllOfferedPrayer: [OfferedPrayer!]!
   findOfferedPrayer(Id: String!): OfferedPrayer!
   prayer: [Prayer!]!
+  findOneTypeId(id: String!): typeOfWorship!
   findAll: [Offeredfast!]!
   offeredfast(id: Float!): Offeredfast!
 }
@@ -197,11 +196,11 @@ input CreateTypeOfWorshipInput {
 
 input CreateOfferedfastInput {
   typeOfWorshipId: String!
-  UserId: String!
+  userId: String!
 }
 
 input UpdateOfferedfastInput {
   typeOfWorshipId: String
-  UserId: String
+  userId: String
   id: String!
 }
