@@ -125,7 +125,7 @@ type Mutation {
   createTask(createTaskInput: CreateTaskInput!): Task!
   CreateTaskCategory(CreateTaskCategoryInput: CreateTaskCategoryInput!): TaskCategory!
   updateTask(updateTaskInput: UpdateTaskInput!): Task!
-  removeTask(id: Int!): Task!
+  removeTask(id: String!): Task!
 }
 
 input CreateUserInput {
@@ -229,5 +229,5 @@ input UpdateTaskInput {
   descripition: String
   taskCategoryId: String
   userId: String
-  id: Int!
+  id: String!
 }
