@@ -19,18 +19,18 @@ export class TaskService {
   ) { }
   async create(createTaskInput: CreateTaskInput) {
     const {taskCategoryId,userId,  ...otherInputs} = createTaskInput;
-    const findTaskCategoryId = await this.findOneCategory(taskCategoryId)
-    if(!findTaskCategoryId){
+    const taskCategory = await this.findOneCategory(taskCategoryId)
+    if(!taskCategory){
       throw new Error("This taskCategoryId does not exist")
     }
-    const findUserId = await this.UserService.findOne(userId)
-    if(!findUserId){
+    const user = await this.UserService.findOne(userId)
+    if(!user){
       throw new Error('this userId does not exist')
     }
     const createTask = this.taskRepository.create({
       ...otherInputs,
-      taskCategory: findTaskCategoryId,
-      user: findUserId,
+      taskCategory: taskCategory,
+      user: user,
     })
     return this.taskRepository.save(createTask);
   }
