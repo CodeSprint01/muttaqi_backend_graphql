@@ -63,7 +63,9 @@ type Query {
   familyInformation(id: Int!): FamilyInformation!
   findAllOfferedPrayer: [OfferedPrayer!]!
   findOfferedPrayer(Id: String!): OfferedPrayer!
-  prayer: [Prayer!]!
+  findAllPrayers: [Prayer!]!
+  findOneprayer(id: String!): Prayer!
+  findOneTypeOfWorship(id: String!): typeOfWorship!
 }
 
 type Mutation {
@@ -81,8 +83,11 @@ type Mutation {
   updateFamilyInformation(updateFamilyInformationInput: UpdateFamilyInformationInput!): FamilyInformation!
   removeFamilyInformation(id: Int!): FamilyInformation!
   createOfferdPrayer(createOfferedPrayerInput: CreateOfferedPrayerInput!): OfferedPrayer!
+  updateOfferedPrayer(updateOfferedPrayerInput: UpdateOfferedPrayerInput!): OfferedPrayer!
+  removeOfferedPrayer(id: String!): OfferedPrayer!
   createPrayer(createPrayerInput: CreatePrayerInput!): Prayer!
-  prayer(id: String!): Prayer!
+  updatePrayer(UpdatePrayerInput: UpdatePrayerInput!): Prayer!
+  removePrayer(id: String!): Prayer!
   typeOfWorship(createTypeOfWorshipInput: CreateTypeOfWorshipInput!): typeOfWorship!
 }
 
@@ -126,9 +131,21 @@ input CreateOfferedPrayerInput {
   prayerId: String!
 }
 
+input UpdateOfferedPrayerInput {
+  userId: String
+  prayerId: String
+  id: String!
+}
+
 input CreatePrayerInput {
   id: String!
   prayerName: String!
+  typeOfWorshipId: String
+}
+
+input UpdatePrayerInput {
+  id: String!
+  prayerName: String
   typeOfWorshipId: String
 }
 
