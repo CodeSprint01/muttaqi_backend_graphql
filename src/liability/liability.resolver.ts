@@ -34,10 +34,10 @@ export class LiabilityResolver {
   }
 
   // removeLiability mutation  
-  @Mutation(() => String) // Assuming you want to return a message string
+  @Mutation(() => String) 
 async removeLiability(@Args('id') id: string) {
   await this.liabilityService.remove(id);
-  return "Liability removed successfully."; // Return your desired message
+  return "Liability removed successfully.";
 }
 
 }
