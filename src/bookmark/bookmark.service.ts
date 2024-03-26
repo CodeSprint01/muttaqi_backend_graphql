@@ -7,6 +7,7 @@ import { UpdateBookmarkInput } from './dto/update-bookmark.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Bookmark } from './entities/bookmark.entity';
 import { Repository } from 'typeorm';
+import { UpdateBookmarkTypeInput } from './dto/update-bookmarkType.input';
 
 @Injectable()
 export class BookmarkService {
@@ -39,28 +40,20 @@ export class BookmarkService {
   }
 
 
-  findAll(): Promise<Bookmark[]> {
+  findAllBookmark(): Promise<Bookmark[]> {
     const findAllBookmark = this.bookmarkRepository.find();
     return findAllBookmark
   }
 
-  findOne(id: string) {
+  findOneBookmark(id: string) {
     const findOneBookmark = this .bookmarkRepository.findOne({
       where: {id},
     relations: ['BookmarkType']
   })
     return findOneBookmark;
   }
-  createBookmarktype(CreateBookmarkTypeInput: CreateBookmarkTypeInput){
-    const createBookmarktype = this.BookmarkTypeRepository.create(CreateBookmarkTypeInput)
-    return this.BookmarkTypeRepository.save(createBookmarktype)
-  }
 
-  findOneBookmarkType(id : string){
-    return this.BookmarkTypeRepository.findOne({where: {id}})
-  }
-
-  async update(id: string, updateBookmarkInput: UpdateBookmarkInput) {
+  async updateBookmark(id: string, updateBookmarkInput: UpdateBookmarkInput) {
     const findId = await this.bookmarkRepository.findOne({where: {id}});
     if(!findId){
       throw new Error("bookmark id not found")
@@ -70,7 +63,36 @@ export class BookmarkService {
 
   }
 
-  remove(id: string) {
+  removeBookmark(id: string) {
     return this.bookmarkRepository.delete(id);
   }
+
+  createBookmarktype(CreateBookmarkTypeInput: CreateBookmarkTypeInput){
+    const createBookmarktype = this.BookmarkTypeRepository.create(CreateBookmarkTypeInput)
+    return this.BookmarkTypeRepository.save(createBookmarktype)
+  }
+
+  findOneBookmarkType(id : string){
+    return this.BookmarkTypeRepository.findOne({where: {id}})
+  }
+
+  findAllType(){
+    this.BookmarkTypeRepository.find()
+  }
+
+  async UpdateBookmarkType(id: string , UpdateBookmarkTypeInput: UpdateBookmarkTypeInput){
+    const bookmarkType = await this.BookmarkTypeRepository.findOne({where: {id}})
+    if(bookmarkType){
+      throw new Error('this id does not exist')
+    }
+    Object.assign(bookmarkType, UpdateBookmarkTypeInput)
+    return this.BookmarkTypeRepository.save(bookmarkType)
+  }
+
+  removeBookmarkType(id: string) {
+    return this.BookmarkTypeRepository.delete(id)
+  }
+
+ 
+
 }

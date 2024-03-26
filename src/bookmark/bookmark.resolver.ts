@@ -5,6 +5,8 @@ import { CreateBookmarkInput } from './dto/create-bookmark.input';
 import { UpdateBookmarkInput } from './dto/update-bookmark.input';
 import { BookmarkType } from './entities/bookmarkType.entity';
 import { CreateBookmarkTypeInput } from './dto/create-bookmarkType.input';
+import { UpdateBookmarkTypeInput } from './dto/update-bookmarkType.input';
+import { ReturnDocument } from 'typeorm';
 
 @Resolver(() => Bookmark)
 export class BookmarkResolver {
@@ -19,24 +21,24 @@ export class BookmarkResolver {
 //find all bookmark query 
   @Query(() => [Bookmark])
   findAllBookmark() {
-    return this.bookmarkService.findAll();
+    return this.bookmarkService.findAllBookmark();
   }
 
 // find one bookmark query
   @Mutation(() => Bookmark)
   findOneBookmark(@Args('id') id: string) {
-    return this.bookmarkService.findOne(id);
+    return this.bookmarkService.findOneBookmark(id);
   }
 
 // update bookmark mutation 
   @Mutation(() => Bookmark)
   updateBookmark(@Args('updateBookmarkInput') updateBookmarkInput: UpdateBookmarkInput) {
-    return this.bookmarkService.update(updateBookmarkInput.id, updateBookmarkInput);
+    return this.bookmarkService.updateBookmark(updateBookmarkInput.id, updateBookmarkInput);
   }
 // remove bookmark mutation
   @Mutation(() => Bookmark)
   removeBookmark(@Args('id') id: string) {
-    return this.bookmarkService.remove(id);
+    return this.bookmarkService.removeBookmark(id);
   }
 
   // create BookmarkType mutation
@@ -48,6 +50,24 @@ export class BookmarkResolver {
   // find one BookmarkType query
   @Query(() => BookmarkType)
   findOneBookmarkType(@Args('id') id: string) {
-    return this.bookmarkService.findOne(id);
+    return this.bookmarkService.findOneBookmarkType(id);
+  }
+
+  // find all bookmark type
+  @Query(() => BookmarkType)
+  findAllType(){
+    return this.bookmarkService.findAllType()
+  }
+
+  //  UpdateBookmarkType mutation
+  @Mutation(() => BookmarkType)
+  UpdateBookmarkType(@Args('UpdateBookmarkTypeInput')UpdateBookmarkTypeInput: UpdateBookmarkTypeInput){
+    return this.bookmarkService.UpdateBookmarkType(UpdateBookmarkTypeInput.id, UpdateBookmarkTypeInput)
+  }
+
+  // remove bookmark type
+  @Mutation(() => BookmarkType) 
+  removeBookmarkType(@Args('id') id: string){
+    return this.bookmarkService.removeBookmarkType(id)
   }
 }

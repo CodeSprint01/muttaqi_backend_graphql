@@ -95,6 +95,7 @@ type Query {
   prayer: [Prayer!]!
   findAllBookmark: [Bookmark!]!
   findOneBookmarkType(id: String!): BookmarkType!
+  findAllType: BookmarkType!
 }
 
 type Mutation {
@@ -121,6 +122,8 @@ type Mutation {
   updateBookmark(updateBookmarkInput: UpdateBookmarkInput!): Bookmark!
   removeBookmark(id: String!): Bookmark!
   createBookmarkType(CreateBookmarkTypeInput: CreateBookmarkTypeInput!): BookmarkType!
+  UpdateBookmarkType(UpdateBookmarkTypeInput: UpdateBookmarkTypeInput!): BookmarkType!
+  removeBookmarkType(id: String!): BookmarkType!
 }
 
 input CreateUserInput {
@@ -216,4 +219,9 @@ input UpdateBookmarkInput {
 
 input CreateBookmarkTypeInput {
   name: String!
+}
+
+input UpdateBookmarkTypeInput {
+  name: String
+  id: String!
 }
