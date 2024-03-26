@@ -14,12 +14,12 @@ export class AssetsService {
 
   async create(createAssetInput: CreateAssetInput) {
     const {userId, ...otherFields} = createAssetInput
-    const finUserId = await this.userService.findOne(userId)
-    if (!finUserId){
+    const user = await this.userService.findOne(userId)
+    if (!user){
       throw new Error('user id does not exist')
     }
     const createAssets = this.assetRepository.create({
-      user: finUserId,
+      user: user,
       ...otherFields
     })
     return this.assetRepository.save(createAssets);
