@@ -16,12 +16,12 @@ export class LiabilityService {
   async create(createLiabilityInput: CreateLiabilityInput) {
     const { userId, ...otherFields } = createLiabilityInput;
 
-    const findUserId =await  this.userService.findOne(userId)
-    if(!findUserId){
+    const user =await  this.userService.findOne(userId)
+    if(!user){
       throw new Error('user id does not exist')
     }
     const createLiability = this.liabilityRepository.create({
-      user: findUserId,
+      user: user,
       ...otherFields
     })
     return this.liabilityRepository.save(createLiability);
