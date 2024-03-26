@@ -8,12 +8,12 @@ import { CreatePrayerInput } from './dto/create-prayer.input';
 import { Prayer } from './entities/prayers-entity';
 import { typeOfWorship } from './entities/typeOfWorship-entity';
 import { CreateTypeOfWorshipInput } from './dto/create-typeOfWorship.input';
+import { UpdateOfferedPrayerInput } from './dto/update-offeredPrayer.input';
+import { UpdatePrayerInput } from './dto/update-prayer.input';
 
 @Resolver(() => OfferedPrayer)
 export class PrayerResolver {
   constructor(private readonly prayerService: PrayerService) { }
-
-  // {  OFFERED PRAYER MODULE }
 
   // offeredPrayer mutation
   @Mutation(() => OfferedPrayer)
@@ -33,7 +33,18 @@ export class PrayerResolver {
     return this.prayerService.findOfferedPrayerById(Id);
   }
 
-  // {  PRAYER MODULE }
+  // update offeredPrayer mutation
+  @Mutation(() => OfferedPrayer)
+  updateOfferedPrayer(@Args('updateOfferedPrayerInput') updateOfferedPrayerInput: UpdateOfferedPrayerInput) {
+    return this.prayerService.updateOfferedPrayer(updateOfferedPrayerInput.id, updateOfferedPrayerInput)
+  }
+
+  // remove offeredPrayer
+  @Mutation(() => OfferedPrayer)
+  removeOfferedPrayer(@Args('id') id: string) {
+    return this.prayerService.removeOfferedPrayer(id)
+  }
+
 
   // create prayer mutation 
   @Mutation(() => Prayer)
@@ -54,6 +65,18 @@ export class PrayerResolver {
     return this.prayerService.findOneprayer(id);
   }
 
+  //  update prayer mutation
+  @Mutation(() => Prayer)
+  updatePrayer(@Args('UpdatePrayerInput') UpdatePrayerInput: UpdatePrayerInput) {
+    return this.prayerService.updatePrayer(UpdatePrayerInput.id, UpdatePrayerInput)
+  }
+
+  // remove prayer mutation
+  @Mutation(() => Prayer)
+  removePrayer(@Args('id') id: string) {
+    return this.prayerService.removePrayer(id)
+  }
+
   // typeOfWorship mutation
   @Mutation(() => typeOfWorship)
   async typeOfWorship(@Args('createTypeOfWorshipInput') createTypeOfWorshipInput: CreateTypeOfWorshipInput): Promise<typeOfWorship> {
@@ -62,8 +85,9 @@ export class PrayerResolver {
   }
 
   //  find one id of typeOfWorship
-@Query(() => typeOfWorship)
-async findOneTypeOfWorship(@Args('id') id: string) {
-  return this.prayerService.findOneTypeOfWorship(id)
-}
+  @Query(() => typeOfWorship)
+  async findOneTypeOfWorship(@Args('id') id: string) {
+    return this.prayerService.findOneTypeOfWorship(id)
+  }
+
 }

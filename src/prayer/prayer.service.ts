@@ -1,3 +1,5 @@
+import { UpdatePrayerInput } from './dto/update-prayer.input';
+import { UpdateOfferedPrayerInput } from './dto/update-offeredPrayer.input';
 import { UserService } from './../user/user.service';
 /* eslint-disable prettier/prettier */
 import { OfferedPrayer } from './entities/offered-prayer.entity';
@@ -24,55 +26,21 @@ export class PrayerService {
   ) { }
   async create(CreateOfferedPrayerInput: CreateOfferedPrayerInput): Promise<OfferedPrayer> {
     const { userId, prayerId,  ...otherInputs } = CreateOfferedPrayerInput;
-
-    const findUser = await this.userService.findOne(userId);
-
-    if (!findUser) {
+    const user = await this.userService.findOne(userId);
+    if (!user) {
       throw new NotFoundException("User does not exist");
     }
-
-    const findPrayer = await this.findOneprayer(prayerId);
+    const prayer = await this.findOneprayer(prayerId);
   
-    if (!findPrayer) {
+    if (!prayer) {
       throw new NotFoundException("Prayer does not exist");
     }
-
     const createOfferedPrayer = this.offeredPrayerRepository.create({
-      user: findUser,
-      prayer: findPrayer,
+      user: user,
+      prayer: prayer,
       ...otherInputs,
     });
-
     return this.offeredPrayerRepository.save(createOfferedPrayer);
-  }
-
-  async createPrayer(CreatePrayerInput: CreatePrayerInput): Promise<Prayer> {
-
-    const { typeOfWorshipId, ...otherInputs } = CreatePrayerInput;
-
-    const findTypeOfWorshipId = await this.findOneTypeOfWorship(typeOfWorshipId)
-
-    if(!findTypeOfWorshipId) {
-
-      throw new Error("typeOfWorshipId does not exist")
-    }
-    
-    const createPrayer = this.prayerRepository.create({
-      ...otherInputs,
-      typeOfWorship: findTypeOfWorshipId
-    })
-    return this.prayerRepository.save(createPrayer)
-  }
-
-  async createtypeOfWorship(CreateTypeOfWorshipInput: CreateTypeOfWorshipInput): Promise<typeOfWorship> {
-    const createTypeOfWorship = this.typeOfWorshipRepository.create(CreateTypeOfWorshipInput)
-    const saveTypeOfWorship = await this.typeOfWorshipRepository.save(createTypeOfWorship)
-    return  saveTypeOfWorship;
-  }
-
-  async findAllprayer(): Promise<Prayer[]> {
-    const findprayers = await this.prayerRepository.find()
-    return findprayers
   }
 
   async findAllOfferedPrayer(): Promise<OfferedPrayer[]> {
@@ -90,6 +58,40 @@ export class PrayerService {
     return offeredPrayer
   }
 
+  async updateOfferedPrayer(id: string, UpdateOfferedPrayerInput: UpdateOfferedPrayerInput) {
+    const offeredPrayer = await this.offeredPrayerRepository.findOne({where: {id}})
+    if(!offeredPrayer) { 
+      throw new Error('this id doest not exist')
+    }
+    Object.assign(offeredPrayer, UpdateOfferedPrayerInput);
+    return await this.offeredPrayerRepository.save(offeredPrayer)
+
+  }
+
+  removeOfferedPrayer(id: string) {
+    const removePrayer = this.offeredPrayerRepository.delete(id)
+    return removePrayer
+  }
+
+  async createPrayer(CreatePrayerInput: CreatePrayerInput): Promise<Prayer> {
+    const { typeOfWorshipId, ...otherInputs } = CreatePrayerInput;
+    const findTypeOfWorshipId = await this.findOneTypeOfWorship(typeOfWorshipId)
+
+    if(!findTypeOfWorshipId) {
+      throw new Error("typeOfWorshipId does not exist")
+    }
+    const createPrayer = this.prayerRepository.create({
+      ...otherInputs,
+      typeOfWorship: findTypeOfWorshipId
+    })
+    return this.prayerRepository.save(createPrayer)
+  }
+
+  async findAllprayer(): Promise<Prayer[]> {
+    const findprayers = await this.prayerRepository.find()
+    return findprayers
+  }
+
   findOneprayer(id: string ) {
     const findPrayerById =  this.prayerRepository.findOne({
       where: {id},
@@ -101,6 +103,27 @@ export class PrayerService {
     }
     return findPrayerById
   }
+
+  async updatePrayer(id: string, UpdatePrayerInput: UpdatePrayerInput){
+    const prayer = await this.prayerRepository.findOne({where: {id}})
+    if(!prayer){
+      throw new Error('this id does not exist')
+    }
+    Object.assign(prayer, UpdatePrayerInput);
+    return await this.prayerRepository.save(prayer)
+  }
+
+  removePrayer(id: string) {
+    return this.prayerRepository.delete(id)
+  }
+
+  async createtypeOfWorship(CreateTypeOfWorshipInput: CreateTypeOfWorshipInput): Promise<typeOfWorship> {
+    const createTypeOfWorship = this.typeOfWorshipRepository.create(CreateTypeOfWorshipInput)
+    const saveTypeOfWorship = await this.typeOfWorshipRepository.save(createTypeOfWorship)
+    return  saveTypeOfWorship;
+  }
+
+
 
   findOneTypeOfWorship(id: string) {
     const findId = this.typeOfWorshipRepository.findOne({where: {id}})
