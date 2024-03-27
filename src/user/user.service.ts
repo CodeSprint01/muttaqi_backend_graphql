@@ -53,7 +53,7 @@ export class UserService {
  
   const user=await this.userRepository.findOne({
     where: { email: email },
-    relations: ['generalInformation', 'offeredPrayers', 'offeredPrayers.prayer'],
+    relations: ['generalInformation', 'offeredPrayers', 'offeredPrayers.prayer', 'vualts'],
     // relations:{
     //   generalInformation: true
     // }

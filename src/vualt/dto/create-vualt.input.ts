@@ -4,5 +4,7 @@ import { InputType, Field } from '@nestjs/graphql';
 export class CreateVualtInput {
   @Field()
   password: string
+  @Field()
+  userId: string
 
 }

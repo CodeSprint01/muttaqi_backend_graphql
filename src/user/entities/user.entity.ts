@@ -10,6 +10,7 @@ import {
 import { GeneralInformation } from '../../general-information/entities/general-information.entity';
 import { FamilyMember } from 'src/family-members/entities/family-member.entity';
 import { OfferedPrayer } from 'src/prayer/entities/offered-prayer.entity';
+import { Vualt } from 'src/vualt/entities/vualt.entity';
 
 @Entity()
 @ObjectType()
@@ -65,5 +66,7 @@ export class User {
   offeredPrayers: OfferedPrayer[];
 
 
- 
+  @Field(() => [Vualt], { nullable: true }) 
+  @OneToMany(() => Vualt, (vualt) => vualt.user)
+  vualts?: Vualt[];
 } 

@@ -14,6 +14,7 @@ import { GeneralInformationModule } from './general-information/general-informat
 import { FamilyMembersModule } from './family-members/family-members.module';
 import { offeredPrayerModule } from './prayer/prayer.module';
 import { VualtModule } from './vualt/vualt.module';
+import { DrivingModule } from './licenses/driving/driving.module';
 
 @Module({
   imports: [GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -46,6 +47,9 @@ import { VualtModule } from './vualt/vualt.module';
 
 
     VualtModule,
+
+
+    DrivingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

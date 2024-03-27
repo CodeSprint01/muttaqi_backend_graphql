@@ -13,13 +13,13 @@ export class VualtResolver {
     return this.vualtService.create(createVualtInput);
   }
 
-  @Query(() => [Vualt], { name: 'vualt' })
+  @Query(() => [Vualt])
   findAll() {
     return this.vualtService.findAll();
   }
 
-  @Query(() => Vualt, { name: 'vualt' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => Vualt)
+  findOne(@Args('id') id: string) {
     return this.vualtService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class VualtResolver {
   }
 
   @Mutation(() => Vualt)
-  removeVualt(@Args('id', { type: () => Int }) id: number) {
+  removeVualt(@Args('id') id: string) {
     return this.vualtService.remove(id);
   }
 }
