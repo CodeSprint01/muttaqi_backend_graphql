@@ -60,6 +60,14 @@ type Vualt {
   user: User!
 }
 
+type DrivingLicense {
+  id: String!
+  licenseType: String!
+  issueDate: String!
+  expiryDate: String!
+  user: User!
+}
+
 type User {
   id: String!
   username: String!
@@ -72,6 +80,7 @@ type User {
   generalInfromation: GeneralInformation!
   offeredPrayers: [OfferedPrayer!]!
   vualts: [Vualt!]
+  drivingLicenses: [DrivingLicense!]
 }
 
 type LoginResponse {
@@ -86,8 +95,8 @@ type Query {
   findAllOfferedPrayer: [OfferedPrayer!]!
   findOfferedPrayer(Id: String!): OfferedPrayer!
   prayer: [Prayer!]!
-  findAll: [Vualt!]!
-  findOne(id: String!): Vualt!
+  findAll: [DrivingLicense!]!
+  findOne(id: String!): DrivingLicense!
 }
 
 type Mutation {
@@ -112,6 +121,9 @@ type Mutation {
   createVualt(createVualtInput: CreateVualtInput!): Vualt!
   updateVualt(updateVualtInput: UpdateVualtInput!): Vualt!
   removeVualt(id: String!): Vualt!
+  createDrivingLicense(createDrivingLicenseInput: CreateDrivingLicenseInput!): DrivingLicense!
+  updateDrivingLicense(updateDrivingLicenseInput: UpdateDrivingLicenseInput!): DrivingLicense!
+  removeDrivingLicense(id: String!): DrivingLicense!
 }
 
 input CreateUserInput {
@@ -199,6 +211,21 @@ input CreateVualtInput {
 
 input UpdateVualtInput {
   password: String
+  userId: String
+  id: String!
+}
+
+input CreateDrivingLicenseInput {
+  licenseType: String!
+  issueDate: String!
+  expiryDate: String!
+  userId: String!
+}
+
+input UpdateDrivingLicenseInput {
+  licenseType: String
+  issueDate: String
+  expiryDate: String
   userId: String
   id: String!
 }
