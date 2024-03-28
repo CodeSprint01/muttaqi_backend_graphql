@@ -14,12 +14,12 @@ export class VualtResolver {
   }
 
   @Query(() => [Vualt])
-  findAll() {
+  findAllVualt() {
     return this.vualtService.findAll();
   }
 
   @Query(() => Vualt)
-  findOne(@Args('id') id: string) {
+  findOneVualt(@Args('id') id: string) {
     return this.vualtService.findOne(id);
   }
 

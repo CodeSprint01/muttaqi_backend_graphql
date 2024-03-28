@@ -53,7 +53,7 @@ export class UserService {
  
   const user=await this.userRepository.findOne({
     where: { email: email },
-    relations: ['generalInformation', 'offeredPrayers', 'offeredPrayers.prayer', 'vualts', 'drivingLicenses']
+    relations: ['generalInformation', 'offeredPrayers', 'offeredPrayers.prayer']
     // relations:{
     //   generalInformation: true
     // }
@@ -84,7 +84,7 @@ export class UserService {
     // const user = await this.userRepository.findOne({ where: { id: userId } });
     const user = await this.userRepository.findOne({
       where: { id: userId },
-      relations: ['generalInformation', 'offeredPrayers', 'offeredPrayers.prayer'],
+      relations: ['generalInformation', 'offeredPrayers', 'offeredPrayers.prayer', 'vualts', 'drivingLicenses', 'bankAccounts'],
     });
     if (!user) {
       throw new NotFoundException(`User with ID ${userId} not found`);

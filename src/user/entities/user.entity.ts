@@ -12,6 +12,7 @@ import { FamilyMember } from 'src/family-members/entities/family-member.entity';
 import { OfferedPrayer } from 'src/prayer/entities/offered-prayer.entity';
 import { Vualt } from 'src/vualt/entities/vualt.entity';
 import { DrivingLicense } from 'src/driving-licenses/entities/driving-license.entity';
+import { BankAccount } from 'src/bank-account/entities/bank-account.entity';
 
 @Entity()
 @ObjectType()
@@ -75,4 +76,8 @@ export class User {
  @OneToMany(() => DrivingLicense, (drivingLicense) => drivingLicense.user)
  drivingLicenses?: DrivingLicense[];
  
+
+ @Field(() => [BankAccount], { nullable: true }) 
+ @OneToMany(() => BankAccount, (bankAccount) => bankAccount.user)
+ bankAccounts?: BankAccount[];
 } 

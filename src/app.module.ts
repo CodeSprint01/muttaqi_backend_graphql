@@ -15,6 +15,8 @@ import { FamilyMembersModule } from './family-members/family-members.module';
 import { offeredPrayerModule } from './prayer/prayer.module';
 import { VualtModule } from './vualt/vualt.module';
 import { DrivingLicensesModule } from './driving-licenses/driving-licenses.module';
+import { BankAccountModule } from './bank-account/bank-account.module';
+import { IdentitiesModule } from './identities/identities.module';
 
 @Module({
   imports: [GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -50,6 +52,12 @@ import { DrivingLicensesModule } from './driving-licenses/driving-licenses.modul
 
 
     DrivingLicensesModule,
+
+
+    BankAccountModule,
+
+
+    IdentitiesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

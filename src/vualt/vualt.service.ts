@@ -14,18 +14,18 @@ export class VualtService {
     @InjectRepository(Vualt)
     private readonly vualtRepository: Repository<Vualt>,
     private userService: UserService
-  ) {}
+  ) { }
   async create(createVualtInput: CreateVualtInput) {
-    const{ userId, password } = createVualtInput
+    const { userId, password } = createVualtInput
     const user = await this.userService.findOne(userId)
-    if(!user){
+    if (!user) {
       throw new Error('user does not exist')
     }
     const saltRounds = 10
-    const hashedPassword = await bcrypt.hash(password, saltRounds) 
+    const hashedPassword = await bcrypt.hash(password, saltRounds)
     const createVualt = this.vualtRepository.create({
-    user: user,
-    password: hashedPassword
+      user: user,
+      password: hashedPassword
     });
     return this.vualtRepository.save(createVualt)
   }
@@ -35,16 +35,19 @@ export class VualtService {
   }
 
   findOne(id: string) {
-    const vualt = this.vualtRepository.findOne({where: {id}});
-    if(!vualt){
+    const vualt = this.vualtRepository.findOne({
+      where: { id },
+      relations: ['identities']
+    });
+    if (!vualt) {
       throw new Error('this id doed not exist')
     }
     return vualt
   }
 
   async update(id: string, updateVualtInput: UpdateVualtInput) {
-    const vualt = await this.vualtRepository.findOne({where: {id}})
-    if(!vualt){
+    const vualt = await this.vualtRepository.findOne({ where: { id } })
+    if (!vualt) {
       throw new Error('this id does not exist')
     }
     Object.assign(vualt, updateVualtInput)

@@ -1,6 +1,7 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { Identity } from 'src/identities/entities/identity.entity';
 import { User } from 'src/user/entities/user.entity';
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
 @Entity()
@@ -13,9 +14,12 @@ export class Vualt {
   @Column()
   password: string
 
-
   @Field(() => User) 
- @ManyToOne(() => User, (user) => user.vualts)
- @JoinColumn({name: 'userId'})
- user: User
+  @ManyToOne(() => User, (user) => user.vualts)
+  @JoinColumn({name: 'userId'})
+  user: User
+
+  @Field(() => [Identity], { nullable: true})
+  @OneToMany(() => Identity, (identity) => identity.vualt)
+  identities: Identity[];
 }
