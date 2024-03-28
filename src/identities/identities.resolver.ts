@@ -15,12 +15,12 @@ export class IdentitiesResolver {
   }
 
   @Query(() => [Identity])
-  findAll() {
+  findAllIdentity() {
     return this.identitiesService.findAll();
   }
 
   @Query(() => Identity)
-  findOne(@Args('id') id: string) {
+  findOneIdentity(@Args('id') id: string) {
     return this.identitiesService.findOne(id);
   }
 

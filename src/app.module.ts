@@ -17,6 +17,8 @@ import { VualtModule } from './vualt/vualt.module';
 import { DrivingLicensesModule } from './driving-licenses/driving-licenses.module';
 import { BankAccountModule } from './bank-account/bank-account.module';
 import { IdentitiesModule } from './identities/identities.module';
+import { SecureNotesModule } from './secure-notes/secure-notes.module';
+import { CreditModule } from './card/credit/credit.module';
 
 @Module({
   imports: [GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -58,6 +60,12 @@ import { IdentitiesModule } from './identities/identities.module';
 
 
     IdentitiesModule,
+
+
+    SecureNotesModule,
+
+
+    CreditModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -54,6 +54,21 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type BankAccount {
+  id: String!
+  bankName: String!
+  accountNumber: String!
+  vualt: Vualt!
+}
+
+type DrivingLicense {
+  id: String!
+  licenseType: String!
+  issueDate: String!
+  expiryDate: String!
+  vualt: Vualt!
+}
+
 type Identity {
   id: String!
   name: String!
@@ -63,26 +78,21 @@ type Identity {
   vualt: Vualt!
 }
 
+type SecureNote {
+  id: String!
+  title: String!
+  content: String!
+  vualt: Vualt!
+}
+
 type Vualt {
   id: String!
   password: String!
   user: User!
+  drivingLicenses: [DrivingLicense!]
+  bankAccounts: [BankAccount!]
   identities: [Identity!]
-}
-
-type DrivingLicense {
-  id: String!
-  licenseType: String!
-  issueDate: String!
-  expiryDate: String!
-  user: User!
-}
-
-type BankAccount {
-  id: String!
-  bankName: String!
-  accountNumber: String!
-  user: User!
+  secureNote: [SecureNote!]
 }
 
 type User {
@@ -97,8 +107,6 @@ type User {
   generalInfromation: GeneralInformation!
   offeredPrayers: [OfferedPrayer!]!
   vualts: [Vualt!]
-  drivingLicenses: [DrivingLicense!]
-  bankAccounts: [BankAccount!]
 }
 
 type LoginResponse {
@@ -115,8 +123,14 @@ type Query {
   prayer: [Prayer!]!
   findAllVualt: [Vualt!]!
   findOneVualt(id: String!): Vualt!
-  findAll: [Identity!]!
-  findOne(id: String!): Identity!
+  findAllDrivingLicense: [DrivingLicense!]!
+  findOneDrivingLicense(id: String!): DrivingLicense!
+  findAllBankAccount: [BankAccount!]!
+  findOneBankAccount(id: String!): BankAccount!
+  findAllIdentity: [Identity!]!
+  findOneIdentity(id: String!): Identity!
+  findAllSecureNote: [SecureNote!]!
+  findOneSecureNote(id: String!): SecureNote!
 }
 
 type Mutation {
@@ -150,6 +164,9 @@ type Mutation {
   createIdentity(createIdentityInput: CreateIdentityInput!): Identity!
   updateIdentity(updateIdentityInput: UpdateIdentityInput!): Identity!
   removeIdentity(id: String!): Identity!
+  createSecureNote(createSecureNoteInput: CreateSecureNoteInput!): SecureNote!
+  updateSecureNote(updateSecureNoteInput: UpdateSecureNoteInput!): SecureNote!
+  removeSecureNote(id: String!): SecureNote!
 }
 
 input CreateUserInput {
@@ -245,27 +262,27 @@ input CreateDrivingLicenseInput {
   licenseType: String!
   issueDate: String!
   expiryDate: String!
-  userId: String!
+  vualtId: String!
 }
 
 input UpdateDrivingLicenseInput {
   licenseType: String
   issueDate: String
   expiryDate: String
-  userId: String
+  vualtId: String
   id: String!
 }
 
 input CreateBankAccountInput {
   bankName: String!
   accountNumber: String!
-  userId: String!
+  vualtId: String!
 }
 
 input UpdateBankAccountInput {
   bankName: String
   accountNumber: String
-  userId: String
+  vualtId: String
   id: String!
 }
 
@@ -282,6 +299,19 @@ input UpdateIdentityInput {
   identityNumber: String
   issueDate: String
   expiryDate: String
+  vualtId: String
+  id: String!
+}
+
+input CreateSecureNoteInput {
+  title: String!
+  content: String!
+  vualtId: String!
+}
+
+input UpdateSecureNoteInput {
+  title: String
+  content: String
   vualtId: String
   id: String!
 }

@@ -4,27 +4,21 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 
 @ObjectType()
 @Entity()
-export class DrivingLicense {
+export class SecureNote {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Field()
   @Column()
-  licenseType: string
+  title: string
 
   @Field()
   @Column()
-  issueDate: string
-
-  @Field()
-  @Column()
-  expiryDate: string
-
+  content : string
 
   @Field(() => Vualt)
-  @ManyToOne(() => Vualt, (vualt) => vualt.drivingLicenses)
-  @JoinColumn({ name: 'vualtId' })
-  vualt: Vualt;
-
+  @ManyToOne(() => Vualt, (vualt) => vualt.secureNote)
+  @JoinColumn({name: 'vualtId'})
+  vualt: Vualt
 }

@@ -1,12 +1,12 @@
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class CreateBankAccountInput {
+export class CreateSecureNoteInput {
   @Field()
-  bankName: string
+  title: string
 
   @Field()
-  accountNumber: string; 
+  content: string
 
   @Field()
   vualtId: string

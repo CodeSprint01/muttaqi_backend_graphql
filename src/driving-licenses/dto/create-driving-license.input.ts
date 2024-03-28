@@ -12,5 +12,5 @@ export class CreateDrivingLicenseInput {
   expiryDate: string
 
   @Field()
-  userId: string
+  vualtId: string
 }

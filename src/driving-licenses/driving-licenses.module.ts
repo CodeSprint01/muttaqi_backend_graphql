@@ -4,10 +4,11 @@ import { DrivingLicensesResolver } from './driving-licenses.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DrivingLicense } from './entities/driving-license.entity';
 import { UserModule } from 'src/user/user.module';
+import { VualtModule } from 'src/vualt/vualt.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([DrivingLicense]),
-    UserModule
+    VualtModule
   ],
   providers: [DrivingLicensesResolver, DrivingLicensesService],
 })

@@ -1,23 +1,23 @@
+import { VualtService } from './../vualt/vualt.service';
 import { Injectable } from '@nestjs/common';
 import { CreateBankAccountInput } from './dto/create-bank-account.input';
 import { UpdateBankAccountInput } from './dto/update-bank-account.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BankAccount } from './entities/bank-account.entity';
 import { Repository } from 'typeorm';
-import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class BankAccountService {
   constructor(
     @InjectRepository(BankAccount)
     private readonly bankAccountRepository: Repository<BankAccount>,
-    private userService:UserService
+    private VualtService : VualtService
   ){}
   async create(createBankAccountInput: CreateBankAccountInput) {
-    const { userId, ...otherInputs } = createBankAccountInput;
-    const user = await this.userService.findOne(userId)
+    const { vualtId, ...otherInputs } = createBankAccountInput;
+    const vualt = await this.VualtService.findOne(vualtId)
     const createBankAccount = this.bankAccountRepository.create({
-      user: user,
+      vualt: vualt,
       ...otherInputs
     })
     console.log("🚀 ~ BankAccountService ~ create ~ createBankAccount:", createBankAccount)

@@ -4,24 +4,21 @@ import { UpdateDrivingLicenseInput } from './dto/update-driving-license.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DrivingLicense } from './entities/driving-license.entity';
 import { Repository } from 'typeorm';
-import { UserService } from 'src/user/user.service';
+import { VualtService } from 'src/vualt/vualt.service';
 
 @Injectable()
 export class DrivingLicensesService {
   constructor(
     @InjectRepository(DrivingLicense)
     private readonly drivingLicensesServiceRepository: Repository<DrivingLicense>,
-    private userService: UserService
+    private vualtService: VualtService
 
   ){}
   async create(createDrivingLicenseInput: CreateDrivingLicenseInput) {
-  const { userId, ...otherFields } = createDrivingLicenseInput
-  const user =  await this.userService.findOne(userId)
-  if(!user) {
-    throw new Error('user does not exist')
-  }
+  const { vualtId, ...otherFields } = createDrivingLicenseInput
+  const vualt =  await this.vualtService.findOne(vualtId)
   const createDrivingLicense = this.drivingLicensesServiceRepository.create({
-    user: user,
+    vualt: vualt,
     ...otherFields
   })
     return this.drivingLicensesServiceRepository.save(createDrivingLicense);

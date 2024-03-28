@@ -15,12 +15,12 @@ export class BankAccountResolver {
   }
 
   @Query(() => [BankAccount])
-  findAll() {
+  findAllBankAccount() {
     return this.bankAccountService.findAll();
   }
 
   @Query(() => BankAccount)
-  findOne(@Args('id') id: string) {
+  findOneBankAccount(@Args('id') id: string) {
     return this.bankAccountService.findOne(id);
   }
 

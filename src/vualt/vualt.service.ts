@@ -37,8 +37,8 @@ export class VualtService {
   findOne(id: string) {
     const vualt = this.vualtRepository.findOne({
       where: { id },
-      relations: ['identities']
-    });
+      relations: ['drivingLicenses', 'bankAccounts','identities', 'secureNote']
+    }); 
     if (!vualt) {
       throw new Error('this id doed not exist')
     }

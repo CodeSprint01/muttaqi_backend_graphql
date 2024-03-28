@@ -14,12 +14,12 @@ export class DrivingLicensesResolver {
   }
 
   @Query(() => [DrivingLicense])
-  findAll() {
+  findAllDrivingLicense() {
     return this.drivingLicensesService.findAll();
   }
 
   @Query(() => DrivingLicense)
-  findOne(@Args('id') id: string) {
+  findOneDrivingLicense(@Args('id') id: string) {
     return this.drivingLicensesService.findOne(id);
   }
 
