@@ -18,7 +18,8 @@ import { DrivingLicensesModule } from './driving-licenses/driving-licenses.modul
 import { BankAccountModule } from './bank-account/bank-account.module';
 import { IdentitiesModule } from './identities/identities.module';
 import { SecureNotesModule } from './secure-notes/secure-notes.module';
-import { CreditModule } from './card/credit/credit.module';
+import { CreditCardModule } from './credit-card/credit-card.module';
+import { LoginModule } from './login/login.module';
 
 @Module({
   imports: [GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -65,7 +66,13 @@ import { CreditModule } from './card/credit/credit.module';
     SecureNotesModule,
 
 
-    CreditModule,
+    CreditCardModule,
+
+
+    CreditCardModule,
+
+
+    LoginModule,
   ],
   controllers: [AppController],
   providers: [AppService],

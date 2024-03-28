@@ -61,6 +61,15 @@ type BankAccount {
   vualt: Vualt!
 }
 
+type CreditCard {
+  id: String!
+  cardNumber: String!
+  nameOnCard: String!
+  expiryDate: String!
+  cvc: String!
+  vualt: Vualt!
+}
+
 type DrivingLicense {
   id: String!
   licenseType: String!
@@ -75,6 +84,14 @@ type Identity {
   identityNumber: String!
   issueDate: String!
   expiryDate: String!
+  vualt: Vualt!
+}
+
+type Login {
+  id: String!
+  account: String!
+  userName: String!
+  Password: String!
   vualt: Vualt!
 }
 
@@ -93,6 +110,8 @@ type Vualt {
   bankAccounts: [BankAccount!]
   identities: [Identity!]
   secureNote: [SecureNote!]
+  creditCards: [CreditCard!]
+  login: Login!
 }
 
 type User {
@@ -131,6 +150,8 @@ type Query {
   findOneIdentity(id: String!): Identity!
   findAllSecureNote: [SecureNote!]!
   findOneSecureNote(id: String!): SecureNote!
+  findAll: [Login!]!
+  findOne(id: String!): Login!
 }
 
 type Mutation {
@@ -167,6 +188,12 @@ type Mutation {
   createSecureNote(createSecureNoteInput: CreateSecureNoteInput!): SecureNote!
   updateSecureNote(updateSecureNoteInput: UpdateSecureNoteInput!): SecureNote!
   removeSecureNote(id: String!): SecureNote!
+  createCreditCard(createCreditCardInput: CreateCreditCardInput!): CreditCard!
+  updateCreditCard(updateCreditCardInput: UpdateCreditCardInput!): CreditCard!
+  removeCreditCard(id: String!): CreditCard!
+  createLogin(createLoginInput: CreateLoginInput!): Login!
+  updateLogin(updateLoginInput: UpdateLoginInput!): Login!
+  removeLogin(id: String!): Login!
 }
 
 input CreateUserInput {
@@ -312,6 +339,38 @@ input CreateSecureNoteInput {
 input UpdateSecureNoteInput {
   title: String
   content: String
+  vualtId: String
+  id: String!
+}
+
+input CreateCreditCardInput {
+  cardNumber: String!
+  nameOnCard: String!
+  expiryDate: String!
+  cvc: String!
+  vualtId: String!
+}
+
+input UpdateCreditCardInput {
+  cardNumber: String
+  nameOnCard: String
+  expiryDate: String
+  cvc: String
+  vualtId: String
+  id: String!
+}
+
+input CreateLoginInput {
+  account: String!
+  userName: String!
+  Password: String!
+  vualtId: String!
+}
+
+input UpdateLoginInput {
+  account: String
+  userName: String
+  Password: String
   vualtId: String
   id: String!
 }
